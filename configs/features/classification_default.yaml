@@ -1,0 +1,14 @@
+target_column: "Serviço de Saúde"
+weight_column: "Peso Amostral"
+exclude_columns:
+  - "Serviço de Saúde"
+  - "Peso Amostral"
+  - Cluster
+  - survey_weight
+  - ml_sample_weight
+target_encode_columns:
+  - Zona
+  - Sexo
+  - Raça
+  - "Estado Civil"
+  - Cluster

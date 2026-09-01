@@ -1,0 +1,56 @@
+experiment:
+  name: research_v2
+  seed: 42
+  profile: research_v2
+
+data:
+  source: data/raw/pns2019.parquet
+
+preprocessing:
+  min_age: 18
+  categorical_missing_value: -1
+  binary_missing_value: 0
+  legacy_weight_formula: false
+  merge_internacao_into_servico: true
+  target_encoding_before_split: false
+  nearmiss_before_split: false
+  nearmiss_version: 1
+  impute_age_by_target: false
+
+clustering:
+  reducer:
+    name: pca
+    n_components: 8
+    apply_scaler: true
+    scaler_type: standard
+  estimator:
+    name: kmeans
+    n_clusters: 6
+    selection_method: fixed
+    n_init: 50
+    max_iter: 1000
+    random_state: 42
+
+classification:
+  legacy_cv: false
+  n_splits: 5
+  use_sample_weight_in_fit: true
+  backend: gpu
+  device: cuda
+  parallel: true
+  max_workers: 4
+  models:
+    - random_forest
+    - svc
+    - mlp
+    - xgboost
+
+baseline:
+  enabled: false
+
+stages:
+  - preprocessing
+  - clustering
+  - classification
+  - cross_analysis
+  - statistics

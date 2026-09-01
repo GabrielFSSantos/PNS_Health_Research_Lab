@@ -1,0 +1,12 @@
+dataset: pns2019
+year: 2019
+source_priority:
+  - data/raw/pns2019.parquet
+  - data/raw/pns2019.csv
+record_id_columns:
+  - V0001
+  - UPA_PNS
+  - V0006_PNS
+  - C00301
+survey_weight_column: V00291
+legacy_columns: 54

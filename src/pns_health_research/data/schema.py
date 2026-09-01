@@ -1,0 +1,143 @@
+"""PNS 2019 column schema for legacy reproduction."""
+
+from __future__ import annotations
+
+# Raw PNS column names -> Portuguese labels (legacy R notebook)
+LEGACY_COLUMN_MAP: dict[str, str] = {
+    "UPA_PNS": "Peso (V0091)",
+    "V0001": "UF",
+    "V0024": "Extrato",
+    "V0026": "Zona",
+    "V0006_PNS": "Ordem do Domicílio",
+    "VDD004A": "Grau de Ensino",
+    "VDF004": "Renda",
+    "B001": "Cadastro UBS",
+    "B003": "Agente Comunitário",
+    "C00301": "Número de Ordem",
+    "C006": "Sexo",
+    "C008": "Idade",
+    "C009": "Raça",
+    "C011": "Estado Civil",
+    "D001": "Ler e Escrever",
+    "D00201": "Escola",
+    "E001": "Trabalha",
+    "I00102": "Plano de Saúde",
+    "J001": "Estado de Saúde",
+    "J014": "Serviço de Saúde",
+    "J037": "Internação",
+    "P027": "Álcool",
+    "P034": "Exercício Físico",
+    "P050": "Tabaco",
+    "P00104": "Peso",
+    "P00404": "Altura",
+    "Q060": "Colesterol Alto",
+    "Q068": "AVC ou Derrame",
+    "Q073": "AVC ou Derrame Limita Atividades",
+    "Q074": "Asma",
+    "Q078": "Asma Limita Atividades",
+    "Q079": "Artrite ou Reumatismo",
+    "Q083": "Artrite ou Reumatismo Limita Atividades",
+    "Q084": "Dor na Coluna",
+    "Q087": "Dor na Coluna Limita Atividades",
+    "Q088": "DORT",
+    "Q091": "DORT Limita Atividades",
+    "Q092": "Depressão",
+    "Q109": "Depressão Limita Atividades",
+    "Q00201": "Hipertensão",
+    "Q028": "Hipertensão Limita Atividades",
+    "Q00202": "Hipertensão na Gestação",
+    "Q03001": "Diabetes",
+    "Q03002": "Diabetes na Gestação",
+    "Q058": "Diabetes Limita Atividades",
+    "Q06306": "Cardiopatia",
+    "Q067": "Cardiopatia Limita Atividades",
+    "Q120": "Câncer",
+    "Q12301": "Câncer Limita Atividades",
+    "Q124": "Insuficiência Renal Crônica",
+    "Q127": "Insuficiência Renal Limita Atividades",
+    "Q11006": "Doença Mental",
+    "Q115": "Doença Mental Limita Atividades",
+    "Q11604": "Doença Crônica no Pulmão",
+    "Q119": "Doença Crônica no Pulmão Limita Atividades",
+}
+
+LEGACY_RAW_COLUMNS = list(LEGACY_COLUMN_MAP.keys())
+
+SURVEY_WEIGHT_COLUMN = "V00291"
+LEGACY_WEIGHT_OUTPUT = "Peso Amostral"
+SURVEY_WEIGHT_ALIAS = "survey_weight"
+ML_SAMPLE_WEIGHT_ALIAS = "ml_sample_weight"
+RECORD_ID_COLUMN = "record_id"
+
+CLUSTERING_COMORBIDITIES = [
+    "Hipertensão",
+    "Diabetes",
+    "Colesterol Alto",
+    "Cardiopatia",
+    "AVC ou Derrame",
+    "Asma",
+    "Artrite ou Reumatismo",
+    "DORT",
+    "Depressão",
+    "Doença Mental",
+    "Doença Crônica no Pulmão",
+    "Câncer",
+    "Insuficiência Renal Crônica",
+    "Dor na Coluna",
+    "Obesidade",
+]
+
+NORTH_STATES = [
+    "Roraima",
+    "Amapá",
+    "Amazonas",
+    "Pará",
+    "Acre",
+    "Rondônia",
+]
+
+NORTHEAST_STATES = [
+    "Maranhão",
+    "Piauí",
+    "Ceará",
+    "Rio Grande do Norte",
+    "Paraíba",
+    "Pernambuco",
+    "Alagoas",
+    "Sergipe",
+    "Bahia",
+]
+
+CENTER_WEST_STATES = ["Goiás", "Mato Grosso", "Mato Grosso do Sul", "Distrito Federal"]
+SOUTHEAST_STATES = ["São Paulo", "Rio de Janeiro", "Minas Gerais", "Espírito Santo"]
+SOUTH_STATES = ["Paraná", "Santa Catarina", "Rio Grande do Sul"]
+
+UF_TO_CODE: dict[str, int] = {
+    "Rondônia": 1,
+    "Acre": 2,
+    "Amazonas": 3,
+    "Roraima": 4,
+    "Pará": 5,
+    "Amapá": 6,
+    "Tocantins": 7,
+    "Maranhão": 8,
+    "Piauí": 9,
+    "Ceará": 10,
+    "Rio Grande do Norte": 11,
+    "Paraíba": 12,
+    "Pernambuco": 13,
+    "Alagoas": 14,
+    "Sergipe": 15,
+    "Bahia": 16,
+    "Minas Gerais": 17,
+    "Espírito Santo": 18,
+    "Rio de Janeiro": 19,
+    "São Paulo": 20,
+    "Paraná": 21,
+    "Santa Catarina": 22,
+    "Rio Grande do Sul": 23,
+    "Mato Grosso do Sul": 24,
+    "Mato Grosso": 25,
+    "Goiás": 26,
+    "Distrito Federal": 27,
+}
