@@ -1,0 +1,450 @@
+schema_version: 1
+columns:
+- code: UPA_PNS
+  internal_name: Peso (V0091)
+  friendly_name: Peso (V0091)
+  description: Variável PNS mapeada de UPA_PNS
+  type: binary
+  used_clustering: false
+  used_classification: false
+  derived: false
+- code: V0001
+  internal_name: UF
+  friendly_name: UF
+  description: Variável PNS mapeada de V0001
+  type: categorical
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: V0024
+  internal_name: Extrato
+  friendly_name: Extrato
+  description: Variável PNS mapeada de V0024
+  type: categorical
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: V0026
+  internal_name: Zona
+  friendly_name: Zona
+  description: Variável PNS mapeada de V0026
+  type: categorical
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: V0006_PNS
+  internal_name: Ordem do Domicílio
+  friendly_name: Ordem do Domicílio
+  description: Variável PNS mapeada de V0006_PNS
+  type: binary
+  used_clustering: false
+  used_classification: false
+  derived: false
+- code: VDD004A
+  internal_name: Grau de Ensino
+  friendly_name: Grau de Ensino
+  description: Variável PNS mapeada de VDD004A
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: VDF004
+  internal_name: Renda
+  friendly_name: Renda
+  description: Variável PNS mapeada de VDF004
+  type: numeric
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: B001
+  internal_name: Cadastro UBS
+  friendly_name: Cadastro UBS
+  description: Variável PNS mapeada de B001
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: B003
+  internal_name: Agente Comunitário
+  friendly_name: Agente Comunitário
+  description: Variável PNS mapeada de B003
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: C00301
+  internal_name: Número de Ordem
+  friendly_name: Número de Ordem
+  description: Variável PNS mapeada de C00301
+  type: binary
+  used_clustering: false
+  used_classification: false
+  derived: false
+- code: C006
+  internal_name: Sexo
+  friendly_name: Sexo
+  description: Variável PNS mapeada de C006
+  type: categorical
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: C008
+  internal_name: Idade
+  friendly_name: Idade
+  description: Variável PNS mapeada de C008
+  type: numeric
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: C009
+  internal_name: Raça
+  friendly_name: Raça
+  description: Variável PNS mapeada de C009
+  type: categorical
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: C011
+  internal_name: Estado Civil
+  friendly_name: Estado Civil
+  description: Variável PNS mapeada de C011
+  type: categorical
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: D001
+  internal_name: Ler e Escrever
+  friendly_name: Ler e Escrever
+  description: Variável PNS mapeada de D001
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: D00201
+  internal_name: Escola
+  friendly_name: Escola
+  description: Variável PNS mapeada de D00201
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: E001
+  internal_name: Trabalha
+  friendly_name: Trabalha
+  description: Variável PNS mapeada de E001
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: I00102
+  internal_name: Plano de Saúde
+  friendly_name: Plano de Saúde
+  description: Variável PNS mapeada de I00102
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: J001
+  internal_name: Estado de Saúde
+  friendly_name: Estado de Saúde
+  description: Variável PNS mapeada de J001
+  type: ordinal
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: J014
+  internal_name: Serviço de Saúde
+  friendly_name: Serviço de Saúde
+  description: Variável PNS mapeada de J014
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: J037
+  internal_name: Internação
+  friendly_name: Internação
+  description: Variável PNS mapeada de J037
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: P027
+  internal_name: Álcool
+  friendly_name: Álcool
+  description: Variável PNS mapeada de P027
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: P034
+  internal_name: Exercício Físico
+  friendly_name: Exercício Físico
+  description: Variável PNS mapeada de P034
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: P050
+  internal_name: Tabaco
+  friendly_name: Tabaco
+  description: Variável PNS mapeada de P050
+  type: binary
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: P00104
+  internal_name: Peso
+  friendly_name: Peso
+  description: Variável PNS mapeada de P00104
+  type: numeric
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: P00404
+  internal_name: Altura
+  friendly_name: Altura
+  description: Variável PNS mapeada de P00404
+  type: numeric
+  used_clustering: false
+  used_classification: true
+  derived: false
+- code: Q060
+  internal_name: Colesterol Alto
+  friendly_name: Colesterol Alto
+  description: Variável PNS mapeada de Q060
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q068
+  internal_name: AVC ou Derrame
+  friendly_name: AVC ou Derrame
+  description: Variável PNS mapeada de Q068
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q073
+  internal_name: AVC ou Derrame Limita Atividades
+  friendly_name: AVC ou Derrame Limita Atividades
+  description: Variável PNS mapeada de Q073
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q074
+  internal_name: Asma
+  friendly_name: Asma
+  description: Variável PNS mapeada de Q074
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q078
+  internal_name: Asma Limita Atividades
+  friendly_name: Asma Limita Atividades
+  description: Variável PNS mapeada de Q078
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q079
+  internal_name: Artrite ou Reumatismo
+  friendly_name: Artrite ou Reumatismo
+  description: Variável PNS mapeada de Q079
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q083
+  internal_name: Artrite ou Reumatismo Limita Atividades
+  friendly_name: Artrite ou Reumatismo Limita Atividades
+  description: Variável PNS mapeada de Q083
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q084
+  internal_name: Dor na Coluna
+  friendly_name: Dor na Coluna
+  description: Variável PNS mapeada de Q084
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q087
+  internal_name: Dor na Coluna Limita Atividades
+  friendly_name: Dor na Coluna Limita Atividades
+  description: Variável PNS mapeada de Q087
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q088
+  internal_name: DORT
+  friendly_name: DORT
+  description: Variável PNS mapeada de Q088
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q091
+  internal_name: DORT Limita Atividades
+  friendly_name: DORT Limita Atividades
+  description: Variável PNS mapeada de Q091
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q092
+  internal_name: Depressão
+  friendly_name: Depressão
+  description: Variável PNS mapeada de Q092
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q109
+  internal_name: Depressão Limita Atividades
+  friendly_name: Depressão Limita Atividades
+  description: Variável PNS mapeada de Q109
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q00201
+  internal_name: Hipertensão
+  friendly_name: Hipertensão
+  description: Variável PNS mapeada de Q00201
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q028
+  internal_name: Hipertensão Limita Atividades
+  friendly_name: Hipertensão Limita Atividades
+  description: Variável PNS mapeada de Q028
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q00202
+  internal_name: Hipertensão na Gestação
+  friendly_name: Hipertensão na Gestação
+  description: Variável PNS mapeada de Q00202
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q03001
+  internal_name: Diabetes
+  friendly_name: Diabetes
+  description: Variável PNS mapeada de Q03001
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q03002
+  internal_name: Diabetes na Gestação
+  friendly_name: Diabetes na Gestação
+  description: Variável PNS mapeada de Q03002
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q058
+  internal_name: Diabetes Limita Atividades
+  friendly_name: Diabetes Limita Atividades
+  description: Variável PNS mapeada de Q058
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q06306
+  internal_name: Cardiopatia
+  friendly_name: Cardiopatia
+  description: Variável PNS mapeada de Q06306
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q067
+  internal_name: Cardiopatia Limita Atividades
+  friendly_name: Cardiopatia Limita Atividades
+  description: Variável PNS mapeada de Q067
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q120
+  internal_name: Câncer
+  friendly_name: Câncer
+  description: Variável PNS mapeada de Q120
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q12301
+  internal_name: Câncer Limita Atividades
+  friendly_name: Câncer Limita Atividades
+  description: Variável PNS mapeada de Q12301
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q124
+  internal_name: Insuficiência Renal Crônica
+  friendly_name: Insuficiência Renal Crônica
+  description: Variável PNS mapeada de Q124
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q127
+  internal_name: Insuficiência Renal Limita Atividades
+  friendly_name: Insuficiência Renal Limita Atividades
+  description: Variável PNS mapeada de Q127
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q11006
+  internal_name: Doença Mental
+  friendly_name: Doença Mental
+  description: Variável PNS mapeada de Q11006
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q115
+  internal_name: Doença Mental Limita Atividades
+  friendly_name: Doença Mental Limita Atividades
+  description: Variável PNS mapeada de Q115
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q11604
+  internal_name: Doença Crônica no Pulmão
+  friendly_name: Doença Crônica no Pulmão
+  description: Variável PNS mapeada de Q11604
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Q119
+  internal_name: Doença Crônica no Pulmão Limita Atividades
+  friendly_name: Doença Crônica no Pulmão Limita Atividades
+  description: Variável PNS mapeada de Q119
+  type: binary
+  used_clustering: true
+  used_classification: true
+  derived: false
+- code: Cluster
+  internal_name: Cluster
+  friendly_name: Cluster de agrupamento
+  description: Label do algoritmo de clustering
+  type: categorical
+  used_clustering: true
+  used_classification: true
+  derived: true

@@ -1,0 +1,93 @@
+{
+  "Homem": {
+    "type": "categorical",
+    "values": {
+      "0": 46016,
+      "1": 41662
+    }
+  },
+  "Mulher": {
+    "type": "categorical",
+    "values": {
+      "1": 46016,
+      "0": 41662
+    }
+  },
+  "Idade 18 a 29": {
+    "type": "categorical",
+    "values": {
+      "0": 72754,
+      "1": 14924
+    }
+  },
+  "Idade 30 a 39": {
+    "type": "categorical",
+    "values": {
+      "0": 69843,
+      "1": 17835
+    }
+  },
+  "Idade 40 a 49": {
+    "type": "categorical",
+    "values": {
+      "0": 71134,
+      "1": 16544
+    }
+  },
+  "Idade 50 a 59": {
+    "type": "categorical",
+    "values": {
+      "0": 72029,
+      "1": 15649
+    }
+  },
+  "Idade 60 a 69": {
+    "type": "categorical",
+    "values": {
+      "0": 75124,
+      "1": 12554
+    }
+  },
+  "Saúde Regular": {
+    "type": "categorical",
+    "values": {
+      "0": 61046,
+      "1": 26632
+    }
+  },
+  "Saúde Bom": {
+    "type": "categorical",
+    "values": {
+      "0": 44181,
+      "1": 43497
+    }
+  },
+  "Saúde Ruim": {
+    "type": "categorical",
+    "values": {
+      "0": 82838,
+      "1": 4840
+    }
+  },
+  "Saúde Muito Bom": {
+    "type": "categorical",
+    "values": {
+      "0": 76104,
+      "1": 11574
+    }
+  },
+  "Saúde Muito Ruim": {
+    "type": "categorical",
+    "values": {
+      "0": 86543,
+      "1": 1135
+    }
+  },
+  "Serviço de Saúde": {
+    "type": "categorical",
+    "values": {
+      "0": 69411,
+      "1": 18267
+    }
+  }
+}

@@ -40,12 +40,14 @@ def build_reproduction_report(
     if not config.baseline.enabled:
         return {"status": "skipped", "reason": "baseline disabled"}
 
-    tol_path = Path(config.baseline.tolerances_path)
-    if not tol_path.is_absolute():
-        from pns_health_research.core.paths import PROJECT_ROOT
+    tolerances: dict[str, Any] = dict(config.baseline.tolerances or {})
+    if not tolerances and config.baseline.tolerances_path:
+        tol_path = Path(config.baseline.tolerances_path)
+        if not tol_path.is_absolute():
+            from pns_health_research.core.paths import PROJECT_ROOT
 
-        tol_path = PROJECT_ROOT / tol_path
-    tolerances = load_tolerances(tol_path) if tol_path.exists() else {}
+            tol_path = PROJECT_ROOT / tol_path
+        tolerances = load_tolerances(tol_path) if tol_path.exists() else {}
 
     checks: list[dict[str, Any]] = []
 

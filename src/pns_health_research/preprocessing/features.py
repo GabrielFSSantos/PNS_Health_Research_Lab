@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from pns_health_research.config.models import PreprocessingConfig
 from pns_health_research.data.schema import (
     LEGACY_WEIGHT_OUTPUT,
     ML_SAMPLE_WEIGHT_ALIAS,
@@ -139,23 +140,51 @@ def reinforce_gestational_and_age(
     return out.drop(columns=drop_cols)
 
 
-def create_binary_features(df: pd.DataFrame) -> pd.DataFrame:
+def create_binary_features(
+    df: pd.DataFrame,
+    *,
+    config: PreprocessingConfig | None = None,
+) -> pd.DataFrame:
+    from pns_health_research.preprocessing.derived import apply_derived_binary
     from pns_health_research.preprocessing.features_tcc import create_binary_features_tcc
 
-    return create_binary_features_tcc(df)
+    one_hot = True if config is None else config.stages.one_hot_and_numeric.enabled
+    out = create_binary_features_tcc(df, one_hot=one_hot)
+    return apply_derived_binary(out, config)
 
 
-def fill_missing_binary(df: pd.DataFrame, fill_value: int = 0) -> pd.DataFrame:
+def fill_missing_binary(
+    df: pd.DataFrame, fill_value: int = 0
+) -> tuple[pd.DataFrame, dict[str, int]]:
     out = df.copy()
+    fill_stats: dict[str, int] = {}
     num_cols = out.select_dtypes(include="number").columns
+    for col in num_cols:
+        n_missing = int(out[col].isna().sum())
+        if n_missing:
+            fill_stats[str(col)] = n_missing
     out[num_cols] = out[num_cols].fillna(fill_value)
     obj_cols = out.select_dtypes(exclude="number").columns
     for c in obj_cols:
+        n_missing = int((out[c].isna() | (out[c] == "")).sum())
+        if n_missing:
+            fill_stats[str(c)] = n_missing
         out[c] = out[c].fillna(fill_value).replace("", fill_value)
-    return out
+    return out, {
+        "columns_with_imputation": fill_stats,
+        "total_cells_imputed": sum(fill_stats.values()),
+        "fill_value_binary": fill_value,
+    }
 
 
-def transform_categorical_numeric(df: pd.DataFrame) -> pd.DataFrame:
+def transform_categorical_numeric(
+    df: pd.DataFrame,
+    *,
+    config: PreprocessingConfig | None = None,
+) -> pd.DataFrame:
+    from pns_health_research.preprocessing.derived import apply_derived_categorical
     from pns_health_research.preprocessing.features_tcc import transform_categorical_numeric_tcc
 
-    return transform_categorical_numeric_tcc(df)
+    one_hot = True if config is None else config.stages.one_hot_and_numeric.enabled
+    out = transform_categorical_numeric_tcc(df, one_hot=one_hot)
+    return apply_derived_categorical(out, config)

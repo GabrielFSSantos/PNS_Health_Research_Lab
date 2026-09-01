@@ -13,7 +13,7 @@ def test_legacy_reproduction_with_real_pns():
     if not raw.exists():
         pytest.skip("PNS real não disponível em data/raw/pns2019.parquet")
 
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     run_dir = ExperimentRunner(cfg).run()
     report_path = run_dir / "reproduction_report.json"
     assert report_path.exists()

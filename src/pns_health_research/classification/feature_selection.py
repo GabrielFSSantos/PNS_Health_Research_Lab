@@ -10,16 +10,23 @@ def resolve_classification_columns(
     config: ExperimentConfig,
 ) -> tuple[list[str], list[str], str]:
     """Retorna (feature_columns, target_encode_columns, weight_column)."""
-    yaml_cfg = load_classification_features(config.classification.features_config)
+    cf = config.preprocessing.classification_features
+    yaml_cfg = (
+        load_classification_features(config.classification.features_config)
+        if config.classification.features_config
+        else {}
+    )
     exclude = set(
         config.classification.exclude_columns
+        or cf.exclude_columns
         or yaml_cfg.get("exclude_columns", [])
     )
     target_encode = (
         config.classification.target_encode_columns
+        or cf.target_encode_columns
         or yaml_cfg.get("target_encode_columns", [])
     )
-    weight_col = yaml_cfg.get("weight_column", LEGACY_WEIGHT_OUTPUT)
+    weight_col = cf.weight_column or yaml_cfg.get("weight_column", LEGACY_WEIGHT_OUTPUT)
 
     if config.classification.feature_columns:
         features = [c for c in config.classification.feature_columns if c in df_columns]

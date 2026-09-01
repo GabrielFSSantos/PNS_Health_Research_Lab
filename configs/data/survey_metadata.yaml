@@ -1,0 +1,205 @@
+# Metadados das variáveis da PNS 2019 usadas no TCC (pré-one-hot).
+# Perguntas curadas a partir do fluxo legado (notebook de pré-processamento).
+
+schema_version: "1.0"
+
+variables:
+  Sexo:
+    code: C006
+    question: "Qual o sexo do entrevistado?"
+    used_in_study: true
+    value_labels:
+      Homem: "Homem"
+      Mulher: "Mulher"
+
+  Idade:
+    code: C008
+    question: "Qual a idade do entrevistado (em anos completos)?"
+    used_in_study: true
+    value_labels: {}
+
+  Raça:
+    code: C009
+    question: "Qual a cor ou raça do entrevistado?"
+    used_in_study: true
+    value_labels:
+      Branca: "Branca"
+      Preta: "Preta"
+      Parda: "Parda"
+      Amarela: "Amarela"
+      Indígena: "Indígena"
+
+  "Estado Civil":
+    code: C011
+    question: "Qual o estado civil do entrevistado?"
+    used_in_study: true
+    value_labels:
+      "Casado(a)": "Casado(a)"
+      "Solteiro(a)": "Solteiro(a)"
+      "Viúvo(a)": "Viúvo(a)"
+      "Divorciado(a) ou desquitado(a) ou separado(a) judicialmente": "Divorciado/separado"
+
+  Zona:
+    code: V0026
+    question: "A situação de moradia do domicílio é urbana ou rural?"
+    used_in_study: true
+    value_labels:
+      Urbano: "Urbano"
+      Rural: "Rural"
+
+  "Grau de Ensino":
+    code: VDD004A
+    question: "Qual o grau de instrução mais elevado que frequentou?"
+    used_in_study: true
+    value_labels:
+      "Sem Instrução": "Sem instrução"
+      "EF Incompleto": "Fundamental incompleto"
+      "EF Completo": "Fundamental completo"
+      "EM Incompleto": "Médio incompleto"
+      "EM Completo": "Médio completo"
+      "SP Incompleto": "Superior incompleto"
+      "SP Completo": "Superior completo"
+
+  Renda:
+    code: VDF004
+    question: "Qual a renda domiciliar per capita (faixas de salário mínimo)?"
+    used_in_study: true
+    value_labels: {}
+
+  "Cadastro UBS":
+    code: B001
+    question: "Está cadastrado em alguma Unidade Básica de Saúde?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  "Agente Comunitário":
+    code: B003
+    question: "Recebe visita de agente comunitário de saúde?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+      "Nunca recebeu": "Nunca recebeu"
+
+  "Estado de Saúde":
+    code: J001
+    question: "Em geral, como avalia a própria saúde?"
+    used_in_study: true
+    value_labels:
+      "Muito bom": "Muito bom"
+      Bom: "Bom"
+      Regular: "Regular"
+      Ruim: "Ruim"
+      "Muito ruim": "Muito ruim"
+
+  "Serviço de Saúde":
+    code: J014
+    question: "Nos últimos 12 meses, consultou médico ou outro profissional de saúde?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim — utilizou serviço"
+      Não: "Não — não utilizou"
+
+  Internação:
+    code: J037
+    question: "Foi internado em hospital nos últimos 12 meses?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  Peso:
+    code: P00104
+    question: "Qual o peso do entrevistado (kg)?"
+    used_in_study: true
+    value_labels: {}
+
+  Altura:
+    code: P00404
+    question: "Qual a altura do entrevistado (cm)?"
+    used_in_study: true
+    value_labels: {}
+
+  Hipertensão:
+    code: Q00201
+    question: "Algum médico já disse que tem hipertensão arterial?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  Diabetes:
+    code: Q03001
+    question: "Algum médico já disse que tem diabetes?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  Asma:
+    code: Q074
+    question: "Algum médico já disse que tem asma?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  Depressão:
+    code: Q092
+    question: "Algum médico já disse que tem depressão?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  "Colesterol Alto":
+    code: Q060
+    question: "Algum médico já disse que tem colesterol alto?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  Tabaco:
+    code: P050
+    question: "Situação atual em relação ao tabaco?"
+    used_in_study: true
+    value_labels:
+      "Não fumo atualmente": "Não fuma atualmente"
+      "Fumo diariamente": "Fuma diariamente"
+      "Fumo às vezes": "Fuma às vezes"
+
+  Álcool:
+    code: P027
+    question: "Frequência de consumo de bebida alcoólica?"
+    used_in_study: true
+    value_labels:
+      "Uma vez ou mais por mês": "Uma vez ou mais por mês"
+      "Menos de uma vez por mês": "Menos de uma vez por mês"
+      "Nunca": "Nunca"
+
+  "Exercício Físico":
+    code: P034
+    question: "Pratica exercício físico regularmente?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  "Plano de Saúde":
+    code: I00102
+    question: "Possui plano de saúde?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"
+
+  Trabalha:
+    code: E001
+    question: "Trabalhou na semana de referência?"
+    used_in_study: true
+    value_labels:
+      Sim: "Sim"
+      Não: "Não"

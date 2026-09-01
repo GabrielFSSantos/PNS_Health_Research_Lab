@@ -5,24 +5,35 @@ from pathlib import Path
 import pandas as pd
 
 from pns_health_research.core.exceptions import MissingDatasetError
-from pns_health_research.core.paths import RAW_DATA_DIR
+from pns_health_research.data.catalog import default_raw_candidates, resolve_raw_path
 
 
-def load_raw_pns(path: str | Path | None = None) -> pd.DataFrame:
-    if path is None:
-        for candidate in (
-            RAW_DATA_DIR / "pns2019.parquet",
-            RAW_DATA_DIR / "pns2019.csv",
-        ):
-            if candidate.exists():
-                path = candidate
-                break
-    if path is None or not Path(path).exists():
-        raise MissingDatasetError(
-            "PNS dataset not found. Place data at data/raw/pns2019.parquet "
-            "— see docs/data_required.md"
-        )
-    path = Path(path)
+def load_raw_pns(
+    path: str | Path | None = None,
+    *,
+    dataset: str = "pns",
+    year: int = 2019,
+) -> pd.DataFrame:
+    if path is not None:
+        p = Path(path)
+        resolved = p if p.is_absolute() else Path(__file__).resolve().parents[3] / p
+        if resolved.exists():
+            return _read_file(resolved)
+
+    candidates = [
+        resolve_raw_path(dataset=dataset, year=year, source=None),
+        *default_raw_candidates(year),
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return _read_file(candidate)
+
+    raise MissingDatasetError(
+        f"PNS {year} não encontrada. Execute: ./scripts/run_preprocess.sh"
+    )
+
+
+def _read_file(path: Path) -> pd.DataFrame:
     if path.suffix == ".parquet":
         return pd.read_parquet(path)
     return pd.read_csv(path, low_memory=False)

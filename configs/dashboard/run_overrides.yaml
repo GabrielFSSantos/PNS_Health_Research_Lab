@@ -1,0 +1,8 @@
+# Overrides opcionais de exibição no dashboard.
+# Runs concluídas em artifacts/runs/ aparecem automaticamente.
+# Use este arquivo só para renomear ou marcar baseline.
+
+overrides:
+  - key: pesquisa-original-legacy
+    display_name: "Pesquisa Original — Legacy (TCC)"
+    role: baseline

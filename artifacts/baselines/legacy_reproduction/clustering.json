@@ -1,0 +1,16 @@
+{
+  "algorithm": "kmeans",
+  "n_clusters": 6,
+  "silhouette": 0.5126871294839155,
+  "wcss": 37821.74722434067,
+  "mean_error_per_point": 0.431371007827969,
+  "cluster_sizes": {
+    "0": 7341,
+    "1": 40569,
+    "2": 11585,
+    "3": 8523,
+    "4": 8415,
+    "5": 11245
+  },
+  "pca_n_components": 8
+}

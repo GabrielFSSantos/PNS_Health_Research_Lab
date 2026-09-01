@@ -18,14 +18,14 @@ def synthetic_raw_path(tmp_path: Path) -> Path:
 
 
 def test_preprocessing_pipeline(synthetic_raw_path: Path):
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     result = run_preprocessing(cfg, raw_path=synthetic_raw_path)
     assert result.metrics["rows_out"] > 0
     assert result.binary_df.shape[1] > 10
 
 
 def test_integration_experiment_smoke(synthetic_raw_path: Path, tmp_path: Path, monkeypatch):
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     cfg.data.source = str(synthetic_raw_path)
     cfg.classification.models = ["mlp"]
     cfg.classification.n_splits = 2

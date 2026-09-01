@@ -1,0 +1,6 @@
+{
+  "preprocessing_seconds": 29.372509010001522,
+  "clustering_seconds": 212.94707627200114,
+  "classification_seconds": 550.1814193940008,
+  "total_seconds": 792.5010046760035
+}

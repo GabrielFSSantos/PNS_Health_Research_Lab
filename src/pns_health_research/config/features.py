@@ -20,12 +20,26 @@ def load_yaml(path: str | Path) -> dict[str, Any]:
         return yaml.safe_load(f) or {}
 
 
-def load_column_map(path: str | Path | None = None) -> dict[str, str]:
-    cfg_path = path or CONFIGS_DIR / "data" / "pns2019_columns.yaml"
-    data = load_yaml(cfg_path)
-    return dict(data.get("columns", {}))
+def load_column_map(path: str | Path | dict[str, str] | None = None) -> dict[str, str]:
+    if isinstance(path, dict):
+        return dict(path)
+    if path is None:
+        from pns_health_research.data.catalog import resolve_edition
+
+        return dict(resolve_edition(2019, "pns_2019").columns)
+    data = load_yaml(path)
+    if "columns" in data:
+        return dict(data["columns"])
+    return dict(data)
 
 
 def load_classification_features(path: str | Path | None = None) -> dict[str, Any]:
-    cfg_path = path or CONFIGS_DIR / "features" / "classification_default.yaml"
-    return load_yaml(cfg_path)
+    if path is not None:
+        return load_yaml(path)
+    pp_path = CONFIGS_DIR / "preprocessing.yaml"
+    if pp_path.exists():
+        data = load_yaml(pp_path)
+        feats = data.get("classification_features")
+        if feats:
+            return dict(feats)
+    return {}

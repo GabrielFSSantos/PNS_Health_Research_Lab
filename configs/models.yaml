@@ -1,0 +1,53 @@
+# Registry de classificadores (schema 2.0).
+# enabled: true entra na matriz. param_grid inline (sem YAML por modelo).
+
+schema_version: "2.0"
+
+defaults:
+  gridsearch:
+    enabled: true
+    scoring: f1_macro
+
+models:
+  random_forest:
+    enabled: true
+    order: 1
+    display_name: Floresta Aleatória
+    n_jobs: 2
+    param_grid:
+      n_estimators: [50, 100]
+      max_depth: [null, 5, 10]
+      min_samples_split: [2, 5]
+      min_samples_leaf: [1, 2]
+      max_features: ["sqrt", "log2"]
+      criterion: ["gini", "entropy"]
+
+  xgboost:
+    enabled: true
+    order: 2
+    display_name: XGBoost
+    n_jobs: 1
+    param_grid:
+      n_estimators: [50, 100]
+      max_depth: [3, 5]
+      learning_rate: [0.01, 0.1]
+      subsample: [0.8, 1.0]
+      colsample_bytree: [0.8, 1.0]
+
+  mlp:
+    enabled: true
+    order: 3
+    display_name: MLP
+    n_jobs: 1
+    param_grid: {}
+
+  svc:
+    enabled: false
+    order: 4
+    display_name: SVM (SVC)
+    n_jobs: 1
+    param_grid:
+      C: [0.1, 1, 10]
+      kernel: ["poly", "rbf"]
+      gamma: ["scale", "auto"]
+      degree: [2, 3, 4]

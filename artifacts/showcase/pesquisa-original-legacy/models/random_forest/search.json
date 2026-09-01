@@ -1,0 +1,35 @@
+{
+  "algorithm": "grid",
+  "scoring": "f1_macro",
+  "cv_folds": 5,
+  "random_state": 42,
+  "param_grid": {
+    "n_estimators": [
+      50,
+      100
+    ],
+    "max_depth": [
+      null,
+      5,
+      10
+    ],
+    "min_samples_split": [
+      2,
+      5
+    ],
+    "min_samples_leaf": [
+      1,
+      2
+    ],
+    "max_features": [
+      "sqrt",
+      "log2"
+    ],
+    "criterion": [
+      "gini",
+      "entropy"
+    ]
+  },
+  "n_candidates": 96,
+  "n_fits": 480
+}

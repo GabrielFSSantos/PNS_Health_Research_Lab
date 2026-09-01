@@ -11,7 +11,7 @@ def test_tcc_column_counts_with_real_pns():
     raw = PROJECT_ROOT / "data/raw/pns2019.parquet"
     if not raw.exists():
         pytest.skip("PNS real ausente")
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     result = run_preprocessing(cfg)
     assert result.metrics["rows_out"] == 87678
     assert result.metrics["binary_columns"] == 161

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import numpy as np
 import pandas as pd
 
 from pns_health_research.data.schema import (
@@ -61,8 +60,15 @@ def _encode_limita_binary(df: pd.DataFrame, prefix: str, limita_col: str) -> pd.
     return out.drop(columns=[limita_col])
 
 
-def create_binary_features_tcc(df: pd.DataFrame) -> pd.DataFrame:
+def create_binary_features_tcc(
+    df: pd.DataFrame,
+    *,
+    one_hot: bool = True,
+) -> pd.DataFrame:
+    """One-hot demográfico e limita-atividades (derivadas ficam em derived.py)."""
     out = df.copy()
+    if not one_hot:
+        return out
 
     if "UF" in out.columns:
         out["Região Norte"] = out["UF"].isin(NORTH_STATES).astype(int)
@@ -114,22 +120,6 @@ def create_binary_features_tcc(df: pd.DataFrame) -> pd.DataFrame:
         out["Mulher"] = _flag(out["Sexo"], "Mulher")
         out = out.drop(columns=["Sexo"])
 
-    if "Idade" in out.columns:
-        bands = [
-            (18, 29, "Idade 18 a 29"),
-            (30, 39, "Idade 30 a 39"),
-            (40, 49, "Idade 40 a 49"),
-            (50, 59, "Idade 50 a 59"),
-            (60, 69, "Idade 60 a 69"),
-            (70, 79, "Idade 70 a 79"),
-            (80, 89, "Idade 80 a 89"),
-            (90, 99, "Idade 90 a 99"),
-            (100, 104, "Idade 100 a 104"),
-        ]
-        for lo, hi, name in bands:
-            out[name] = ((out["Idade"] >= lo) & (out["Idade"] <= hi)).astype(int)
-        out = out.drop(columns=["Idade"])
-
     if "Raça" in out.columns:
         for i, race in enumerate(
             ["Branca", "Amarela", "Preta", "Parda", "Indígena"], start=1
@@ -155,48 +145,8 @@ def create_binary_features_tcc(df: pd.DataFrame) -> pd.DataFrame:
         out["Saúde Ruim"] = _flag(out["Estado de Saúde"], "Ruim")
         out = out.drop(columns=["Estado de Saúde"])
 
-    if "Peso" in out.columns and "Altura" in out.columns:
-        imc = out["Peso"] / (out["Altura"] / 100) ** 2
-        out["Baixo Peso"] = (imc < 18.5).astype(int)
-        out["Peso Normal"] = ((imc >= 18.5) & (imc <= 24.9)).astype(int)
-        out["Sobrepeso"] = ((imc >= 25) & (imc <= 29.9)).astype(int)
-        out["Obesidade"] = (imc >= 30).astype(int)
-
-        out["Peso 30 a 56"] = ((out["Peso"] >= 30) & (out["Peso"] <= 56)).astype(int)
-        out["Peso 57 a 82"] = ((out["Peso"] >= 57) & (out["Peso"] <= 82)).astype(int)
-        out["Peso 83 a 108"] = ((out["Peso"] >= 83) & (out["Peso"] <= 108)).astype(int)
-        out["Peso 109 a 134"] = ((out["Peso"] >= 109) & (out["Peso"] <= 134)).astype(int)
-        out["Peso 135 a 160"] = ((out["Peso"] >= 135) & (out["Peso"] <= 160)).astype(int)
-
-        out["Altura 129 a 142"] = ((out["Altura"] >= 129) & (out["Altura"] <= 142)).astype(int)
-        out["Altura 143 a 156"] = ((out["Altura"] >= 143) & (out["Altura"] <= 156)).astype(int)
-        out["Altura 157 a 170"] = ((out["Altura"] >= 157) & (out["Altura"] <= 170)).astype(int)
-        out["Altura 171 a 184"] = ((out["Altura"] >= 171) & (out["Altura"] <= 184)).astype(int)
-        out["Altura 185 a 199"] = ((out["Altura"] >= 185) & (out["Altura"] <= 199)).astype(int)
-        out = out.drop(columns=["Peso", "Altura"])
-
     for prefix, limita_col in LIMITA_DISEASES:
         out = _encode_limita_binary(out, prefix, limita_col)
-
-    def _col(name: str) -> pd.Series:
-        if name in out.columns:
-            return pd.to_numeric(out[name], errors="coerce").fillna(0)
-        return pd.Series(0, index=out.index)
-
-    out["Grupo Metabólico"] = _col("Diabetes")
-    out["Grupo Respiratório"] = _col("Asma")
-    out["Grupo Artrite"] = _col("Artrite ou Reumatismo")
-    out["Grupo DORT"] = _col("DORT")
-    out["Grupo Mental"] = _col("Doença Mental")
-    out["Grupo Depressão"] = _col("Depressão")
-    out["Grupo Pulmonar"] = _col("Doença Crônica no Pulmão")
-    out["Grupo Renal"] = _col("Insuficiência Renal Crônica")
-    out["Grupo Oncológico"] = _col("Câncer")
-    out["Grupo Cardiovascular"] = (
-        (_col("Hipertensão") == 1)
-        | (_col("Cardiopatia") == 1)
-        | (_col("AVC ou Derrame") == 1)
-    ).astype(int)
 
     return out
 
@@ -212,8 +162,14 @@ def _ordinal_limita(series: pd.Series) -> pd.Series:
     return series.map(mapping).fillna(-1).astype(int)
 
 
-def transform_categorical_numeric_tcc(df: pd.DataFrame) -> pd.DataFrame:
+def transform_categorical_numeric_tcc(
+    df: pd.DataFrame,
+    *,
+    one_hot: bool = True,
+) -> pd.DataFrame:
     out = df.copy()
+    if not one_hot:
+        return out
     binary_like = [
         "Cadastro UBS",
         "Ler e Escrever",
@@ -341,44 +297,8 @@ def transform_categorical_numeric_tcc(df: pd.DataFrame) -> pd.DataFrame:
             else (1 if x != "Não fumo atualmente" else 0)
         )
 
-    if "Peso" in out.columns and "Altura" in out.columns:
-        out["IMC"] = out["Peso"] / (out["Altura"] / 100) ** 2
-
     for _, limita_col in LIMITA_DISEASES:
         if limita_col in out.columns:
             out[limita_col] = _ordinal_limita(out[limita_col])
-
-    def _g(s: pd.Series) -> pd.Series:
-        return pd.to_numeric(s, errors="coerce").fillna(-1).astype(int)
-
-    if "Diabetes" in out.columns:
-        out["Grupo Metabólico"] = _g(out["Diabetes"])
-    if "Asma" in out.columns:
-        out["Grupo Respiratório"] = _g(out["Asma"])
-    if "Artrite ou Reumatismo" in out.columns:
-        out["Grupo Artrite"] = _g(out["Artrite ou Reumatismo"])
-    if "DORT" in out.columns:
-        out["Grupo DORT"] = _g(out["DORT"])
-    if "Doença Mental" in out.columns:
-        out["Grupo Mental"] = _g(out["Doença Mental"])
-    if "Depressão" in out.columns:
-        out["Grupo Depressão"] = _g(out["Depressão"])
-    if "Doença Crônica no Pulmão" in out.columns:
-        out["Grupo Pulmonar"] = _g(out["Doença Crônica no Pulmão"])
-    if "Insuficiência Renal Crônica" in out.columns:
-        out["Grupo Renal"] = _g(out["Insuficiência Renal Crônica"])
-    if "Câncer" in out.columns:
-        out["Grupo Oncológico"] = _g(out["Câncer"])
-    if all(c in out.columns for c in ("Hipertensão", "Cardiopatia", "AVC ou Derrame")):
-        out["Grupo Cardiovascular"] = np.where(
-            (out["Hipertensão"].isin([-1])) & (out["Cardiopatia"].isin([-1]))
-            & (out["AVC ou Derrame"].isin([-1])),
-            -1,
-            (
-                (out["Hipertensão"] == 1)
-                | (out["Cardiopatia"] == 1)
-                | (out["AVC ou Derrame"] == 1)
-            ).astype(int),
-        )
 
     return out

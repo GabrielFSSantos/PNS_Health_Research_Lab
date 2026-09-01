@@ -1,24 +1,32 @@
+# Python
 __pycache__/
 *.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Ambientes, caches e segredos
+.venv/
+.venv-gpu/
+.r-env/
+.tools/
+.env
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-.venv/
-.venv-gpu/
-uv.lock
-.env
-.r-env/
-legacy_*.log
-*.log
-artifacts/runs/*
-!artifacts/runs/.gitkeep
+
+# Dados locais (download / processamento)
 data/raw/*
 !data/raw/.gitkeep
 data/interim/*
 !data/interim/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
-*.egg-info/
-dist/
-build/
+
+# Runs locais (showcase versionado em artifacts/showcase/)
+artifacts/runs/*
+!artifacts/runs/.gitkeep
+
+# SO e logs
 .DS_Store
+*.log

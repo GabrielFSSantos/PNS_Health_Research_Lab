@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "run_id": "20260901T053650Z_legacy_reproduction_e4f5337",
+  "name": "Pesquisa Original \u2014 Legacy",
+  "experiment_name": "legacy_reproduction",
+  "profile": "legacy_reproduction",
+  "type": "experiment",
+  "status": "completed",
+  "description": null,
+  "notes": null,
+  "tags": [],
+  "preserve": false,
+  "started_at": "2026-09-01T05:36:50.702814+00:00",
+  "finished_at": "2026-09-01T05:50:04.356056+00:00",
+  "random_seed": 42,
+  "git_commit": "899cd1d6963a6b58e150ce5829515693966f8a87",
+  "config_hash": "1dd86e1ad13571d6",
+  "data_fingerprint": "6c4a23f15b8df324e8b0edc363d5c047e1f72014ad1cefba53f8846ed2bc5a18",
+  "primary_metric": {
+    "name": "f1_positive"
+  },
+  "environment": {
+    "python_version": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43"
+  },
+  "duration_seconds": 792.5010046760035,
+  "lineage": {
+    "dataset": {
+      "source": "pns",
+      "year": 2019
+    },
+    "preprocessing_run_id": "20260901T053650Z_legacy_reproduction_e4f5337",
+    "clustering": {
+      "used": true,
+      "run_id": "20260901T053650Z_legacy_reproduction_e4f5337"
+    }
+  },
+  "artifacts_checklist": {
+    "missing": [],
+    "complete": true
+  },
+  "artifacts_status": {
+    "grid_search": "present",
+    "feature_importance": "present",
+    "pca_loadings": "present",
+    "pca_scatter": "present",
+    "silhouette": "present",
+    "preprocess_funnel": "present",
+    "roc_curves": "present",
+    "predictions_summary": "present"
+  }
+}

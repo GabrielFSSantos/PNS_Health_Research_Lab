@@ -1,0 +1,82 @@
+experiment:
+  name: legacy_reproduction
+  seed: 42
+  profile: legacy_reproduction
+run:
+  name: "Pesquisa Original \u2014 Legacy"
+  description: null
+  notes: null
+  tags: []
+  preserve: false
+  type: null
+data:
+  dataset: pns
+  year: 2019
+  source: null
+  record_id_columns:
+  - V0001
+  - UPA_PNS
+  - V0006_PNS
+  - C00301
+preprocessing:
+  min_age: 18
+  categorical_missing_value: -1
+  binary_missing_value: 0
+  legacy_weight_formula: true
+  merge_internacao_into_servico: true
+  target_encoding_before_split: true
+  nearmiss_before_split: true
+  nearmiss_version: 1
+  impute_age_by_target: true
+  columns_config: configs/data/pns2019_columns.yaml
+  binary_features_config: configs/features/legacy_tcc_binary.yaml
+  categorical_features_config: configs/features/legacy_tcc_categorical.yaml
+clustering:
+  backend: sklearn
+  device: cpu
+  comorbidity_columns: []
+  reducer:
+    name: pca
+    n_components: 8
+    apply_scaler: false
+    scaler_type: none
+  estimator:
+    name: kmeans
+    n_clusters: 6
+    selection_method: fixed
+    init: k-means++
+    n_init: 50
+    max_iter: 1000
+    elbow_n_init: 10
+    elbow_max_k: 15
+    random_state: 42
+classification:
+  target: healthcare_service_usage
+  legacy_cv: true
+  n_splits: 5
+  inner_test_size: 0.3333333333
+  use_sample_weight_in_fit: false
+  parallel: true
+  max_workers: 3
+  device: cuda
+  backend: sklearn
+  input_run: null
+  features_config: configs/features/classification_default.yaml
+  feature_columns: null
+  exclude_columns: []
+  target_encode_columns: []
+  models:
+  - random_forest
+  - mlp
+  - xgboost
+evaluation:
+  primary_metric: f1_positive
+baseline:
+  enabled: true
+  tolerances_path: configs/baseline/tolerances.yaml
+stages:
+- preprocessing
+- clustering
+- classification
+- cross_analysis
+- statistics

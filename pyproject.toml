@@ -1,7 +1,7 @@
 [project]
-name = "pns-health-research"
-version = "0.1.0"
-description = "Reproducible experimental platform for PNS 2019 health service usage research"
+name = "pns-health-research-lab"
+version = "0.2.0"
+description = "Plataforma científica reproduzível para pesquisa com dados da PNS — uso de serviços de saúde"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -24,8 +24,8 @@ dependencies = [
 
 [project.optional-dependencies]
 acquisition = ["rpy2>=3.5"]
-mca = ["prince>=0.13"]
-lpa = ["stepmix>=2.7"]
+web = ["fastapi>=0.110", "uvicorn[standard]>=0.27"]
+dashboard = ["streamlit>=1.36,<2.0", "plotly>=5.18"]
 gpu = [
     "cuml-cu12>=24.10; platform_system=='Linux'",
     "torch>=2.2",
@@ -35,11 +35,10 @@ dev = [
     "pytest-cov>=4.1",
     "ruff>=0.3",
     "mypy>=1.8",
-    "pre-commit>=3.6",
 ]
 
 [project.scripts]
-pns-research = "pns_health_research.cli:app"
+pns-health = "pns_health_research.cli:app"
 
 [build-system]
 requires = ["hatchling"]
@@ -59,6 +58,7 @@ ignore = ["B008"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["E501"]
+"src/pns_health_research/dashboard/**" = ["E501"]
 "src/pns_health_research/core/types.py" = ["UP040"]
 
 [tool.mypy]

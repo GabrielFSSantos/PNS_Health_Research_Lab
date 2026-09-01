@@ -9,7 +9,7 @@ from pns_health_research.experiments.runner import ExperimentRunner
 
 
 def test_parallel_classification_smoke(synthetic_raw_path: Path, tmp_path: Path, monkeypatch):
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     cfg.data.source = str(synthetic_raw_path)
     cfg.classification.models = ["mlp", "random_forest"]
     cfg.classification.parallel = True
@@ -35,7 +35,7 @@ def synthetic_raw_path(tmp_path: Path) -> Path:
 
 
 def test_resume_from_run(synthetic_raw_path: Path, tmp_path: Path, monkeypatch):
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     cfg.data.source = str(synthetic_raw_path)
     cfg.classification.models = ["mlp"]
     cfg.classification.n_splits = 2
@@ -48,7 +48,7 @@ def test_resume_from_run(synthetic_raw_path: Path, tmp_path: Path, monkeypatch):
     source_dir = ExperimentRunner(cfg).run()
     source_id = source_dir.name
 
-    cfg2 = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg2 = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     cfg2.classification.input_run = source_id
     cfg2.classification.models = ["mlp"]
     cfg2.classification.n_splits = 2

@@ -1,0 +1,30 @@
+{
+  "algorithm": "grid",
+  "scoring": "f1_macro",
+  "cv_folds": 5,
+  "random_state": 42,
+  "param_grid": {
+    "n_estimators": [
+      50,
+      100
+    ],
+    "max_depth": [
+      3,
+      5
+    ],
+    "learning_rate": [
+      0.01,
+      0.1
+    ],
+    "subsample": [
+      0.8,
+      1.0
+    ],
+    "colsample_bytree": [
+      0.8,
+      1.0
+    ]
+  },
+  "n_candidates": 32,
+  "n_fits": 160
+}

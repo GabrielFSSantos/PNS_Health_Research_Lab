@@ -1,0 +1,14 @@
+{
+  "run_id": "20260901T023715Z_legacy_reproduction_8f61ffb",
+  "experiment_name": "legacy_reproduction",
+  "profile": "legacy_reproduction",
+  "started_at": "2026-09-01T02:37:15.388218+00:00",
+  "finished_at": "2026-09-01T02:50:09.010810+00:00",
+  "status": "completed",
+  "random_seed": 42,
+  "git_commit": null,
+  "config_hash": "6e14913fdb848010",
+  "data_fingerprint": "6c4a23f15b8df324e8b0edc363d5c047e1f72014ad1cefba53f8846ed2bc5a18",
+  "python_version": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43"
+}

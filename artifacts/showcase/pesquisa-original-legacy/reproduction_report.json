@@ -1,0 +1,115 @@
+{
+  "overall_status": "FAIL",
+  "checks": [
+    {
+      "metric": "preprocessed_rows",
+      "expected": 87678,
+      "actual": 87678,
+      "status": "PASS"
+    },
+    {
+      "metric": "silhouette",
+      "expected": 0.513881101838751,
+      "actual": 0.5126871294839155,
+      "absolute_difference": -0.0011939723548355374,
+      "tolerance": 0.005,
+      "status": "PASS"
+    },
+    {
+      "metric": "mlp_accuracy",
+      "expected": 0.779,
+      "actual": 0.801923348601763,
+      "absolute_difference": 0.022923348601762927,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "mlp_precision",
+      "expected": 0.782,
+      "actual": 0.8195963836026368,
+      "absolute_difference": 0.03759638360263673,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "mlp_recall",
+      "expected": 0.779,
+      "actual": 0.801923501599186,
+      "absolute_difference": 0.02292350159918599,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "mlp_f1",
+      "expected": 0.779,
+      "actual": 0.7991472113883515,
+      "absolute_difference": 0.020147211388351516,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "xgboost_accuracy",
+      "expected": 0.785,
+      "actual": 0.8078321962466333,
+      "absolute_difference": 0.02283219624663324,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "xgboost_precision",
+      "expected": 0.79,
+      "actual": 0.8149159603084272,
+      "absolute_difference": 0.024915960308427132,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "xgboost_recall",
+      "expected": 0.785,
+      "actual": 0.8078321649723961,
+      "absolute_difference": 0.02283216497239604,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "xgboost_f1",
+      "expected": 0.784,
+      "actual": 0.8067456785509624,
+      "absolute_difference": 0.022745678550962323,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "random_forest_accuracy",
+      "expected": 0.778,
+      "actual": 0.8005301709806145,
+      "absolute_difference": 0.022530170980614495,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "random_forest_precision",
+      "expected": 0.781,
+      "actual": 0.8062010564222566,
+      "absolute_difference": 0.025201056422256563,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "random_forest_recall",
+      "expected": 0.778,
+      "actual": 0.8005300260767054,
+      "absolute_difference": 0.0225300260767054,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    },
+    {
+      "metric": "random_forest_f1",
+      "expected": 0.777,
+      "actual": 0.7996025866353277,
+      "absolute_difference": 0.02260258663532766,
+      "tolerance": 0.01,
+      "status": "FAIL"
+    }
+  ]
+}

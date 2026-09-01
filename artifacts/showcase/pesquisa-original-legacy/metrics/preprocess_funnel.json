@@ -1,0 +1,57 @@
+{
+  "stages": [
+    {
+      "name": "raw",
+      "rows": 279382,
+      "description": "Microdados PNS 2019 completos antes de qualquer filtro ou transformação."
+    },
+    {
+      "name": "columns_selected",
+      "rows": 279382,
+      "columns": 55,
+      "description": "Seleção das variáveis do TCC (códigos IBGE renomeados para nomes legíveis)."
+    },
+    {
+      "name": "adult_filter",
+      "rows": 87678,
+      "removed": 191704,
+      "details": {
+        "removed_under_18": 71537,
+        "removed_missing_weight": 189428,
+        "removed_missing_height": 189428,
+        "removed_missing_health_service": 0
+      },
+      "description": "Remove menores de 18 anos, registros sem peso ou altura (necessários para IMC) e sem resposta sobre uso de serviços de saúde."
+    },
+    {
+      "name": "gestational_imputation",
+      "rows": 87678,
+      "description": "Imputa idade ausente pela média por alvo (fluxo legacy) e consolida hipertensão/diabetes gestacional nas comorbidades.",
+      "enabled": true
+    },
+    {
+      "name": "weights_attached",
+      "rows": 87678,
+      "description": "Calcula peso amostral (fórmula legacy do TCC ou peso oficial PNS, conforme config)."
+    },
+    {
+      "name": "binary_encoding",
+      "rows": 87678,
+      "description": "Transforma respostas em colunas binárias/one-hot: sexo, faixas etárias, IMC, comorbidades, região, escolaridade, etc."
+    },
+    {
+      "name": "missing_imputation",
+      "rows": 87678,
+      "cells_imputed": 0,
+      "top_columns": {},
+      "description": "Preenche valores ausentes restantes (NaN) com 0 nas binárias ou -1 nas categóricas — não remove linhas por comorbidade ausente."
+    },
+    {
+      "name": "processed",
+      "rows": 87678,
+      "binary_columns": 161,
+      "categorical_columns": 61,
+      "description": "Bases finais: matriz binária (agrupamento) e categórica numérica (classificação)."
+    }
+  ]
+}

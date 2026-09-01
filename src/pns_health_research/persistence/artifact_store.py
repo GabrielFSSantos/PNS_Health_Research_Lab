@@ -83,4 +83,6 @@ def build_manifest(
         "data_fingerprint": data_fingerprint,
         "python_version": sys.version,
         "platform": platform.platform(),
+        "preserve": False,
+        "tags": [],
     }

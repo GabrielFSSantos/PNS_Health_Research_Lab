@@ -1,7 +1,17 @@
-# Data layout
+# Dados
 
-- `raw/` — PNS microdata (`pns2019.parquet` or `.csv`)
-- `interim/` — cached transforms (fingerprinted)
-- `processed/` — binary/categorical/clustered datasets
+Microdados PNS **não** são versionados neste repositório.
 
-See [docs/data_required.md](../docs/data_required.md).
+## Baixar (primeira vez)
+
+Requisitos: R + `PNSIBGE`, ambiente com `./scripts/setup_env.sh --acquisition`.
+
+```bash
+./scripts/run_download.sh
+```
+
+O parquet fica em `data/raw/` conforme `configs/datasets.yaml`. Outro dataset: `--dataset pns_2019`.
+
+Alternativa: `./scripts/run_experiment.sh` baixa automaticamente se o arquivo não existir e `defaults.download.if_missing: true`.
+
+Documentação: [docs/documentacao.md](../docs/documentacao.md).

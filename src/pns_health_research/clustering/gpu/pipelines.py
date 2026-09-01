@@ -6,7 +6,7 @@ import logging
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import silhouette_score
+from sklearn.metrics import silhouette_samples, silhouette_score
 
 from pns_health_research.clustering.kmeans import run_elbow
 from pns_health_research.clustering.results import ClusteringStageResult
@@ -63,6 +63,7 @@ def run_cuml_clustering_stage(
     labels = np.asarray(kmeans.fit_predict(transformed)).ravel()
 
     sil = float(silhouette_score(transformed, labels))
+    sil_arr = silhouette_samples(transformed, labels)
     centers = np.asarray(kmeans.cluster_centers_)
     wcss = float(np.sum((transformed - centers[labels]) ** 2))
     sizes = {int(k): int(v) for k, v in pd.Series(labels).value_counts().sort_index().items()}
@@ -85,6 +86,20 @@ def run_cuml_clustering_stage(
         }
     )
 
+    components = np.asarray(pca.components_)
+    loadings_df = pd.DataFrame(
+        components.T, columns=[f"pc{i+1}" for i in range(components.shape[0])]
+    )
+    loadings_df.insert(0, "feature", comorb_cols)
+
+    sil_summary = {
+        "mean": float(np.mean(sil_arr)),
+        "std": float(np.std(sil_arr)),
+        "per_cluster_mean": {
+            int(k): float(np.mean(sil_arr[labels == k])) for k in sorted(set(labels))
+        },
+    }
+
     metrics = {
         "algorithm": "cuml_kmeans",
         "n_clusters": cc.estimator.n_clusters,
@@ -106,4 +121,10 @@ def run_cuml_clustering_stage(
         elbow_results=elbow,
         pca_variance=pca_var,
         profiles=profile_means,
+        pca_loadings=loadings_df,
+        pca_transformed=transformed,
+        feature_names=comorb_cols,
+        centroids=centers,
+        silhouette_summary=sil_summary,
+        silhouette_samples=sil_arr,
     )

@@ -35,7 +35,7 @@ def test_load_clustered_categorical_roundtrip(tmp_path, monkeypatch):
 def test_legacy_config_parallel_and_no_svc():
     from pns_health_research.config.loader import load_config
 
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy_reproduction.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
     assert cfg.classification.parallel is True
     assert cfg.classification.max_workers == 3
     assert "svc" not in cfg.classification.models

@@ -1,0 +1,13 @@
+{
+  "rows_in": 279382,
+  "rows_out": 87678,
+  "removed": 191704,
+  "binary_columns": 161,
+  "categorical_columns": 61,
+  "target_distribution": {
+    "0": 69411,
+    "1": 18267
+  },
+  "data_year": 2019,
+  "data_dataset": "pns"
+}

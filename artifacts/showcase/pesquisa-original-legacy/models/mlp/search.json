@@ -1,0 +1,9 @@
+{
+  "algorithm": "grid",
+  "scoring": "f1_macro",
+  "cv_folds": 5,
+  "random_state": 42,
+  "param_grid": {},
+  "n_candidates": 0,
+  "n_fits": 0
+}

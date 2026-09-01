@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 import pandas as pd
@@ -15,3 +15,9 @@ class ClusteringStageResult:
     elbow_results: pd.DataFrame
     pca_variance: pd.DataFrame
     profiles: pd.DataFrame
+    pca_loadings: pd.DataFrame = field(default_factory=pd.DataFrame)
+    pca_transformed: np.ndarray | None = None
+    feature_names: list[str] = field(default_factory=list)
+    centroids: np.ndarray | None = None
+    silhouette_summary: dict = field(default_factory=dict)
+    silhouette_samples: np.ndarray | None = None

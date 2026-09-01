@@ -5,9 +5,13 @@ from typing import Any
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedKFold
-from sklearn.preprocessing import StandardScaler
 
 from pns_health_research.classification.gpu.registry import register_gpu_classifier
+from pns_health_research.classification.gpu.search import gpu_search_config
+from pns_health_research.classification.metrics import (
+    aggregate_fold_metrics,
+    compute_classification_metrics,
+)
 from pns_health_research.classification.tuning import load_param_grid
 from pns_health_research.classification.validation import FoldMetrics, ModelResult
 from pns_health_research.config.models import ExperimentConfig
@@ -28,6 +32,8 @@ class TorchMLPClassifier:
         self.learning_rate = learning_rate
         self.random_state = random_state
         self._model = None
+        from sklearn.preprocessing import StandardScaler
+
         self._scaler = StandardScaler()
 
     def fit(self, x: pd.DataFrame | np.ndarray, y: pd.Series | np.ndarray) -> TorchMLPClassifier:
@@ -71,6 +77,14 @@ class TorchMLPClassifier:
             logits = self._model(torch.from_numpy(x_arr))
             return logits.argmax(dim=1).numpy()
 
+    def get_params(self, deep: bool = True) -> dict[str, Any]:
+        return {
+            "hidden_layer_sizes": self.hidden_layer_sizes,
+            "max_iter": self.max_iter,
+            "learning_rate": self.learning_rate,
+            "random_state": self.random_state,
+        }
+
 
 @register_gpu_classifier("mlp")
 def create_torch_mlp(params: dict[str, Any]) -> TorchMLPClassifier:
@@ -94,15 +108,8 @@ def run_torch_mlp_cv(
     """Nested CV for PyTorch MLP (research_v2 GPU path)."""
     from imblearn.pipeline import Pipeline as ImbPipeline
     from imblearn.under_sampling import NearMiss
-    from sklearn.metrics import (
-        accuracy_score,
-        confusion_matrix,
-        f1_score,
-        precision_score,
-        recall_score,
-    )
 
-    param_grid = load_param_grid("mlp")
+    param_grid = load_param_grid("mlp", config=config)
     outer = StratifiedKFold(
         n_splits=config.classification.n_splits,
         shuffle=True,
@@ -110,6 +117,7 @@ def run_torch_mlp_cv(
     )
     fold_metrics: list[FoldMetrics] = []
     all_preds: list[dict[str, Any]] = []
+    last_pipe: Any = None
 
     for fold_idx, (train_idx, test_idx) in enumerate(outer.split(x, y)):
         x_train, x_test = x.iloc[train_idx], x.iloc[test_idx]
@@ -122,18 +130,10 @@ def run_torch_mlp_cv(
             ]
         )
         pipe.fit(x_train, y_train)
+        last_pipe = pipe
         y_pred = pipe.predict(x_test)
-        cm = confusion_matrix(y_test, y_pred)
-        fold_metrics.append(
-            FoldMetrics(
-                fold=fold_idx,
-                accuracy=float(accuracy_score(y_test, y_pred)),
-                precision=float(precision_score(y_test, y_pred, average="macro", zero_division=0)),
-                recall=float(recall_score(y_test, y_pred, average="macro")),
-                f1=float(f1_score(y_test, y_pred, average="macro")),
-                confusion=cm,
-            )
-        )
+        m = compute_classification_metrics(y_test.values, y_pred, None)
+        fold_metrics.append(FoldMetrics(fold=fold_idx, metrics=m))
         for i, idx in enumerate(test_idx):
             all_preds.append(
                 {
@@ -146,15 +146,21 @@ def run_torch_mlp_cv(
                 }
             )
 
-    mean_metrics = {
-        "accuracy": float(np.mean([m.accuracy for m in fold_metrics])),
-        "precision": float(np.mean([m.precision for m in fold_metrics])),
-        "recall": float(np.mean([m.recall for m in fold_metrics])),
-        "f1": float(np.mean([m.f1 for m in fold_metrics])),
-    }
+    mean_metrics = aggregate_fold_metrics([f.metrics for f in fold_metrics])
+    clf = last_pipe.named_steps["clf"] if last_pipe else None
+    final_params = dict(clf.get_params()) if clf else {}
+    search = gpu_search_config(
+        "mlp",
+        param_grid,
+        cv_folds=config.classification.n_splits,
+        random_state=config.experiment.seed,
+    )
+
     return ModelResult(
         model_name="mlp",
         fold_metrics=fold_metrics,
         mean_metrics=mean_metrics,
+        search_config=search,
+        final_params=final_params,
         predictions=pd.DataFrame(all_preds),
     )

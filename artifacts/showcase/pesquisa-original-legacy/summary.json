@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "run_id": "20260901T053650Z_legacy_reproduction_e4f5337",
+  "name": "Pesquisa Original \u2014 Legacy",
+  "type": "experiment",
+  "status": "completed",
+  "profile": "legacy_reproduction",
+  "tags": [],
+  "preserve": false,
+  "dataset": {
+    "source": "pns",
+    "year": 2019,
+    "rows": 87678,
+    "features_binary": 161,
+    "features_categorical": 61
+  },
+  "duration_seconds": 792.5010046760035,
+  "primary_metric": {
+    "name": "f1_positive",
+    "value": 0.7922573933012349,
+    "model": "xgboost"
+  },
+  "clustering": {
+    "algorithm": "kmeans",
+    "n_clusters": 6,
+    "silhouette": 0.5126871294839155,
+    "wcss": 37821.747224340674
+  },
+  "models": [
+    "mlp",
+    "xgboost",
+    "random_forest"
+  ]
+}

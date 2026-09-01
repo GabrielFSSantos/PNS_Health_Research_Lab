@@ -4,13 +4,6 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import (
-    accuracy_score,
-    confusion_matrix,
-    f1_score,
-    precision_score,
-    recall_score,
-)
 from sklearn.model_selection import StratifiedKFold
 
 from pns_health_research.classification.gpu import (  # noqa: F401
@@ -20,7 +13,12 @@ from pns_health_research.classification.gpu import (  # noqa: F401
     xgboost_gpu,
 )
 from pns_health_research.classification.gpu.registry import GPU_CLASSIFIER_REGISTRY
+from pns_health_research.classification.gpu.search import gpu_search_config
 from pns_health_research.classification.gpu.torch_mlp import run_torch_mlp_cv
+from pns_health_research.classification.metrics import (
+    aggregate_fold_metrics,
+    compute_classification_metrics,
+)
 from pns_health_research.classification.tuning import load_param_grid
 from pns_health_research.classification.validation import FoldMetrics, ModelResult
 from pns_health_research.config.models import ExperimentConfig
@@ -33,6 +31,15 @@ def _gpu_available() -> bool:
         return True
     except ImportError:
         return False
+
+
+def _predict_proba_safe(model: Any, x_test: pd.DataFrame) -> np.ndarray | None:
+    if hasattr(model, "predict_proba"):
+        try:
+            return model.predict_proba(x_test)
+        except Exception:
+            return None
+    return None
 
 
 def run_gpu_cv(
@@ -58,7 +65,7 @@ def run_gpu_cv(
     from imblearn.under_sampling import NearMiss
 
     factory = GPU_CLASSIFIER_REGISTRY[model_name]
-    param_grid = load_param_grid(model_name)
+    param_grid = load_param_grid(model_name, config=config)
     outer = StratifiedKFold(
         n_splits=config.classification.n_splits,
         shuffle=True,
@@ -66,6 +73,7 @@ def run_gpu_cv(
     )
     fold_metrics: list[FoldMetrics] = []
     all_preds: list[dict[str, Any]] = []
+    last_model: Any = None
 
     for fold_idx, (train_idx, test_idx) in enumerate(outer.split(x, y)):
         x_train, x_test = x.iloc[train_idx], x.iloc[test_idx]
@@ -78,40 +86,41 @@ def run_gpu_cv(
             ]
         )
         pipe.fit(x_train, y_train)
-        y_pred = pipe.predict(x_test)
-        y_pred = np.asarray(y_pred).ravel()
-        cm = confusion_matrix(y_test, y_pred)
-        fold_metrics.append(
-            FoldMetrics(
-                fold=fold_idx,
-                accuracy=float(accuracy_score(y_test, y_pred)),
-                precision=float(precision_score(y_test, y_pred, average="macro", zero_division=0)),
-                recall=float(recall_score(y_test, y_pred, average="macro")),
-                f1=float(f1_score(y_test, y_pred, average="macro")),
-                confusion=cm,
-            )
-        )
+        last_model = pipe
+        y_pred = np.asarray(pipe.predict(x_test)).ravel()
+        y_proba = _predict_proba_safe(pipe, x_test)
+        m = compute_classification_metrics(y_test.values, y_pred, y_proba)
+        fold_metrics.append(FoldMetrics(fold=fold_idx, metrics=m))
         for i, idx in enumerate(test_idx):
-            all_preds.append(
-                {
-                    "record_id": str(idx),
-                    "fold": fold_idx,
-                    "true_label": int(y_test.iloc[i]),
-                    "predicted_label": int(y_pred[i]),
-                    "model": model_name,
-                    "dataset_partition": "outer_test",
-                }
-            )
+            row: dict[str, Any] = {
+                "record_id": str(idx),
+                "fold": fold_idx,
+                "true_label": int(y_test.iloc[i]),
+                "predicted_label": int(y_pred[i]),
+                "model": model_name,
+                "dataset_partition": "outer_test",
+            }
+            if y_proba is not None:
+                row["proba_positive"] = float(
+                    y_proba[i, 1] if y_proba.ndim > 1 else y_proba[i]
+                )
+            all_preds.append(row)
 
-    mean_metrics = {
-        "accuracy": float(np.mean([m.accuracy for m in fold_metrics])),
-        "precision": float(np.mean([m.precision for m in fold_metrics])),
-        "recall": float(np.mean([m.recall for m in fold_metrics])),
-        "f1": float(np.mean([m.f1 for m in fold_metrics])),
-    }
+    mean_metrics = aggregate_fold_metrics([f.metrics for f in fold_metrics])
+    clf = last_model.named_steps["clf"] if last_model else None
+    final_params = dict(clf.get_params()) if clf and hasattr(clf, "get_params") else {}
+    search = gpu_search_config(
+        model_name,
+        param_grid,
+        cv_folds=config.classification.n_splits,
+        random_state=config.experiment.seed,
+    )
+
     return ModelResult(
         model_name=model_name,
         fold_metrics=fold_metrics,
         mean_metrics=mean_metrics,
+        search_config=search,
+        final_params=final_params,
         predictions=pd.DataFrame(all_preds),
     )
