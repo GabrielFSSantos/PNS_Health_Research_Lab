@@ -23,7 +23,17 @@ def test_baseline_role_from_override():
     runs = catalog.list_runs()
     baseline = next(r for r in runs if r.showcase_label == "pesquisa-original-legacy")
     assert baseline.role == "baseline"
-    assert "legacy" in baseline.display_name.lower() or "tcc" in baseline.display_name.lower()
+    assert baseline.layer == "1"
+    assert "tcc" in baseline.display_name.lower() or "camada" in baseline.display_name.lower()
+
+
+def test_modular_bases_in_catalog():
+    runs = catalog.list_runs()
+    ids = {r.run_id for r in runs}
+    assert "legacy" in ids or "pns" in ids
+    modular = [r for r in runs if r.source_type == "base"]
+    if modular:
+        assert any(r.profile_kind in ("legacy", "pns") for r in modular)
 
 
 def test_showcase_query_id():

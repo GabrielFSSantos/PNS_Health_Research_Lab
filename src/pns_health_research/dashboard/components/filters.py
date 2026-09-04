@@ -17,12 +17,13 @@ def init_session_state() -> None:
 
 
 def _run_option_label(run: catalog.RunSummary) -> str:
+    prefix = f"[{run.layer}] " if run.layer else ""
     if run.showcase_label:
-        return run.display_name
+        return f"{prefix}{run.display_name}"
     short_id = run.run_id.split("_")[-1][:8] if "_" in run.run_id else run.run_id[:16]
     if run.display_name and run.display_name != run.run_id:
-        return f"{run.display_name} ({short_id})"
-    return run.run_id
+        return f"{prefix}{run.display_name} ({short_id})"
+    return f"{prefix}{run.run_id}"
 
 
 def run_selector(label: str = "Run", key: str = "run_selector") -> str | None:

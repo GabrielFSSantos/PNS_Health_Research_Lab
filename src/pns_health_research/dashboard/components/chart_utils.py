@@ -47,6 +47,16 @@ def cluster_label(c: int | float | str) -> str:
     return f"Cluster {int(c)}"
 
 
+def resolve_cluster_column(df: pd.DataFrame) -> str | None:
+    if df.empty:
+        return None
+    if "cluster" in df.columns:
+        return "cluster"
+    if "Cluster" in df.columns:
+        return "Cluster"
+    return None
+
+
 def as_cluster_category(df: pd.DataFrame, col: str = "cluster") -> pd.DataFrame:
     out = df.copy()
     if col in out.columns:

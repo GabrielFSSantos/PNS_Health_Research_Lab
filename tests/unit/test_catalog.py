@@ -7,7 +7,7 @@ def test_resolve_edition_2019():
     ed = resolve_edition(2019)
     assert ed.is_supported
     assert ed.year == 2019
-    assert "pns_2019" in str(ed.raw_path)
+    assert ed.raw_path.name == "pns2019.parquet"
     assert ed.columns["J014"] == "Serviço de Saúde"
 
 

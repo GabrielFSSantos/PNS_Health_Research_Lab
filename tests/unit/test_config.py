@@ -1,12 +1,12 @@
 import numpy as np
 
-from pns_health_research.clustering.alignment import align_cluster_labels
+from pns_health_research.modules.clustering.alignment import align_cluster_labels
 from pns_health_research.config.loader import load_config
 from pns_health_research.core.paths import PROJECT_ROOT
 
 
 def test_load_legacy_config():
-    cfg = load_config(PROJECT_ROOT / "configs/experiments/legacy.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/_internal/tcc_overlay.yaml")
     assert cfg.experiment.profile == "legacy_reproduction"
     assert cfg.data.year == 2019
     assert cfg.data.dataset == "pns_2019"
@@ -16,7 +16,7 @@ def test_load_legacy_config():
 
 
 def test_load_experiment_config():
-    cfg = load_config(PROJECT_ROOT / "configs/experiment.yaml")
+    cfg = load_config(PROJECT_ROOT / "configs/_internal/schema_root.yaml")
     assert cfg.experiment.profile == "custom"
     assert "preprocessing" in cfg.stages
     assert cfg.preprocessing.nearmiss_before_split is False

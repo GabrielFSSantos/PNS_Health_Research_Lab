@@ -1,0 +1,13 @@
+{
+  "source_base": "pns",
+  "clustering_manifest_path": "/home/gabrielfssantos/GitHub/PNS_Health_Research_Lab/data/bases/pns/clustering/manifest.json",
+  "clustering_profile_kind": "pns",
+  "models": [
+    "mlp",
+    "random_forest",
+    "xgboost"
+  ],
+  "created_at": "2026-09-04T03:42:46.412368+00:00",
+  "base_name": "pns",
+  "entry_config_path": "configs/profiles/pns.yaml#classification"
+}

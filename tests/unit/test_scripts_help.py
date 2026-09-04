@@ -16,6 +16,7 @@ SCRIPTS = [
     "run_classification.sh",
     "run_experiment.sh",
     "run_dashboard.sh",
+    "run_tests.sh",
 ]
 
 

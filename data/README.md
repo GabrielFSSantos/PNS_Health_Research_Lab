@@ -10,7 +10,7 @@ Requisitos: R + `PNSIBGE`, ambiente com `./scripts/setup_env.sh --acquisition`.
 ./scripts/run_download.sh
 ```
 
-O parquet fica em `data/raw/` conforme `configs/datasets.yaml`. Outro dataset: `--dataset pns_2019`.
+O parquet fica em `data/raw/` conforme `configs/shared/datasets.yaml`. Outro dataset: `--dataset pns_2019`.
 
 Alternativa: `./scripts/run_experiment.sh` baixa automaticamente se o arquivo não existir e `defaults.download.if_missing: true`.
 

@@ -1,6 +1,6 @@
 import numpy as np
 
-from pns_health_research.classification.metrics import compute_classification_metrics
+from pns_health_research.modules.classification.metrics import compute_classification_metrics
 
 
 def test_classification_metrics_positive_class():

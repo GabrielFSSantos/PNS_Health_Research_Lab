@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "base_name": "pns",
+  "created_at": "2026-09-03T21:30:10.614757+00:00",
+  "modules": {
+    "preprocessing": {
+      "last_run_at": "2026-09-04T02:59:33.287393+00:00",
+      "run_count": 6,
+      "entry_config": "configs/profiles/pns.yaml#preprocessing",
+      "rows_out": 87678,
+      "profile_kind": "pns",
+      "methodological_profile": "pns_preprocessing"
+    },
+    "clustering": {
+      "last_run_at": "2026-09-04T01:10:07.223998+00:00",
+      "run_count": 3,
+      "entry_config": "configs/profiles/pns.yaml#clustering",
+      "source_base": "pns",
+      "estimator": "kmeans",
+      "n_clusters": 6,
+      "profile_kind": "pns",
+      "methodological_profile": "clustering",
+      "silhouette": 0.3788960364613156,
+      "wcss": 441261.7071365917
+    },
+    "classification": {
+      "last_run_at": "2026-09-04T03:42:46.412962+00:00",
+      "run_count": 3,
+      "entry_config": "configs/profiles/pns.yaml#classification",
+      "source_base": "pns",
+      "profile_kind": "pns",
+      "methodological_profile": "research_v2",
+      "models": [
+        "mlp",
+        "random_forest",
+        "xgboost"
+      ],
+      "primary_metric": "f1_positive",
+      "best_model": "xgboost",
+      "best_score": 1.0
+    }
+  }
+}

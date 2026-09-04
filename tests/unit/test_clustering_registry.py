@@ -1,5 +1,5 @@
 
-from pns_health_research.clustering.registry import CLUSTERER_REGISTRY, get_clusterer
+from pns_health_research.modules.clustering.registry import CLUSTERER_REGISTRY, get_clusterer
 
 
 def test_kmeans_registered():

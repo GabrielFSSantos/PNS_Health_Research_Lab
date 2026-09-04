@@ -1,0 +1,1607 @@
+{
+  "schema_version": 1,
+  "columns": [
+    {
+      "name": "Peso Amostral",
+      "output_frame": "binary",
+      "semantic_type": "weight",
+      "source_column": "V00291"
+    },
+    {
+      "name": "Peso Amostral",
+      "output_frame": "categorical",
+      "semantic_type": "weight",
+      "source_column": "V00291"
+    },
+    {
+      "name": "Artrite ou Reumatismo Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Saúde Regular",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Raça 4",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Cardiopatia Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Insuficiência Renal Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Peso Normal",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Insuficiência Renal Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 90 a 99",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Peso 135 a 160",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Crônica no Pulmão Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Depressão Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 80 a 89",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Mental Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Per Capita 4",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Viúvo",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Divorciado",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Artrite",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Artrite ou Reumatismo Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Artrite ou Reumatismo Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "AVC ou Derrame Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Diabetes Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Hipertensão Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo DORT",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Altura 143 a 156",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Homem",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Asma Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Câncer Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Asma Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Saúde Muito Ruim",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Hipertensão Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "AVC ou Derrame Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Saúde Muito Bom",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "EM Completo",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Diabetes Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Crônica no Pulmão Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Rural",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 50 a 59",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Mental Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Mental Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Depressão Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Diabetes Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Raça 1",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Pulmonar",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Per Capita 6",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Região Norte",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Cardiopatia Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Per Capita 7",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 60 a 69",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Sobrepeso",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Per Capita 3",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Região Sul",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Per Capita 2",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "DORT Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Peso 109 a 134",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Raça 2",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "DORT Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Asma Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "SP Completo",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Asma Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Depressão Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Depressão",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Câncer Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Peso 30 a 56",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "EM Incompleto",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "AVC ou Derrame Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "DORT Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Altura 129 a 142",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Per Capita 1",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "DORT Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Respiratório",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Renal",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Solteiro",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "SP Incompleto",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Oncológico",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Crônica no Pulmão Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Sem Instrução",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Mulher",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Casado",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Dor na Coluna Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Diabetes Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 70 a 79",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Artrite ou Reumatismo Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Per Capita 5",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Cardiovascular",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "EF Completo",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Saúde Ruim",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Diabetes Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Peso 83 a 108",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Altura 157 a 170",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Raça 5",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Câncer Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Câncer Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Hipertensão Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Câncer Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Crônica no Pulmão Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "DORT Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 40 a 49",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Hipertensão Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Baixo Peso",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Dor na Coluna Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Obesidade",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 100 a 104",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Altura 185 a 199",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 30 a 39",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Hipertensão Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Urbano",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Mental",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Raça 3",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Dor na Coluna Limita Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Dor na Coluna Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Mental Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Insuficiência Renal Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Região Sudeste",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Artrite ou Reumatismo Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Depressão Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Região Nordeste",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Cardiopatia Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Idade 18 a 29",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Crônica no Pulmão Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "AVC ou Derrame Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Cardiopatia Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Peso 57 a 82",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Asma Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Insuficiência Renal Limita Moderadamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Altura 171 a 184",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Cardiopatia Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Doença Mental Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Região Centro Oeste",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "EF Incompleto",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "AVC ou Derrame Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Depressão Não Limita",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Insuficiência Renal Limita Muito Intensamente",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Metabólico",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Saúde Bom",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Dor na Coluna Limita Pouco",
+      "output_frame": "binary",
+      "semantic_type": "derived",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Pulmonar",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Depressão",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Respiratório",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Renal",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Mental",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Metabólico",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Cardiovascular",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Oncológico",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo DORT",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Grupo Artrite",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "IMC",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": null
+    },
+    {
+      "name": "Cadastro UBS",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "B001"
+    },
+    {
+      "name": "Agente Comunitário",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "B003"
+    },
+    {
+      "name": "Ler e Escrever",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "D001"
+    },
+    {
+      "name": "Escola",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "D00201"
+    },
+    {
+      "name": "Trabalha",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "E001"
+    },
+    {
+      "name": "Plano de Saúde",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "I00102"
+    },
+    {
+      "name": "Serviço de Saúde",
+      "output_frame": "binary",
+      "semantic_type": "binary",
+      "source_column": "J014"
+    },
+    {
+      "name": "Consultas 12m",
+      "output_frame": "binary",
+      "semantic_type": "count",
+      "source_column": "J012"
+    },
+    {
+      "name": "Atendimento Coberto Plano",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J024"
+    },
+    {
+      "name": "Pagou Atendimento 2sem",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J025"
+    },
+    {
+      "name": "Atendimento SUS",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J026"
+    },
+    {
+      "name": "Receitou Medicamento",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J02901"
+    },
+    {
+      "name": "Pagou Medicamentos",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J035"
+    },
+    {
+      "name": "Nº Internações 12m",
+      "output_frame": "binary",
+      "semantic_type": "count",
+      "source_column": "J038"
+    },
+    {
+      "name": "Internação Coberta Plano",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J042"
+    },
+    {
+      "name": "Pagou Internação",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J043"
+    },
+    {
+      "name": "Internação SUS",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J044"
+    },
+    {
+      "name": "Urgência no Domicílio",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J046"
+    },
+    {
+      "name": "Urgência Coberta Plano",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J047"
+    },
+    {
+      "name": "Pagou Urgência",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J048"
+    },
+    {
+      "name": "Urgência SUS",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J049"
+    },
+    {
+      "name": "Ambulância",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J051"
+    },
+    {
+      "name": "Internação",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "J037"
+    },
+    {
+      "name": "Medicamento Contínuo",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "K04301"
+    },
+    {
+      "name": "Nº Meds Contínuos 2sem",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "K04302"
+    },
+    {
+      "name": "Vacina Gripe 12m",
+      "output_frame": "binary",
+      "semantic_type": "binary",
+      "source_column": "K052"
+    },
+    {
+      "name": "Álcool",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "P027"
+    },
+    {
+      "name": "Exercício Físico",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "P034"
+    },
+    {
+      "name": "Tabaco",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "P050"
+    },
+    {
+      "name": "Colesterol Alto",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q060"
+    },
+    {
+      "name": "AVC ou Derrame",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q068"
+    },
+    {
+      "name": "Asma",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q074"
+    },
+    {
+      "name": "Artrite ou Reumatismo",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q079"
+    },
+    {
+      "name": "Dor na Coluna",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q084"
+    },
+    {
+      "name": "DORT",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q088"
+    },
+    {
+      "name": "Depressão",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q092"
+    },
+    {
+      "name": "Hipertensão",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q00201"
+    },
+    {
+      "name": "Diabetes",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q03001"
+    },
+    {
+      "name": "Cardiopatia",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q06306"
+    },
+    {
+      "name": "Câncer",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q120"
+    },
+    {
+      "name": "Insuficiência Renal Crônica",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q124"
+    },
+    {
+      "name": "Doença Mental",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q11006"
+    },
+    {
+      "name": "Doença Crônica no Pulmão",
+      "output_frame": "binary",
+      "semantic_type": "categorical",
+      "source_column": "Q11604"
+    },
+    {
+      "name": "UF",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "V0001"
+    },
+    {
+      "name": "Zona",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "V0026"
+    },
+    {
+      "name": "Grau de Ensino",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "VDD004A"
+    },
+    {
+      "name": "Renda",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "VDF004"
+    },
+    {
+      "name": "Cadastro UBS",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "B001"
+    },
+    {
+      "name": "Agente Comunitário",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "B003"
+    },
+    {
+      "name": "Sexo",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "C006"
+    },
+    {
+      "name": "Idade",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "C008"
+    },
+    {
+      "name": "Raça",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "C009"
+    },
+    {
+      "name": "Estado Civil",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "C011"
+    },
+    {
+      "name": "Ler e Escrever",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "D001"
+    },
+    {
+      "name": "Escola",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "D00201"
+    },
+    {
+      "name": "Trabalha",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "E001"
+    },
+    {
+      "name": "Plano de Saúde",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "I00102"
+    },
+    {
+      "name": "Estado de Saúde",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J001"
+    },
+    {
+      "name": "Serviço de Saúde",
+      "output_frame": "categorical",
+      "semantic_type": "binary",
+      "source_column": "J014"
+    },
+    {
+      "name": "Última Consulta Médica",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J01101"
+    },
+    {
+      "name": "Consultas 12m",
+      "output_frame": "categorical",
+      "semantic_type": "count",
+      "source_column": "J012"
+    },
+    {
+      "name": "Atendimento Coberto Plano",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J024"
+    },
+    {
+      "name": "Pagou Atendimento 2sem",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J025"
+    },
+    {
+      "name": "Atendimento SUS",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J026"
+    },
+    {
+      "name": "Receitou Medicamento",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J02901"
+    },
+    {
+      "name": "Obteve Medicamentos",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J03001"
+    },
+    {
+      "name": "Motivo Não Obter Meds",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J03102"
+    },
+    {
+      "name": "Medicamento Coberto Plano",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J032"
+    },
+    {
+      "name": "Meds Farmácia Popular",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J03301"
+    },
+    {
+      "name": "Meds Serviço Público",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J034"
+    },
+    {
+      "name": "Pagou Medicamentos",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J035"
+    },
+    {
+      "name": "Nº Internações 12m",
+      "output_frame": "categorical",
+      "semantic_type": "count",
+      "source_column": "J038"
+    },
+    {
+      "name": "Internação Coberta Plano",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J042"
+    },
+    {
+      "name": "Pagou Internação",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J043"
+    },
+    {
+      "name": "Internação SUS",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J044"
+    },
+    {
+      "name": "Urgência no Domicílio",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J046"
+    },
+    {
+      "name": "Urgência Coberta Plano",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J047"
+    },
+    {
+      "name": "Pagou Urgência",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J048"
+    },
+    {
+      "name": "Urgência SUS",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J049"
+    },
+    {
+      "name": "Ambulância",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J051"
+    },
+    {
+      "name": "Internação",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "J037"
+    },
+    {
+      "name": "Última Consulta H",
+      "output_frame": "categorical",
+      "semantic_type": "ordinal",
+      "source_column": "H001"
+    },
+    {
+      "name": "Motivo da Consulta",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "H003"
+    },
+    {
+      "name": "Local do Atendimento",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "H004"
+    },
+    {
+      "name": "Medicamento Contínuo",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "K04301"
+    },
+    {
+      "name": "Nº Meds Contínuos 2sem",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "K04302"
+    },
+    {
+      "name": "Vacina Gripe 12m",
+      "output_frame": "categorical",
+      "semantic_type": "binary",
+      "source_column": "K052"
+    },
+    {
+      "name": "Álcool",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "P027"
+    },
+    {
+      "name": "Exercício Físico",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "P034"
+    },
+    {
+      "name": "Tabaco",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "P050"
+    },
+    {
+      "name": "Peso",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "P00104"
+    },
+    {
+      "name": "Altura",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "P00404"
+    },
+    {
+      "name": "Colesterol Alto",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q060"
+    },
+    {
+      "name": "AVC ou Derrame",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q068"
+    },
+    {
+      "name": "AVC ou Derrame Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q073"
+    },
+    {
+      "name": "Asma",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q074"
+    },
+    {
+      "name": "Asma Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q078"
+    },
+    {
+      "name": "Artrite ou Reumatismo",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q079"
+    },
+    {
+      "name": "Artrite ou Reumatismo Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q083"
+    },
+    {
+      "name": "Dor na Coluna",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q084"
+    },
+    {
+      "name": "Dor na Coluna Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q087"
+    },
+    {
+      "name": "DORT",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q088"
+    },
+    {
+      "name": "DORT Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q091"
+    },
+    {
+      "name": "Depressão",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q092"
+    },
+    {
+      "name": "Depressão Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q109"
+    },
+    {
+      "name": "Hipertensão",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q00201"
+    },
+    {
+      "name": "Hipertensão Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q028"
+    },
+    {
+      "name": "Diabetes",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q03001"
+    },
+    {
+      "name": "Diabetes Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q058"
+    },
+    {
+      "name": "Cardiopatia",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q06306"
+    },
+    {
+      "name": "Cardiopatia Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q067"
+    },
+    {
+      "name": "Câncer",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q120"
+    },
+    {
+      "name": "Câncer Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q12301"
+    },
+    {
+      "name": "Insuficiência Renal Crônica",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q124"
+    },
+    {
+      "name": "Insuficiência Renal Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q127"
+    },
+    {
+      "name": "Doença Mental",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q11006"
+    },
+    {
+      "name": "Doença Mental Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q115"
+    },
+    {
+      "name": "Doença Crônica no Pulmão",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q11604"
+    },
+    {
+      "name": "Doença Crônica no Pulmão Limita Atividades",
+      "output_frame": "categorical",
+      "semantic_type": "categorical",
+      "source_column": "Q119"
+    }
+  ]
+}

@@ -33,6 +33,7 @@ gpu = [
 dev = [
     "pytest>=8.0",
     "pytest-cov>=4.1",
+    "pytest-xdist>=3.5",
     "ruff>=0.3",
     "mypy>=1.8",
 ]
@@ -69,7 +70,9 @@ mypy_path = "src"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short -m 'not regression and not regression_smoke'"
 markers = [
+    "regression: E2E PNS real (lento)",
+    "regression_smoke: valida artefatos materializados (rápido)",
     "gpu: testes que exigem extra [gpu] (cuML/CUDA)",
 ]

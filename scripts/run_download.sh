@@ -29,7 +29,7 @@ Baixa microdados PNS via PNSIBGE (R + rpy2). Requer:
   ./scripts/setup_env.sh --acquisition
   R com install.packages("PNSIBGE")
 
-O parquet é gravado em data/raw/ conforme configs/datasets.yaml.
+O parquet é gravado em data/raw/ conforme configs/shared/datasets.yaml.
 EOF
       exit 0
       ;;

@@ -36,7 +36,7 @@ def load_column_map(path: str | Path | dict[str, str] | None = None) -> dict[str
 def load_classification_features(path: str | Path | None = None) -> dict[str, Any]:
     if path is not None:
         return load_yaml(path)
-    pp_path = CONFIGS_DIR / "preprocessing.yaml"
+    pp_path = CONFIGS_DIR / "_internal" / "pipelines" / "preprocessing" / "pns.yaml"
     if pp_path.exists():
         data = load_yaml(pp_path)
         feats = data.get("classification_features")

@@ -57,4 +57,8 @@ Layout padrão: altura 560–620 px, `use_container_width=True`.
 
 ## Runs visíveis
 
-Somente runs com `status: completed` em `artifacts/runs/` ou showcase commitado.
+1. **Bases modulares** completas em `data/bases/<nome>/` (preprocessing + clustering + classification)
+2. **Showcases** em `artifacts/showcase/` (ex.: `pesquisa-original-legacy`)
+3. **Runs legadas** em `artifacts/runs/` (se existirem)
+
+Overrides de exibição: `configs/dashboard/run_overrides.yaml` (camadas 1–3).

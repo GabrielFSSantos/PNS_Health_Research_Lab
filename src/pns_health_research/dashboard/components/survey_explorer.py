@@ -16,7 +16,8 @@ def render_survey_variable_explorer(snapshot: dict[str, Any]) -> None:
     if not variables:
         st.info(
             "Snapshot da pesquisa indisponível nesta execução. "
-            "Reexecute o experimento ou rode o backfill do showcase."
+            "Reexecute `./scripts/run_preprocess.sh --profile pns` (ou `legacy`) "
+            "para gerar `survey_snapshot.json` em `data/bases/<nome>/preprocessing/metrics/`."
         )
         return
 

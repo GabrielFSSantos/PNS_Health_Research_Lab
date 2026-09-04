@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "base_name": "legacy",
+  "created_at": "2026-09-03T21:30:35.859861+00:00",
+  "modules": {
+    "preprocessing": {
+      "last_run_at": "2026-09-04T01:27:01.830245+00:00",
+      "run_count": 4,
+      "entry_config": "configs/profiles/legacy.yaml#preprocessing",
+      "rows_out": 87678,
+      "profile_kind": "legacy",
+      "methodological_profile": "legacy"
+    },
+    "clustering": {
+      "last_run_at": "2026-09-04T01:31:24.107398+00:00",
+      "run_count": 3,
+      "entry_config": "configs/profiles/legacy.yaml#clustering",
+      "source_base": "legacy",
+      "estimator": "kmeans",
+      "n_clusters": 6,
+      "profile_kind": "legacy",
+      "methodological_profile": "legacy_reproduction",
+      "silhouette": 0.5126871294839155,
+      "wcss": 37821.747224340674
+    },
+    "classification": {
+      "last_run_at": "2026-09-04T03:18:06.712893+00:00",
+      "run_count": 3,
+      "entry_config": "configs/profiles/legacy.yaml#classification",
+      "source_base": "legacy",
+      "profile_kind": "legacy",
+      "methodological_profile": "legacy_reproduction",
+      "models": [
+        "mlp",
+        "random_forest",
+        "xgboost"
+      ],
+      "primary_metric": "f1",
+      "best_model": "random_forest",
+      "best_score": 0.956798488501622
+    }
+  }
+}

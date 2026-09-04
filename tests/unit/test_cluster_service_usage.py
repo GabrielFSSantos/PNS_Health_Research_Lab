@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from pns_health_research.analysis.cluster_service_usage import (
+from pns_health_research.modules.analysis.cluster_service_usage import (
     bubble_cross_table,
     bubble_health_service_table,
     cross_rate_table,

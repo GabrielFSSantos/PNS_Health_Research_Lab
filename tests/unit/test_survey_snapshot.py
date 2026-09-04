@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from pns_health_research.preprocessing.survey_snapshot import (
+from pns_health_research.modules.preprocessing.survey_snapshot import (
     build_survey_snapshot,
     load_survey_metadata,
 )

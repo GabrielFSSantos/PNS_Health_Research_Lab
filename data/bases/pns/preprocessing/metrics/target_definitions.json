@@ -1,0 +1,15 @@
+{
+  "primary_column": "servico_composto",
+  "columns": {
+    "servico_j014": {
+      "source": "Serviço de Saúde",
+      "merge_internacao": false,
+      "definition": "Serviço de Saúde==1 (consulta nos últimos 12 meses, J014)"
+    },
+    "servico_composto": {
+      "source": "Serviço de Saúde",
+      "merge_internacao": true,
+      "definition": "Serviço de Saúde==1 OR Internação==1 (consulta nos últimos 12 meses ou internação hospitalar)"
+    }
+  }
+}

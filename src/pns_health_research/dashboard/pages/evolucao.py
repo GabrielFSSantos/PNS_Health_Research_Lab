@@ -76,4 +76,6 @@ def render() -> None:
     st.dataframe(rows, width="stretch")
 
     if SHOWCASE_DIR.exists():
-        st.caption(f"Showcases em: `{SHOWCASE_DIR}`")
+        st.caption(
+            f"Bases modulares: `data/bases/` · Showcases: `{SHOWCASE_DIR}`"
+        )

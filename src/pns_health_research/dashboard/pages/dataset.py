@@ -13,9 +13,29 @@ from pns_health_research.dashboard.components.states import empty_state
 from pns_health_research.dashboard.components.survey_explorer import render_survey_variable_explorer
 from pns_health_research.dashboard.content import pt_br
 from pns_health_research.dashboard.insights import engine as insights_engine
-from pns_health_research.dashboard.services import dataset
+from pns_health_research.dashboard.services import catalog, dataset
 
 MIN_DISTRIBUTION_VARS = 5
+
+
+def _run_context_caption(run_id: str) -> str | None:
+    for run in catalog.list_runs():
+        if run.query_id == run_id:
+            parts: list[str] = []
+            if run.layer:
+                parts.append(run.layer)
+            if run.profile_kind:
+                parts.append(f"perfil `{run.profile_kind}`")
+            if run.subtitle:
+                parts.append(run.subtitle)
+            return " · ".join(parts) if parts else None
+    return None
+
+
+def _preprocess_command(run_id: str) -> str:
+    if run_id in ("legacy", "pns"):
+        return f"./scripts/run_experiment.sh --profile {run_id}"
+    return "./scripts/run_experiment.sh --profile pns"
 
 
 def render() -> None:
@@ -38,6 +58,7 @@ def render() -> None:
     distributions = dataset.load_distributions(run_id)
     funnel = dataset.load_funnel(run_id)
     survey_snapshot = dataset.load_survey_snapshot(run_id)
+    prep_summary = dataset.load_preprocessing_summary(run_id)
 
     with tab_survey:
         render_insights(
@@ -53,38 +74,59 @@ def render() -> None:
         )
 
     with tab_post:
+        ctx = _run_context_caption(run_id)
+        if ctx:
+            st.caption(ctx)
+
         render_insights(
             insights_engine.generate(
                 {"page": "dataset", "has_fingerprint": bool(fingerprint), "tab": "processed"}
             )
         )
-        if fingerprint:
-            c1, c2, c3 = st.columns(3)
-            c1.metric("Linhas", dataset.format_fingerprint_metric(fingerprint.get("rows")))
-            c2.metric("Colunas", dataset.format_fingerprint_metric(fingerprint.get("columns")))
-            c3.metric("Hash", str(fingerprint.get("hash", ""))[:12] + "…")
-        if distributions and len(distributions) < MIN_DISTRIBUTION_VARS:
-            st.warning(
-                "Distribuições parciais neste showcase — execute "
-                "`python scripts/backfill_showcase_distributions.py` ou reexporte o showcase."
+
+        if not fingerprint and not funnel.get("stages"):
+            empty_state(
+                f"Pré-processamento não materializado para esta execução. "
+                f"Execute `{_preprocess_command(run_id)}`."
             )
-        chart_block(
-            "distribution",
-            "Distribuições após pré-processamento",
-            lambda: charts.distribution_plot(distributions),
-            chart_id="dataset_distribution",
-        )
-        chart_block(
-            "funnel",
-            "Funil de pré-processamento",
-            lambda: charts.preprocess_funnel(funnel),
-            chart_id="dataset_funnel",
-        )
-        info = dataset.load_dataset_info(run_id)
-        prep = info.get("preprocessing")
-        if prep:
-            with st.expander(pt_br.TECHNICAL_DETAILS):
-                st.json(prep)
+        else:
+            if fingerprint:
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("Linhas", dataset.format_fingerprint_metric(fingerprint.get("rows")))
+                c2.metric(
+                    "Colunas binárias",
+                    dataset.format_fingerprint_metric(fingerprint.get("columns")),
+                )
+                c3.metric(
+                    "Colunas categóricas",
+                    dataset.format_fingerprint_metric(fingerprint.get("categorical_columns")),
+                )
+                hash_val = str(fingerprint.get("hash", ""))
+                c4.metric("Hash", hash_val[:12] + "…" if hash_val else "—")
+
+            if distributions and len(distributions) < MIN_DISTRIBUTION_VARS:
+                st.warning(
+                    "Distribuições parciais — execute "
+                    f"`{_preprocess_command(run_id)}` "
+                    "para regenerar `data/bases/<nome>/preprocessing/`."
+                )
+            chart_block(
+                "distribution",
+                "Distribuições após pré-processamento",
+                lambda: charts.distribution_plot(distributions),
+                chart_id="dataset_distribution",
+            )
+            chart_block(
+                "funnel",
+                "Funil de pré-processamento",
+                lambda: charts.preprocess_funnel(funnel),
+                chart_id="dataset_funnel",
+            )
+            info = dataset.load_dataset_info(run_id)
+            prep = info.get("preprocessing") or prep_summary
+            if prep:
+                with st.expander(pt_br.TECHNICAL_DETAILS):
+                    st.json(prep)
 
     with tab_dict:
         df = dataset.load_dictionary_df()

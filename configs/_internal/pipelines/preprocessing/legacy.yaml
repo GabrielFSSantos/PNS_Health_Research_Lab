@@ -1,0 +1,80 @@
+# Pré-processamento legado TCC (schema 3.0) — reprodução do notebook UFOP.
+
+schema_version: "3.0"
+
+binary_encoding:
+  policy: legacy_zero
+  missing_value: -1
+  yes_value: "Sim"
+
+weights:
+  legacy_formula: true
+
+emit_missing_audit: false
+
+derived:
+  imc:
+    enabled: true
+  faixas_idade:
+    enabled: true
+  grupos_comorbidade:
+    enabled: true
+
+pipeline:
+  - id: select_columns
+    enabled: true
+  - id: adult_filter
+    enabled: true
+    params: { min_age: 18, require_imc_inputs: true }
+  - id: encode_binary
+    enabled: true
+  - id: gestational_reinforce
+    enabled: true
+    params: { impute_age_by_target: true }
+  - id: attach_weights
+    enabled: true
+  - id: drop_design_columns
+    enabled: true
+  - id: derive_binary
+    enabled: true
+    params: { one_hot: true }
+  - id: encode_categorical
+    enabled: true
+    params: { one_hot: true }
+  - id: build_targets
+    enabled: false
+  - id: missing_audit
+    enabled: false
+  - id: impute_missing
+    enabled: true
+    params: { binary: 0, categorical: -1 }
+  - id: finalize_outputs
+    enabled: true
+
+# Toggles de classificação legada (aplicados em classification/, não no pipeline)
+stages:
+  merge_internacao_into_servico:
+    enabled: true
+  impute_age_by_target:
+    enabled: true
+  nearmiss:
+    enabled: true
+    version: 1
+  target_encoding_before_split:
+    enabled: true
+
+classification_features:
+  target_column: "Serviço de Saúde"
+  weight_column: "Peso Amostral"
+  exclude_columns:
+    - "Serviço de Saúde"
+    - "Peso Amostral"
+    - Cluster
+    - survey_weight
+    - ml_sample_weight
+  target_encode_columns:
+    - Zona
+    - Sexo
+    - Raça
+    - "Estado Civil"
+    - Cluster

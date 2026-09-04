@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "base_name": "legacy",
+  "created_at": "2026-09-03T21:30:35.859861+00:00",
+  "modules_present": [
+    "preprocessing",
+    "clustering",
+    "classification"
+  ],
+  "registry_path": "registry.json"
+}

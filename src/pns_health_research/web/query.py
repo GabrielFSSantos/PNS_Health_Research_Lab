@@ -10,8 +10,9 @@ import numpy as np
 import pandas as pd
 import yaml
 
-from pns_health_research.clustering.alignment import align_cluster_labels
+from pns_health_research.modules.clustering.alignment import align_cluster_labels
 from pns_health_research.core.paths import CONFIGS_DIR, RUNS_DIR
+from pns_health_research.persistence import base_query
 from pns_health_research.persistence.run_contract import migrate_manifest_v1
 from pns_health_research.persistence.showcase import SHOWCASE_DIR, list_showcase_runs
 
@@ -25,6 +26,8 @@ class ArtifactError(Exception):
 
 
 def _resolve_run_dir(run_id: str) -> Path:
+    if base_query.is_base_name(run_id):
+        raise RunNotFoundError(run_id)
     for base in (SHOWCASE_DIR, RUNS_DIR):
         candidate = base / run_id
         if candidate.exists() and candidate.is_dir():
@@ -58,6 +61,24 @@ def list_all_runs(
     tags: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+
+    for base_name in base_query.list_complete_bases():
+        summary = base_query.build_base_summary(base_name)
+        rows.append(
+            {
+                "run_id": base_name,
+                "showcase_label": None,
+                "name": base_name,
+                "type": "experiment",
+                "status": "completed",
+                "tags": summary.get("tags", []),
+                "preserve": True,
+                "source": "base",
+                "profile_kind": summary.get("profile_kind"),
+                "primary_metric": summary.get("primary_metric"),
+                "duration_seconds": None,
+            }
+        )
 
     showcase_source_ids: set[str] = set()
     for item in list_showcase_runs():
@@ -123,6 +144,8 @@ def list_all_runs(
 
 
 def get_run_summary(run_id: str) -> dict[str, Any]:
+    if base_query.is_base_name(run_id):
+        return base_query.build_base_summary(run_id)
     run_dir = _resolve_run_dir(run_id)
     summary_path = run_dir / "summary.json"
     if summary_path.exists():
@@ -134,6 +157,22 @@ def get_run_summary(run_id: str) -> dict[str, Any]:
 
 
 def get_run_detail(run_id: str) -> dict[str, Any]:
+    if base_query.is_base_name(run_id):
+        summary = base_query.build_base_summary(run_id)
+        from pns_health_research.persistence.base_store import load_registry
+
+        registry = load_registry(run_id)
+        return {
+            "manifest": {
+                "run_id": run_id,
+                "name": run_id,
+                "status": "completed",
+                "type": "experiment",
+                "modules": registry.get("modules", {}),
+            },
+            "summary": summary,
+            "lineage": {"source_base": run_id},
+        }
     run_dir = _resolve_run_dir(run_id)
     manifest = migrate_manifest_v1(_read_json(run_dir / "manifest.json"))
     summary = get_run_summary(run_id)
@@ -145,6 +184,18 @@ def get_run_detail(run_id: str) -> dict[str, Any]:
 
 
 def get_run_metrics(run_id: str, metric: str | None = None) -> dict[str, Any]:
+    if base_query.is_base_name(run_id):
+        if metric:
+            path = base_query.resolve_metric_path(run_id, metric)
+            if path:
+                return _read_json(path)
+            raise ArtifactError(f"Métrica ausente: {metric}")
+        out: dict[str, Any] = {}
+        for name in ("preprocessing", "clustering", "classification"):
+            path = base_query.resolve_metric_path(run_id, name)
+            if path:
+                out[name] = json.loads(path.read_text(encoding="utf-8"))
+        return out
     run_dir = _resolve_run_dir(run_id)
     if metric:
         path = run_dir / "metrics" / f"{metric}.json"
@@ -158,34 +209,42 @@ def get_run_metrics(run_id: str, metric: str | None = None) -> dict[str, Any]:
 
 
 def get_grid_search(run_id: str, model: str) -> dict[str, Any]:
-    run_dir = _resolve_run_dir(run_id)
-    search_path = run_dir / "models" / model / "search.json"
+    root = (
+        base_query.resolve_classification_root(run_id)
+        if base_query.is_base_name(run_id)
+        else _resolve_run_dir(run_id)
+    )
+    search_path = root / "models" / model / "search.json"
     if not search_path.exists():
         return {"model": model, "status": "missing"}
     data: dict[str, Any] = {
         "model": model,
         "search": _read_json(search_path),
-        "best_params": _read_json(run_dir / "models" / model / "best_params.json")
-        if (run_dir / "models" / model / "best_params.json").exists()
+        "best_params": _read_json(root / "models" / model / "best_params.json")
+        if (root / "models" / model / "best_params.json").exists()
         else {},
-        "final_params": _read_json(run_dir / "models" / model / "final_params.json")
-        if (run_dir / "models" / model / "final_params.json").exists()
+        "final_params": _read_json(root / "models" / model / "final_params.json")
+        if (root / "models" / model / "final_params.json").exists()
         else {},
     }
-    score_path = run_dir / "models" / model / "best_score.json"
+    score_path = root / "models" / model / "best_score.json"
     if score_path.exists():
         data["best_score"] = _read_json(score_path)
-    cv_path = run_dir / "tables" / "grid_search" / f"{model}.parquet"
+    cv_path = root / "tables" / "grid_search" / f"{model}.parquet"
     data["candidates"] = _read_parquet(cv_path)
-    folds_path = run_dir / "tables" / "grid_search_folds" / f"{model}.parquet"
+    folds_path = root / "tables" / "grid_search_folds" / f"{model}.parquet"
     data["folds"] = _read_parquet(folds_path)
     return data
 
 
 def get_feature_importance(run_id: str, model: str) -> dict[str, Any]:
-    run_dir = _resolve_run_dir(run_id)
-    native = run_dir / "tables" / "feature_importance" / f"{model}.parquet"
-    perm = run_dir / "tables" / "permutation_importance" / f"{model}.parquet"
+    root = (
+        base_query.resolve_classification_root(run_id)
+        if base_query.is_base_name(run_id)
+        else _resolve_run_dir(run_id)
+    )
+    native = root / "tables" / "feature_importance" / f"{model}.parquet"
+    perm = root / "tables" / "permutation_importance" / f"{model}.parquet"
     return {
         "model": model,
         "native": _read_parquet(native),
@@ -194,7 +253,6 @@ def get_feature_importance(run_id: str, model: str) -> dict[str, Any]:
 
 
 def get_clusters(run_id: str) -> dict[str, Any]:
-    run_dir = _resolve_run_dir(run_id)
     metrics = get_run_metrics(run_id, "clustering")
     tables: dict[str, Any] = {}
     for name in (
@@ -208,13 +266,26 @@ def get_clusters(run_id: str) -> dict[str, Any]:
         "bubble_health_service",
         "clustered_binary",
     ):
-        path = run_dir / "tables" / f"{name}.parquet"
-        if path.exists():
+        if base_query.is_base_name(run_id):
+            path = base_query.resolve_table_path(run_id, name)
+        else:
+            path = _resolve_run_dir(run_id) / "tables" / f"{name}.parquet"
+        if path and path.exists():
             tables[name] = _read_parquet(path)
-    silhouette = run_dir / "metrics" / "silhouette_summary.json"
-    sil_data = json.loads(silhouette.read_text()) if silhouette.exists() else {}
-    sil_samples_path = run_dir / "tables" / "silhouette_samples.parquet"
-    sil_samples = _read_parquet(sil_samples_path) if sil_samples_path.exists() else []
+    if base_query.is_base_name(run_id):
+        from pns_health_research.persistence.base_store import clustering_path
+
+        sil_path = clustering_path(run_id) / "metrics" / "silhouette_summary.json"
+        sil_data = json.loads(sil_path.read_text()) if sil_path.exists() else {}
+        if not sil_data and isinstance(metrics, dict):
+            sil_data = metrics.get("silhouette_summary") or {}
+        sil_samples_path = base_query.resolve_table_path(run_id, "silhouette_samples")
+    else:
+        run_dir = _resolve_run_dir(run_id)
+        silhouette = run_dir / "metrics" / "silhouette_summary.json"
+        sil_data = json.loads(silhouette.read_text()) if silhouette.exists() else {}
+        sil_samples_path = run_dir / "tables" / "silhouette_samples.parquet"
+    sil_samples = _read_parquet(sil_samples_path) if sil_samples_path and sil_samples_path.exists() else []
     return {
         "metrics": metrics,
         "tables": tables,
@@ -224,6 +295,19 @@ def get_clusters(run_id: str) -> dict[str, Any]:
 
 
 def get_dataset_info(run_id: str) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    if base_query.is_base_name(run_id):
+        from pns_health_research.persistence.base_store import preprocessing_path
+
+        pp_root = preprocessing_path(run_id)
+        for name in ("preprocessing", "preprocess_funnel", "dataset_distributions", "survey_snapshot"):
+            path = pp_root / "metrics" / f"{name}.json"
+            if path.exists():
+                out[name] = json.loads(path.read_text(encoding="utf-8"))
+        fp = base_query.resolve_fingerprint(run_id)
+        if fp:
+            out["fingerprint"] = fp
+        return out
     run_dir = _resolve_run_dir(run_id)
     out: dict[str, Any] = {}
     for name in ("preprocessing", "preprocess_funnel", "dataset_distributions", "survey_snapshot"):
@@ -232,7 +316,9 @@ def get_dataset_info(run_id: str) -> dict[str, Any]:
             out[name] = json.loads(path.read_text(encoding="utf-8"))
     fp = run_dir / "data_fingerprint.json"
     if fp.exists():
-        out["fingerprint"] = json.loads(fp.read_text(encoding="utf-8"))
+        from pns_health_research.persistence.base_query import normalize_fingerprint
+
+        out["fingerprint"] = normalize_fingerprint(json.loads(fp.read_text(encoding="utf-8")))
     return out
 
 
@@ -253,16 +339,24 @@ def get_dictionary_column(internal_name: str) -> dict[str, Any]:
 
 
 def get_predictions_summary(run_id: str) -> dict[str, Any]:
-    run_dir = _resolve_run_dir(run_id)
-    path = run_dir / "predictions_summary.json"
+    root = (
+        base_query.resolve_classification_root(run_id)
+        if base_query.is_base_name(run_id)
+        else _resolve_run_dir(run_id)
+    )
+    path = root / "predictions_summary.json"
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
     return {}
 
 
 def get_curves(run_id: str, model: str) -> dict[str, Any]:
-    run_dir = _resolve_run_dir(run_id)
-    path = run_dir / "metrics" / "roc_curves" / f"{model}.json"
+    root = (
+        base_query.resolve_classification_root(run_id)
+        if base_query.is_base_name(run_id)
+        else _resolve_run_dir(run_id)
+    )
+    path = root / "metrics" / "roc_curves" / f"{model}.json"
     if not path.exists():
         return {"model": model, "status": "missing"}
     return {"model": model, **json.loads(path.read_text(encoding="utf-8"))}
@@ -270,6 +364,9 @@ def get_curves(run_id: str, model: str) -> dict[str, Any]:
 
 def _load_centroids(run_dir: Path) -> np.ndarray | None:
     path = run_dir / "tables" / "centroids.parquet"
+    if not path.exists() and run_dir.parent.name == "bases":
+        alt = base_query.resolve_table_path(run_dir.name, "centroids")
+        path = alt or path
     if not path.exists():
         return None
     df = pd.read_parquet(path)
@@ -293,7 +390,13 @@ def compare_clustering(runs: list[str]) -> dict[str, Any]:
                     **{k: v for k, v in metrics.items() if isinstance(v, (int, float, str))},
                 }
             )
-            run_dir = _resolve_run_dir(run_id)
+            from pns_health_research.persistence.base_store import clustering_path
+
+            run_dir = (
+                clustering_path(run_id)
+                if base_query.is_base_name(run_id)
+                else _resolve_run_dir(run_id)
+            )
             cent = _load_centroids(run_dir)
             if cent is not None:
                 centroids_map[run_id] = cent

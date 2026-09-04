@@ -1,0 +1,118 @@
+# Datasets PNS (schema 2.0). enabled: true entra como default da run.
+
+schema_version: "2.0"
+
+defaults:
+  download:
+    backend: pnsibge
+    if_missing: true
+
+datasets:
+  pns_2019:
+    enabled: true
+    order: 1
+    year: 2019
+    display_name: PNS 2019
+    status: supported
+    raw_path: data/raw/pns2019.parquet
+    survey_weight_column: V00291
+    record_id_columns:
+      - V0001
+      - UPA_PNS
+      - V0006_PNS
+      - C00301
+    download:
+      backend: pnsibge
+      year: 2019
+    columns:
+      UPA_PNS: "Peso (V0091)"
+      V0001: UF
+      V0024: Extrato
+      V0026: Zona
+      V00291: "Peso Amostral"
+      V0006_PNS: "Ordem do Domicílio"
+      VDD004A: "Grau de Ensino"
+      VDF004: Renda
+      B001: "Cadastro UBS"
+      B003: "Agente Comunitário"
+      C00301: "Número de Ordem"
+      C006: Sexo
+      C008: Idade
+      C009: Raça
+      C011: "Estado Civil"
+      D001: "Ler e Escrever"
+      D00201: Escola
+      E001: Trabalha
+      I00102: "Plano de Saúde"
+      J001: "Estado de Saúde"
+      J014: "Serviço de Saúde"
+      J01101: "Última Consulta Médica"
+      J012: "Consultas 12m"
+      J024: "Atendimento Coberto Plano"
+      J025: "Pagou Atendimento 2sem"
+      J026: "Atendimento SUS"
+      J02901: "Receitou Medicamento"
+      J03001: "Obteve Medicamentos"
+      J03102: "Motivo Não Obter Meds"
+      J032: "Medicamento Coberto Plano"
+      J03301: "Meds Farmácia Popular"
+      J034: "Meds Serviço Público"
+      J035: "Pagou Medicamentos"
+      J038: "Nº Internações 12m"
+      J042: "Internação Coberta Plano"
+      J043: "Pagou Internação"
+      J044: "Internação SUS"
+      J046: "Urgência no Domicílio"
+      J047: "Urgência Coberta Plano"
+      J048: "Pagou Urgência"
+      J049: "Urgência SUS"
+      J051: "Ambulância"
+      J037: Internação
+      H001: "Última Consulta H"
+      H003: "Motivo da Consulta"
+      H004: "Local do Atendimento"
+      K04301: "Medicamento Contínuo"
+      K04302: "Nº Meds Contínuos 2sem"
+      K052: "Vacina Gripe 12m"
+      P027: Álcool
+      P034: "Exercício Físico"
+      P050: Tabaco
+      P00104: Peso
+      P00404: Altura
+      Q060: "Colesterol Alto"
+      Q068: "AVC ou Derrame"
+      Q073: "AVC ou Derrame Limita Atividades"
+      Q074: Asma
+      Q078: "Asma Limita Atividades"
+      Q079: "Artrite ou Reumatismo"
+      Q083: "Artrite ou Reumatismo Limita Atividades"
+      Q084: "Dor na Coluna"
+      Q087: "Dor na Coluna Limita Atividades"
+      Q088: DORT
+      Q091: "DORT Limita Atividades"
+      Q092: Depressão
+      Q109: "Depressão Limita Atividades"
+      Q00201: Hipertensão
+      Q028: "Hipertensão Limita Atividades"
+      Q00202: "Hipertensão na Gestação"
+      Q03001: Diabetes
+      Q03002: "Diabetes na Gestação"
+      Q058: "Diabetes Limita Atividades"
+      Q06306: Cardiopatia
+      Q067: "Cardiopatia Limita Atividades"
+      Q120: Câncer
+      Q12301: "Câncer Limita Atividades"
+      Q124: "Insuficiência Renal Crônica"
+      Q127: "Insuficiência Renal Limita Atividades"
+      Q11006: "Doença Mental"
+      Q115: "Doença Mental Limita Atividades"
+      Q11604: "Doença Crônica no Pulmão"
+      Q119: "Doença Crônica no Pulmão Limita Atividades"
+
+  pns_2013:
+    enabled: false
+    order: 2
+    year: 2013
+    display_name: PNS 2013
+    status: unsupported
+    message: "Adicione mapa de colunas e backend de download para PNS 2013."

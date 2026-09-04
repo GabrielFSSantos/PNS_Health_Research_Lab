@@ -14,14 +14,18 @@ build/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+configs/.cache/
 
 # Dados locais (download / processamento)
 data/raw/*
 !data/raw/.gitkeep
 data/interim/*
 !data/interim/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
+data/bases/*/preprocessing/*.parquet
+data/bases/*/clustering/*.parquet
+data/bases/*/clustering/tables/
+data/bases/*/classification/models/
+data/bases/*/classification/predictions/
 
 # Runs locais (showcase versionado em artifacts/showcase/)
 artifacts/runs/*
@@ -30,3 +34,6 @@ artifacts/runs/*
 # SO e logs
 .DS_Store
 *.log
+
+# PDFs locais de referência (não versionados; âncoras ficam em docs/referencias/pdfs/)
+docs/referencias/pdfs/_local/

@@ -16,11 +16,13 @@ RUN_OVERRIDES_PATH = CONFIGS_DIR / "dashboard" / "run_overrides.yaml"
 
 @dataclass
 class RunOverride:
-    """Override opcional de exibição para uma run ou showcase."""
+    """Override opcional de exibição para uma run, base ou showcase."""
 
-    key: str  # run_id ou showcase_label
+    key: str
     display_name: str | None = None
     role: str | None = None  # baseline | candidate
+    layer: str | None = None
+    subtitle: str | None = None
 
 
 @dataclass
@@ -32,7 +34,11 @@ class RunSummary:
     type: str
     status: str
     source: str
+    source_type: str  # base | showcase | runs
     role: str
+    layer: str | None = None
+    subtitle: str | None = None
+    profile_kind: str | None = None
     primary_metric: dict[str, Any] | None = None
     tags: list[str] | None = None
 
@@ -54,6 +60,8 @@ def _load_run_overrides() -> dict[str, RunOverride]:
             key=key,
             display_name=item.get("display_name"),
             role=item.get("role"),
+            layer=item.get("layer"),
+            subtitle=item.get("subtitle"),
         )
     return overrides
 
@@ -69,14 +77,32 @@ def _infer_role(row: dict[str, Any], overrides: dict[str, RunOverride]) -> str:
     for key in (row.get("showcase_label"), row.get("run_id")):
         if key and key in overrides and overrides[key].role:
             return overrides[key].role  # type: ignore[return-value]
+    if row.get("profile_kind") == "legacy":
+        return "baseline"
     return "candidate"
 
 
-def _resolve_display_name(row: dict[str, Any], overrides: dict[str, RunOverride]) -> str:
+def _resolve_override(row: dict[str, Any], overrides: dict[str, RunOverride]) -> RunOverride | None:
     for key in (row.get("showcase_label"), row.get("run_id")):
-        if key and key in overrides and overrides[key].display_name:
-            return overrides[key].display_name  # type: ignore[return-value]
+        if key and key in overrides:
+            return overrides[key]
+    return None
+
+
+def _resolve_display_name(row: dict[str, Any], overrides: dict[str, RunOverride]) -> str:
+    ov = _resolve_override(row, overrides)
+    if ov and ov.display_name:
+        return ov.display_name
     return row.get("name") or row.get("run_id", "")
+
+
+def _source_type(row: dict[str, Any]) -> str:
+    src = row.get("source", "runs")
+    if src == "base":
+        return "base"
+    if src == "showcase":
+        return "showcase"
+    return "runs"
 
 
 def list_runs(
@@ -90,23 +116,38 @@ def list_runs(
     for row in rows:
         if row.get("status") != "completed":
             continue
-        display = _resolve_display_name(row, overrides)
+        ov = _resolve_override(row, overrides)
+        tags = list(row.get("tags") or [])
+        profile_kind = row.get("profile_kind")
+        if profile_kind and profile_kind not in tags:
+            tags.append(profile_kind)
         result.append(
             RunSummary(
                 run_id=row["run_id"],
                 showcase_label=row.get("showcase_label"),
                 name=row.get("name", row["run_id"]),
-                display_name=display,
+                display_name=_resolve_display_name(row, overrides),
                 type=row.get("type", "experiment"),
                 status=row.get("status", "unknown"),
                 source=row.get("source", "runs"),
+                source_type=_source_type(row),
                 role=_infer_role(row, overrides),
+                layer=ov.layer if ov else None,
+                subtitle=ov.subtitle if ov else None,
+                profile_kind=profile_kind,
                 primary_metric=row.get("primary_metric"),
-                tags=row.get("tags"),
+                tags=tags,
             )
         )
-    result.sort(key=lambda r: r.run_id, reverse=True)
+    result.sort(key=lambda r: (r.layer or "9", r.run_id), reverse=False)
     return result
+
+
+def get_run(query_id: str) -> RunSummary | None:
+    for run in list_runs():
+        if run.query_id == query_id:
+            return run
+    return None
 
 
 def get_baseline_f1() -> float | None:
@@ -136,6 +177,8 @@ def artifacts_status(run_id: str) -> dict[str, str]:
 
 def dashboard_stats() -> dict[str, Any]:
     runs = list_runs()
+    modular = [r for r in runs if r.source_type == "base"]
+    showcase = [r for r in runs if r.source_type == "showcase"]
     clustering = [r for r in runs if r.type in ("experiment", "clustering")]
     classification = [r for r in runs if r.type in ("experiment", "classification")]
     best_clf = None
@@ -149,10 +192,12 @@ def dashboard_stats() -> dict[str, Any]:
     return {
         "pns_year": 2019,
         "total_runs": len(runs),
+        "modular_bases": len(modular),
+        "showcase_count": len(showcase),
         "clustering_runs": len(clustering),
         "classification_runs": len(classification),
         "preserved_runs": len(runs),
         "best_classification": best_clf,
         "recent_runs": runs,
-        "showcase_available": any(r.source == "showcase" for r in runs),
+        "showcase_available": len(showcase) > 0,
     }

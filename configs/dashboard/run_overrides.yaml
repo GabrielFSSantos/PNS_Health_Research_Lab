@@ -1,8 +1,19 @@
 # Overrides opcionais de exibição no dashboard.
-# Runs concluídas em artifacts/runs/ aparecem automaticamente.
-# Use este arquivo só para renomear ou marcar baseline.
+# Bases modulares em data/bases/ aparecem automaticamente quando completas.
 
 overrides:
   - key: pesquisa-original-legacy
-    display_name: "Pesquisa Original — Legacy (TCC)"
+    display_name: "Camada 1 — TCC congelado (showcase)"
     role: baseline
+    layer: "1"
+    subtitle: "artifacts/showcase/ — referência histórica"
+  - key: legacy
+    display_name: "Camada 2 — Reprodução modular TCC"
+    role: baseline
+    layer: "2"
+    subtitle: "data/bases/legacy/ — --profile legacy"
+  - key: pns
+    display_name: "Camada 3 — Perfil rigoroso"
+    role: candidate
+    layer: "3"
+    subtitle: "data/bases/pns/ — --profile pns"

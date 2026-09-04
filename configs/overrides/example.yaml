@@ -1,0 +1,17 @@
+# Override de exemplo — diffs sobre um perfil base.
+#
+# Uso:
+#   cp configs/overrides/example.yaml configs/overrides/sabesp.yaml
+#   ./scripts/run_experiment.sh --profile pns --config configs/overrides/sabesp.yaml --name sabesp
+#
+# Campos suportados: extends_profile, runtime, modules.<preprocessing|clustering|classification>
+
+extends_profile: pns
+
+runtime:
+  max_workers: 2
+
+modules:
+  clustering:
+    estimator:
+      n_clusters: 8

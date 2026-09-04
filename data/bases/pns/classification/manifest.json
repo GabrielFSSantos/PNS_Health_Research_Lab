@@ -1,0 +1,93 @@
+{
+  "schema_version": 2,
+  "base_name": "pns",
+  "module": "classification",
+  "profile_kind": "pns",
+  "source_base": "pns",
+  "profile": "research_v2",
+  "experiment_name": "classification_pns",
+  "methodological_profile": "research_v2",
+  "created_at": "2026-09-04T03:42:46.412368+00:00",
+  "entry_config_path": "configs/profiles/pns.yaml#classification",
+  "models": [
+    "mlp",
+    "random_forest",
+    "xgboost"
+  ],
+  "primary_metric": "f1_positive",
+  "best_model": "xgboost",
+  "best_score": 1.0,
+  "metrics": {
+    "mlp": {
+      "accuracy": 0.9918679644100745,
+      "balanced_accuracy": 0.9948639297835371,
+      "precision_macro": 0.9812236448342315,
+      "recall_macro": 0.9948639297835371,
+      "f1_macro": 0.987849044216229,
+      "precision_weighted": 0.9921762408323124,
+      "recall_weighted": 0.9918679644100745,
+      "f1_weighted": 0.9919253363667824,
+      "precision_positive": 0.9624472896684629,
+      "recall_positive": 1.0,
+      "f1_positive": 0.9808609378408004,
+      "sensitivity": 1.0,
+      "specificity": 0.989727859567074,
+      "roc_auc": 0.9998796742181039,
+      "pr_auc": 0.9992358356441293,
+      "brier_score": 0.006211018583219242,
+      "precision": 0.9812236448342315,
+      "recall": 0.9948639297835371,
+      "f1": 0.987849044216229
+    },
+    "random_forest": {
+      "accuracy": 0.9984032345892156,
+      "balanced_accuracy": 0.9989915163879651,
+      "precision_macro": 0.996203679339942,
+      "recall_macro": 0.9989915163879651,
+      "f1_macro": 0.9975880395057727,
+      "precision_weighted": 0.9984181982126981,
+      "recall_weighted": 0.9984032345892156,
+      "f1_weighted": 0.998405999338803,
+      "precision_positive": 0.992407358679884,
+      "recall_positive": 1.0,
+      "f1_positive": 0.9961858217596632,
+      "sensitivity": 1.0,
+      "specificity": 0.99798303277593,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "brier_score": 0.00587716765335005,
+      "precision": 0.996203679339942,
+      "recall": 0.9989915163879651,
+      "f1": 0.9975880395057727
+    },
+    "xgboost": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "f1_macro": 1.0,
+      "precision_weighted": 1.0,
+      "recall_weighted": 1.0,
+      "f1_weighted": 1.0,
+      "precision_positive": 1.0,
+      "recall_positive": 1.0,
+      "f1_positive": 1.0,
+      "sensitivity": 1.0,
+      "specificity": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "brier_score": 0.09354673177003861,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    }
+  },
+  "outputs": {
+    "classification_metrics": "metrics/classification.json",
+    "classification_config": "classification.resolved.yaml"
+  },
+  "downstream": {
+    "predictions": "predictions/",
+    "models": "models/"
+  }
+}

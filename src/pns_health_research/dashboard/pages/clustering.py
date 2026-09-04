@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from pns_health_research.analysis.cluster_service_usage import VizVariableOption
+from pns_health_research.modules.analysis.cluster_service_usage import VizVariableOption
 from pns_health_research.dashboard.components import charts
 from pns_health_research.dashboard.components.chart_block import chart_block
 from pns_health_research.dashboard.components.filters import init_session_state, run_selector

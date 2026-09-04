@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "base_name": "pns",
+  "module": "clustering",
+  "profile_kind": "pns",
+  "source_base": "pns",
+  "profile": "clustering",
+  "experiment_name": "clustering_pns",
+  "methodological_profile": "clustering",
+  "created_at": "2026-09-04T01:10:07.223511+00:00",
+  "entry_config_path": "configs/profiles/pns.yaml#clustering",
+  "clustering_schema_version": "2.0",
+  "pipeline_executed": [
+    {
+      "id": "load_preprocessing",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "select_features",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "pca_reducer",
+      "enabled": true,
+      "params": {
+        "n_components": 8,
+        "apply_scaler": true,
+        "scaler_type": "standard"
+      }
+    },
+    {
+      "id": "elbow_selection",
+      "enabled": false,
+      "params": {
+        "elbow_max_k": 15,
+        "elbow_n_init": 10,
+        "selection_method": "fixed"
+      }
+    },
+    {
+      "id": "kmeans_estimator",
+      "enabled": true,
+      "params": {
+        "name": "kmeans",
+        "n_clusters": 6,
+        "selection_method": "fixed",
+        "n_init": 50,
+        "max_iter": 1000,
+        "random_state": 42
+      }
+    },
+    {
+      "id": "attach_cluster_labels",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "evaluate_metrics",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "finalize_outputs",
+      "enabled": true,
+      "params": {}
+    }
+  ],
+  "algorithm": "kmeans",
+  "n_clusters": 6,
+  "silhouette": 0.3788960364613156,
+  "wcss": 441261.7071365917,
+  "rows_out": 87678,
+  "outputs": {
+    "clustered_binary": "clustered_binary.parquet",
+    "clustered_categorical": "clustered_categorical.parquet"
+  },
+  "downstream": {
+    "metrics": "metrics/clustering.json",
+    "clustering_config": "clustering.resolved.yaml"
+  }
+}

@@ -29,6 +29,9 @@ def render() -> None:
 
     stats = catalog.dashboard_stats()
     st.metric("Execuções visíveis", stats.get("total_runs", 0))
+    c1, c2 = st.columns(2)
+    c1.metric("Bases modulares", stats.get("modular_bases", 0))
+    c2.metric("Showcases", stats.get("showcase_count", 0))
 
     doc = DOCS_DIR / "documentacao.md"
     if doc.exists():
@@ -56,9 +59,13 @@ def render() -> None:
         pm = r.primary_metric or {}
         f1 = pm.get("value")
         f1_txt = f" — F1+ {f1:.1%}" if f1 is not None else ""
-        origem = "showcase" if r.source == "showcase" else "local"
-        st.markdown(f"- **{r.display_name}** ({role}, {origem}){f1_txt}")
-        st.caption(f"`{r.query_id}`")
+        origem = {"base": "base modular", "showcase": "showcase", "runs": "run legada"}.get(
+            r.source_type, r.source
+        )
+        layer = f" · camada {r.layer}" if r.layer else ""
+        subtitle = f" — {r.subtitle}" if r.subtitle else ""
+        st.markdown(f"- **{r.display_name}** ({role}, {origem}{layer}){f1_txt}")
+        st.caption(f"`{r.query_id}`{subtitle}")
 
     section_header("Documentação")
     doc_links = [

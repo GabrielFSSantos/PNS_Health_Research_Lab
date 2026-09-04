@@ -17,12 +17,21 @@ def chart_block(
     render_fn: Callable[[], None],
     *,
     chart_id: str | None = None,
+    collapsible: bool = True,
+    expanded: bool = False,
 ) -> None:
-    st.markdown(f"#### {title}")
-    help_text = CHART_HELP.get(help_key, "")
-    if help_text.strip():
-        with st.expander(HELP_EXPANDER, expanded=False):
-            st.markdown(help_text.strip())
-    key = chart_id or f"chart_{help_key}_{title}".replace(" ", "_").lower()
-    with chart_context(key):
-        render_fn()
+    def _body() -> None:
+        help_text = CHART_HELP.get(help_key, "")
+        if help_text.strip():
+            with st.expander(HELP_EXPANDER, expanded=False):
+                st.markdown(help_text.strip())
+        key = chart_id or f"chart_{help_key}_{title}".replace(" ", "_").lower()
+        with chart_context(key):
+            render_fn()
+
+    if collapsible:
+        with st.expander(title, expanded=expanded):
+            _body()
+    else:
+        st.markdown(f"#### {title}")
+        _body()

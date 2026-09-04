@@ -1,0 +1,1268 @@
+{
+  "rows": 87678,
+  "variable_count": 78,
+  "variables": {
+    "UF": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "São Paulo": 5941,
+        "Minas Gerais": 5083,
+        "Maranhão": 4833,
+        "Rio de Janeiro": 4822,
+        "Ceará": 4100,
+        "Pernambuco": 3963,
+        "Paraná": 3866,
+        "Rio Grande do Sul": 3678,
+        "Pará": 3647,
+        "Santa Catarina": 3642,
+        "Bahia": 3572,
+        "Espírito Santo": 3439,
+        "Amazonas": 3333,
+        "Paraíba": 3034,
+        "Alagoas": 2868,
+        "Rio Grande do Norte": 2847,
+        "Mato Grosso do Sul": 2777,
+        "Piauí": 2652,
+        "Goiás": 2617,
+        "Sergipe": 2546,
+        "Mato Grosso": 2400,
+        "Distrito Federal": 2276,
+        "Acre": 2262,
+        "Roraima": 2100,
+        "Rondônia": 2079
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Zona": {
+      "code": "V0026",
+      "question": "A situação de moradia do domicílio é urbana ou rural?",
+      "value_labels": {
+        "Urbano": "Urbano",
+        "Rural": "Rural"
+      },
+      "type": "categorical",
+      "counts": {
+        "Urbano": 67567,
+        "Rural": 20111
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Grau de Ensino": {
+      "code": "VDD004A",
+      "question": "Qual o grau de instrução mais elevado que frequentou?",
+      "value_labels": {
+        "Sem Instrução": "Sem instrução",
+        "EF Incompleto": "Fundamental incompleto",
+        "EF Completo": "Fundamental completo",
+        "EM Incompleto": "Médio incompleto",
+        "EM Completo": "Médio completo",
+        "SP Incompleto": "Superior incompleto",
+        "SP Completo": "Superior completo"
+      },
+      "type": "categorical",
+      "counts": {
+        "Fundamental incompleto ou equivalente": 27754,
+        "Médio completo ou equivalente": 23073,
+        "Superior completo": 13486,
+        "Sem instrução": 7614,
+        "Fundamental completo ou equivalente": 6459,
+        "Médio incompleto ou equivalente": 5385,
+        "Superior incompleto ou equivalente": 3907
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Renda": {
+      "code": "VDF004",
+      "question": "Qual a renda domiciliar per capita (faixas de salário mínimo)?",
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Mais de ½ até 1 salário mínimo": 25523,
+        "Mais de 1 até 2 salários mínimos": 22010,
+        "Mais de ¼ até ½ salário mínimo": 13283,
+        "Até ¼ salário mínimo": 8909,
+        "Mais de 2 até 3 salários mínimos": 7466,
+        "Mais de 3 até 5 salários mínimos": 5455,
+        "Mais de 5 salários mínimos": 5011
+      },
+      "missing": 21,
+      "total": 87678
+    },
+    "Cadastro UBS": {
+      "code": "B001",
+      "question": "Está cadastrado em alguma Unidade Básica de Saúde?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Sim": 55420,
+        "Não": 21816,
+        "Não sabe": 10442
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Agente Comunitário": {
+      "code": "B003",
+      "question": "Recebe visita de agente comunitário de saúde?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não",
+        "Nunca recebeu": "Nunca recebeu"
+      },
+      "type": "categorical",
+      "counts": {
+        "Mensalmente": 21408,
+        "Nunca recebeu": 12450,
+        "De 2 a 4 vezes": 8901,
+        "Uma vez": 6748,
+        "A cada 2 meses": 5913
+      },
+      "missing": 32258,
+      "total": 87678
+    },
+    "Sexo": {
+      "code": "C006",
+      "question": "Qual o sexo do entrevistado?",
+      "value_labels": {
+        "Homem": "Homem",
+        "Mulher": "Mulher"
+      },
+      "type": "categorical",
+      "counts": {
+        "Mulher": 46016,
+        "Homem": 41662
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Idade": {
+      "code": "C008",
+      "question": "Qual a idade do entrevistado (em anos completos)?",
+      "value_labels": {},
+      "type": "numeric",
+      "counts": {
+        "37.0": 1954,
+        "39.0": 1893,
+        "36.0": 1854,
+        "35.0": 1803,
+        "38.0": 1796,
+        "40.0": 1778,
+        "34.0": 1749,
+        "33.0": 1742,
+        "42.0": 1741,
+        "43.0": 1740,
+        "30.0": 1717,
+        "55.0": 1705,
+        "41.0": 1693,
+        "32.0": 1688,
+        "46.0": 1657,
+        "49.0": 1639,
+        "31.0": 1639,
+        "54.0": 1618,
+        "44.0": 1607,
+        "52.0": 1595,
+        "45.0": 1593,
+        "48.0": 1591,
+        "53.0": 1589,
+        "56.0": 1585,
+        "50.0": 1556
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Raça": {
+      "code": "C009",
+      "question": "Qual a cor ou raça do entrevistado?",
+      "value_labels": {
+        "Branca": "Branca",
+        "Preta": "Preta",
+        "Parda": "Parda",
+        "Amarela": "Amarela",
+        "Indígena": "Indígena"
+      },
+      "type": "categorical",
+      "counts": {
+        "Parda": 44169,
+        "Branca": 32161,
+        "Preta": 10017,
+        "Indígena": 662,
+        "Amarela": 660,
+        "Ignorado": 9
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Estado Civil": {
+      "code": "C011",
+      "question": "Qual o estado civil do entrevistado?",
+      "value_labels": {
+        "Casado(a)": "Casado(a)",
+        "Solteiro(a)": "Solteiro(a)",
+        "Viúvo(a)": "Viúvo(a)",
+        "Divorciado(a) ou desquitado(a) ou separado(a) judicialmente": "Divorciado/separado"
+      },
+      "type": "categorical",
+      "counts": {
+        "Solteiro(a)": 37768,
+        "Casado(a)": 34798,
+        "Viúvo(a)": 7621,
+        "Divorciado(a) ou desquitado(a) ou separado(a) judicialmente": 7491
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Ler e Escrever": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 77809,
+        "Não": 9869
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Escola": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 81267,
+        "Sim": 6411
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Trabalha": {
+      "code": "E001",
+      "question": "Trabalhou na semana de referência?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Sim": 47225,
+        "Não": 40453
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Plano de Saúde": {
+      "code": "I00102",
+      "question": "Possui plano de saúde?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 67616,
+        "Sim": 20062
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Estado de Saúde": {
+      "code": "J001",
+      "question": "Em geral, como avalia a própria saúde?",
+      "value_labels": {
+        "Muito bom": "Muito bom",
+        "Bom": "Bom",
+        "Regular": "Regular",
+        "Ruim": "Ruim",
+        "Muito ruim": "Muito ruim"
+      },
+      "type": "categorical",
+      "counts": {
+        "Bom": 43497,
+        "Regular": 26632,
+        "Muito bom": 11574,
+        "Ruim": 4840,
+        "Muito ruim": 1135
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Serviço de Saúde": {
+      "code": "J014",
+      "question": "Nos últimos 12 meses, consultou médico ou outro profissional de saúde?",
+      "value_labels": {
+        "Sim": "Sim — utilizou serviço",
+        "Não": "Não — não utilizou"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 69411,
+        "Sim": 18267
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Última Consulta Médica": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Até 1 ano": 69295,
+        "Mais de 1 ano a 2 anos": 8756,
+        "Mais de 3 anos": 5931,
+        "Mais de 2 anos a 3 anos": 3090,
+        "Nunca foi ao médico": 606
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Consultas 12m": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "numeric",
+      "counts": {
+        "1.0": 18798,
+        "2.0": 15479,
+        "3.0": 10765,
+        "4.0": 7092,
+        "5.0": 4887,
+        "6.0": 3710,
+        "10.0": 3218,
+        "8.0": 1513,
+        "12.0": 1265,
+        "7.0": 767,
+        "20.0": 411,
+        "15.0": 384,
+        "9.0": 273,
+        "24.0": 126,
+        "30.0": 110,
+        "11.0": 83,
+        "14.0": 46,
+        "25.0": 41,
+        "40.0": 37,
+        "13.0": 37,
+        "18.0": 35,
+        "36.0": 31,
+        "50.0": 30,
+        "16.0": 30,
+        "48.0": 29
+      },
+      "missing": 18383,
+      "total": 87678
+    },
+    "Atendimento Coberto Plano": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 10835,
+        "Sim": 3854
+      },
+      "missing": 72989,
+      "total": 87678
+    },
+    "Pagou Atendimento 2sem": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 11854,
+        "Sim": 2835
+      },
+      "missing": 72989,
+      "total": 87678
+    },
+    "Atendimento SUS": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 8604,
+        "Não": 6052,
+        "Não sabe/Não lembra": 33
+      },
+      "missing": 72989,
+      "total": 87678
+    },
+    "Receitou Medicamento": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 8880,
+        "Não": 5809
+      },
+      "missing": 72989,
+      "total": 87678
+    },
+    "Obteve Medicamentos": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim, todos": 7442,
+        "Não, nenhum": 730,
+        "Sim, alguns": 708
+      },
+      "missing": 78798,
+      "total": 87678
+    },
+    "Motivo Não Obter Meds": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não conseguiu obter no serviço público de saúde": 710,
+        "Não tinha dinheiro para comprar": 315,
+        "Não conseguiu encontrar todos os medicamentos na farmácia": 99,
+        "Outro": 94,
+        "Não achou necessário": 94,
+        "Não conseguiu o(s) medicamento(s) no programa Aqui Tem Farmácia Popular": 81,
+        "Não tinha farmácia próxima ou teve dificuldade de transporte": 30,
+        "Desistiu de procurar, pois melhorou": 15
+      },
+      "missing": 86240,
+      "total": 87678
+    },
+    "Medicamento Coberto Plano": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não, nenhum": 7912,
+        "Sim, todos": 132,
+        "Sim, alguns": 106
+      },
+      "missing": 79528,
+      "total": 87678
+    },
+    "Meds Farmácia Popular": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não, nenhum": 6357,
+        "Sim, alguns": 868,
+        "Sim, todos": 793
+      },
+      "missing": 79660,
+      "total": 87678
+    },
+    "Meds Serviço Público": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não, nenhum": 4423,
+        "Sim, alguns": 1418,
+        "Sim, todos": 1384
+      },
+      "missing": 80453,
+      "total": 87678
+    },
+    "Pagou Medicamentos": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 5617,
+        "Não": 2533
+      },
+      "missing": 79528,
+      "total": 87678
+    },
+    "Nº Internações 12m": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "numeric",
+      "counts": {
+        "1.0": 5378,
+        "2.0": 837,
+        "3.0": 322,
+        "4.0": 117,
+        "5.0": 60,
+        "6.0": 30,
+        "10.0": 22,
+        "8.0": 13,
+        "7.0": 10,
+        "15.0": 5,
+        "9.0": 2,
+        "12.0": 2,
+        "40.0": 1
+      },
+      "missing": 80879,
+      "total": 87678
+    },
+    "Internação Coberta Plano": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 5050,
+        "Sim": 1749
+      },
+      "missing": 80879,
+      "total": 87678
+    },
+    "Pagou Internação": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 6011,
+        "Sim": 788
+      },
+      "missing": 80879,
+      "total": 87678
+    },
+    "Internação SUS": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 4570,
+        "Não": 2217,
+        "Não sabe/Não lembra": 12
+      },
+      "missing": 80879,
+      "total": 87678
+    },
+    "Urgência no Domicílio": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 85416,
+        "Sim": 2262
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Urgência Coberta Plano": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 1935,
+        "Sim": 327
+      },
+      "missing": 85416,
+      "total": 87678
+    },
+    "Pagou Urgência": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 2125,
+        "Sim": 137
+      },
+      "missing": 85416,
+      "total": 87678
+    },
+    "Urgência SUS": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 1811,
+        "Não": 447,
+        "Não sabe/Não lembra": 4
+      },
+      "missing": 85416,
+      "total": 87678
+    },
+    "Ambulância": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 1320,
+        "Sim": 942
+      },
+      "missing": 85416,
+      "total": 87678
+    },
+    "Internação": {
+      "code": "J037",
+      "question": "Foi internado em hospital nos últimos 12 meses?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 80879,
+        "Sim": 6799
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Última Consulta H": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Mais de 6 meses até 1 ano": 34404,
+        "Mais de 1 mês até 6 meses": 28158,
+        "Até 15 dias": 14962,
+        "Mais de 15 dias até 1 mês": 9620,
+        "Há mais de 1 ano": 534
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Motivo da Consulta": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Exame médico periódico": 11132,
+        "Continuação de tratamento ou terapia": 7978,
+        "Doença ou outro problema de saúde": 5303,
+        "Acidente ou lesão": 624,
+        "Problema de saúde mental": 475,
+        "Outro exame médico (admissional, para carteira de motorista, etc": 399,
+        "Consulta pré-natal": 124,
+        "Outro (Especifique:__)": 45
+      },
+      "missing": 61598,
+      "total": 87678
+    },
+    "Local do Atendimento": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Consultório particular ou clínica privada": 11080,
+        "Unidade básica de saúde (posto ou centro de saúde ou unidade de saúde da família)": 9412,
+        "Hospital público/ambulatório": 2387,
+        "Centro de Especialidades, Policlínica pública ou PAM – Posto de Assistência Médica": 777,
+        "UPA (Unidade de Pronto Atendimento)": 755,
+        "Pronto-atendimento ou emergência de hospital privado": 426,
+        "Ambulatório ou consultório de empresa ou sindicato": 298,
+        "Pronto-socorro ou emergência de hospital público": 297,
+        "No domicílio, com médico da equipe de saúde da família": 194,
+        "CAPS – Centro de Atenção Psicossocial": 142,
+        "No domicílio, com médico particular": 126,
+        "Outro (Especifique:__)": 104,
+        "Outro tipo de Pronto Atendimento Público (24 horas)": 82
+      },
+      "missing": 61598,
+      "total": 87678
+    },
+    "Medicamento Contínuo": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 16660,
+        "Não": 6022,
+        "Não sabe/Não respondeu": 44
+      },
+      "missing": 64952,
+      "total": 87678
+    },
+    "Nº Meds Contínuos 2sem": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "numeric",
+      "counts": {
+        "1.0": 3991,
+        "2.0": 3899,
+        "3.0": 2938,
+        "4.0": 1929,
+        "5.0": 1449,
+        "6.0": 840,
+        "7.0": 439,
+        "8.0": 413,
+        "10.0": 206,
+        "9.0": 178,
+        "12.0": 112,
+        "11.0": 67,
+        "14.0": 41,
+        "15.0": 32,
+        "13.0": 23,
+        "16.0": 22,
+        "28.0": 11,
+        "56.0": 10,
+        "20.0": 8,
+        "18.0": 8,
+        "42.0": 7,
+        "70.0": 5,
+        "21.0": 5,
+        "17.0": 4,
+        "84.0": 3
+      },
+      "missing": 71018,
+      "total": 87678
+    },
+    "Vacina Gripe 12m": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Sim": 16259,
+        "Não": 6467
+      },
+      "missing": 64952,
+      "total": 87678
+    },
+    "Álcool": {
+      "code": "P027",
+      "question": "Frequência de consumo de bebida alcoólica?",
+      "value_labels": {
+        "Uma vez ou mais por mês": "Uma vez ou mais por mês",
+        "Menos de uma vez por mês": "Menos de uma vez por mês",
+        "Nunca": "Nunca"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não bebo nunca": 52845,
+        "Uma vez ou mais por mês": 23997,
+        "Menos de uma vez por mês": 10836
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Exercício Físico": {
+      "code": "P034",
+      "question": "Pratica exercício físico regularmente?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 52992,
+        "Sim": 34686
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Tabaco": {
+      "code": "P050",
+      "question": "Situação atual em relação ao tabaco?",
+      "value_labels": {
+        "Não fumo atualmente": "Não fuma atualmente",
+        "Fumo diariamente": "Fuma diariamente",
+        "Fumo às vezes": "Fuma às vezes"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não fumo atualmente": 76454,
+        "Sim, diariamente": 10069,
+        "Sim, menos que diariamente": 1155
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Peso": {
+      "code": "P00104",
+      "question": "Qual o peso do entrevistado (kg)?",
+      "value_labels": {},
+      "type": "numeric",
+      "counts": {
+        "65.0": 3494,
+        "70.0": 3386,
+        "72.0": 3004,
+        "60.0": 2970,
+        "62.0": 2948,
+        "68.0": 2910,
+        "75.0": 2809,
+        "80.0": 2742,
+        "78.0": 2686,
+        "64.0": 2396,
+        "63.0": 2356,
+        "67.0": 2222,
+        "58.0": 2145,
+        "74.0": 2099,
+        "73.0": 1920,
+        "82.0": 1842,
+        "66.0": 1793,
+        "76.0": 1789,
+        "85.0": 1713,
+        "55.0": 1691,
+        "56.0": 1678,
+        "69.0": 1626,
+        "90.0": 1475,
+        "57.0": 1457,
+        "59.0": 1416
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Altura": {
+      "code": "P00404",
+      "question": "Qual a altura do entrevistado (cm)?",
+      "value_labels": {},
+      "type": "numeric",
+      "counts": {
+        "160.0": 6737,
+        "165.0": 6547,
+        "170.0": 5330,
+        "162.0": 3580,
+        "168.0": 3555,
+        "175.0": 3507,
+        "155.0": 3490,
+        "163.0": 3025,
+        "172.0": 2853,
+        "167.0": 2840,
+        "150.0": 2603,
+        "158.0": 2602,
+        "164.0": 2581,
+        "156.0": 2264,
+        "159.0": 2174,
+        "169.0": 2138,
+        "166.0": 2050,
+        "180.0": 1960,
+        "173.0": 1939,
+        "178.0": 1919,
+        "157.0": 1900,
+        "161.0": 1670,
+        "152.0": 1659,
+        "153.0": 1658,
+        "174.0": 1636
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Colesterol Alto": {
+      "code": "Q060",
+      "question": "Algum médico já disse que tem colesterol alto?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 67094,
+        "Sim": 13349
+      },
+      "missing": 7235,
+      "total": 87678
+    },
+    "AVC ou Derrame": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 85707,
+        "Sim": 1971
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "AVC ou Derrame Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 959,
+        "Um pouco": 373,
+        "Moderadamente": 239,
+        "Intensamente": 231,
+        "Muito intensamente": 169
+      },
+      "missing": 85707,
+      "total": 87678
+    },
+    "Asma": {
+      "code": "Q074",
+      "question": "Algum médico já disse que tem asma?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 83444,
+        "Sim": 4234
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Asma Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 2735,
+        "Um pouco": 820,
+        "Moderadamente": 389,
+        "Intensamente": 226,
+        "Muito intensamente": 64
+      },
+      "missing": 83444,
+      "total": 87678
+    },
+    "Artrite ou Reumatismo": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 80490,
+        "Sim": 7188
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Artrite ou Reumatismo Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Um pouco": 2159,
+        "Não limita": 2158,
+        "Moderadamente": 1475,
+        "Intensamente": 1073,
+        "Muito intensamente": 323
+      },
+      "missing": 80490,
+      "total": 87678
+    },
+    "Dor na Coluna": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 68748,
+        "Sim": 18930
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Dor na Coluna Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Um pouco": 6269,
+        "Não limita": 5615,
+        "Moderadamente": 3871,
+        "Intensamente": 2361,
+        "Muito intensamente": 814
+      },
+      "missing": 68748,
+      "total": 87678
+    },
+    "DORT": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 85977,
+        "Sim": 1701
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "DORT Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 607,
+        "Um pouco": 465,
+        "Moderadamente": 304,
+        "Intensamente": 239,
+        "Muito intensamente": 86
+      },
+      "missing": 85977,
+      "total": 87678
+    },
+    "Depressão": {
+      "code": "Q092",
+      "question": "Algum médico já disse que tem depressão?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 79498,
+        "Sim": 8180
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Depressão Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 4525,
+        "Um pouco": 1578,
+        "Moderadamente": 1070,
+        "Intensamente": 693,
+        "Muito intensamente": 314
+      },
+      "missing": 79498,
+      "total": 87678
+    },
+    "Hipertensão": {
+      "code": "Q00201",
+      "question": "Algum médico já disse que tem hipertensão arterial?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 62297,
+        "Sim": 23719
+      },
+      "missing": 1662,
+      "total": 87678
+    },
+    "Hipertensão Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 16268,
+        "Um pouco": 3918,
+        "Moderadamente": 1555,
+        "Intensamente": 600,
+        "Muito intensamente": 155
+      },
+      "missing": 65182,
+      "total": 87678
+    },
+    "Hipertensão na Gestação": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 13118,
+        "Sim": 1223
+      },
+      "missing": 73337,
+      "total": 87678
+    },
+    "Diabetes": {
+      "code": "Q03001",
+      "question": "Algum médico já disse que tem diabetes?",
+      "value_labels": {
+        "Sim": "Sim",
+        "Não": "Não"
+      },
+      "type": "categorical",
+      "counts": {
+        "Não": 74201,
+        "Sim": 7323
+      },
+      "missing": 6154,
+      "total": 87678
+    },
+    "Diabetes na Gestação": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 4198,
+        "Sim": 247
+      },
+      "missing": 83233,
+      "total": 87678
+    },
+    "Diabetes Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 4708,
+        "Um pouco": 1356,
+        "Moderadamente": 604,
+        "Intensamente": 307,
+        "Muito intensamente": 101
+      },
+      "missing": 80602,
+      "total": 87678
+    },
+    "Cardiopatia": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 82972,
+        "Sim": 4706
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Cardiopatia Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 2334,
+        "Um pouco": 1116,
+        "Moderadamente": 703,
+        "Intensamente": 389,
+        "Muito intensamente": 164
+      },
+      "missing": 82972,
+      "total": 87678
+    },
+    "Câncer": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 85367,
+        "Sim": 2311
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Câncer Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 1425,
+        "Um pouco": 246,
+        "Moderadamente": 176,
+        "Intensamente": 144,
+        "Muito intensamente": 80
+      },
+      "missing": 85607,
+      "total": 87678
+    },
+    "Insuficiência Renal Crônica": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 86403,
+        "Sim": 1275
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Insuficiência Renal Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 723,
+        "Um pouco": 255,
+        "Moderadamente": 144,
+        "Intensamente": 104,
+        "Muito intensamente": 49
+      },
+      "missing": 86403,
+      "total": 87678
+    },
+    "Doença Mental": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 82924,
+        "Sim": 4754
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Doença Mental Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 2351,
+        "Um pouco": 1033,
+        "Moderadamente": 644,
+        "Intensamente": 479,
+        "Muito intensamente": 247
+      },
+      "missing": 82924,
+      "total": 87678
+    },
+    "Doença Crônica no Pulmão": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não": 86431,
+        "Sim": 1247
+      },
+      "missing": 0,
+      "total": 87678
+    },
+    "Doença Crônica no Pulmão Limita Atividades": {
+      "code": null,
+      "question": null,
+      "value_labels": {},
+      "type": "categorical",
+      "counts": {
+        "Não limita": 658,
+        "Um pouco": 257,
+        "Moderadamente": 164,
+        "Intensamente": 98,
+        "Muito intensamente": 70
+      },
+      "missing": 86431,
+      "total": 87678
+    }
+  }
+}

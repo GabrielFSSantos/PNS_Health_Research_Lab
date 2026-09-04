@@ -1,0 +1,45 @@
+# Reprodução TCC — único entry point (--profile legacy).
+# Sempre CPU/sklearn para comparabilidade com a monografia.
+
+profile: legacy
+profile_kind: legacy
+
+runtime:
+  device: cpu
+  parallel: true
+  max_workers: 3
+  clustering_backend: sklearn
+
+modules:
+  preprocessing:
+    experiment_name: legacy_preprocess
+    methodological_profile: legacy
+    pipeline: configs/_internal/pipelines/preprocessing/legacy.yaml
+    download_if_missing: true
+
+  clustering:
+    experiment_name: clustering_legacy
+    methodological_profile: legacy_reproduction
+    pipeline: configs/_internal/pipelines/clustering/legacy.yaml
+    source_base: legacy
+    reducer:
+      apply_scaler: false
+      scaler_type: none
+    estimator:
+      n_clusters: 6
+      selection_method: fixed
+      n_init: 50
+
+  classification:
+    experiment_name: classification_legacy
+    methodological_profile: legacy_reproduction
+    source_base: legacy
+    legacy_cv: true
+    use_sample_weight_in_fit: false
+    backend: sklearn
+    device: cpu
+    models:
+      - random_forest
+      - mlp
+      - xgboost
+    primary_metric: f1

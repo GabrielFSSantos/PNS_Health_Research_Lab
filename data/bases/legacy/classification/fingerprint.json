@@ -1,0 +1,17 @@
+{
+  "predictions": {
+    "logical_path": "legacy/predictions",
+    "n_rows": 263034,
+    "n_columns": 7,
+    "schema": {
+      "record_id": "str",
+      "fold": "int64",
+      "true_label": "int64",
+      "predicted_label": "int64",
+      "model": "str",
+      "dataset_partition": "str",
+      "proba_positive": "float64"
+    },
+    "hash": "6a0eed332cefeacf935c8f2368a6f48b22c55d7c077e7f5a9a1acb263f3fe200"
+  }
+}

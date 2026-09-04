@@ -114,7 +114,7 @@ def render() -> None:
         if grid_missing:
             unavailable_data(
                 "Grid Search",
-                "./scripts/run_experiment.sh --config configs/experiments/legacy.yaml",
+                "./scripts/run_experiment.sh --profile pns  # ou --profile legacy",
             )
         else:
             best_params = gs.get("best_params") or {}

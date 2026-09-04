@@ -1,0 +1,48 @@
+# Raiz do schema 2.0 (extends interno). Não use como entry point — prefira configs/profiles/<perfil>.yaml.
+
+schema_version: "2.0"
+
+experiment:
+  name: pns_health
+  profile: custom
+  seed: 42
+
+configuration_files:
+  datasets: configs/shared/datasets.yaml
+  preprocessing: configs/_internal/pipelines/preprocessing/pns.yaml
+  clustering: configs/_internal/pipelines/clustering/pns.yaml
+  models: configs/shared/models.yaml
+
+data:
+  dataset: pns_2019
+  year: 2019
+  source: null
+
+classification:
+  target: healthcare_service_usage
+  legacy_cv: false
+  n_splits: 5
+  inner_test_size: 0.3333333333
+  use_sample_weight_in_fit: true
+  parallel: true
+  max_workers: 4
+  device: cpu
+  backend: sklearn
+
+evaluation:
+  primary_metric: f1_positive
+
+baseline:
+  enabled: false
+
+stages:
+  preprocessing:
+    enabled: true
+  clustering:
+    enabled: true
+  classification:
+    enabled: true
+  cross_analysis:
+    enabled: true
+  statistics:
+    enabled: true

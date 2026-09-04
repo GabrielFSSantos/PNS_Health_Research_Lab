@@ -1,0 +1,65 @@
+{
+  "source_base": "pns",
+  "preprocessing_manifest_path": "/home/gabrielfssantos/GitHub/PNS_Health_Research_Lab/data/bases/pns/preprocessing/manifest.json",
+  "preprocessing_profile_kind": "pns",
+  "pipeline_executed": [
+    {
+      "id": "load_preprocessing",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "select_features",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "pca_reducer",
+      "enabled": true,
+      "params": {
+        "n_components": 8,
+        "apply_scaler": true,
+        "scaler_type": "standard"
+      }
+    },
+    {
+      "id": "elbow_selection",
+      "enabled": false,
+      "params": {
+        "elbow_max_k": 15,
+        "elbow_n_init": 10,
+        "selection_method": "fixed"
+      }
+    },
+    {
+      "id": "kmeans_estimator",
+      "enabled": true,
+      "params": {
+        "name": "kmeans",
+        "n_clusters": 6,
+        "selection_method": "fixed",
+        "n_init": 50,
+        "max_iter": 1000,
+        "random_state": 42
+      }
+    },
+    {
+      "id": "attach_cluster_labels",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "evaluate_metrics",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "finalize_outputs",
+      "enabled": true,
+      "params": {}
+    }
+  ],
+  "created_at": "2026-09-04T01:10:07.223511+00:00",
+  "base_name": "pns",
+  "entry_config_path": "configs/profiles/pns.yaml#clustering"
+}

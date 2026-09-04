@@ -6,7 +6,12 @@ import json
 import shutil
 from pathlib import Path
 
-from pns_health_research.core.paths import ARTIFACTS_DIR, RUNS_DIR
+from pns_health_research.core.paths import ARTIFACTS_DIR, BASES_DIR, RUNS_DIR
+from pns_health_research.persistence.base_store import (
+    classification_path,
+    clustering_path,
+    preprocessing_path,
+)
 from pns_health_research.persistence.run_contract import (
     SCHEMA_VERSION,
     build_lineage_from_dir,
@@ -49,15 +54,24 @@ SHOWCASE_PATTERNS = [
 
 
 def export_showcase(
-    run_id: str,
+    run_id: str | None = None,
     *,
+    base_name: str | None = None,
     label: str,
     name: str | None = None,
     description: str | None = None,
 ) -> Path:
+    if base_name:
+        return export_showcase_from_base(
+            base_name, label=label, name=name, description=description
+        )
+    if not run_id:
+        raise ValueError("Informe run_id ou base_name")
     src = RUNS_DIR / run_id
     if not src.exists():
-        raise FileNotFoundError(f"Run não encontrada: {run_id}")
+        raise FileNotFoundError(
+            f"Run não encontrada: {run_id}. Use base_name= para exportar de data/bases/."
+        )
 
     dest = SHOWCASE_DIR / label
     if dest.exists():
@@ -93,6 +107,100 @@ def export_showcase(
         encoding="utf-8",
     )
     return dest
+
+
+def export_showcase_from_base(
+    base_name: str,
+    *,
+    label: str,
+    name: str | None = None,
+    description: str | None = None,
+) -> Path:
+    """Exporta base modular data/bases/<nome>/ para layout showcase."""
+    src_root = BASES_DIR / base_name
+    if not src_root.is_dir():
+        raise FileNotFoundError(f"Base modular não encontrada: {src_root}")
+
+    dest = SHOWCASE_DIR / label
+    if dest.exists():
+        shutil.rmtree(dest)
+    dest.mkdir(parents=True)
+
+    pp = preprocessing_path(base_name)
+    cl = clustering_path(base_name)
+    cf = classification_path(base_name)
+
+    def _copy(src: Path, rel: str) -> None:
+        if not src.exists():
+            return
+        target = dest / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, target)
+
+    _copy(pp / "metrics" / "preprocessing.json", "metrics/preprocessing.json")
+    for metric_name in (
+        "preprocess_funnel",
+        "dataset_distributions",
+        "survey_snapshot",
+    ):
+        _copy(pp / "metrics" / f"{metric_name}.json", f"metrics/{metric_name}.json")
+    _write_showcase_fingerprint(pp / "fingerprint.json", dest / "data_fingerprint.json")
+    _copy(pp / "config.resolved.yaml", "config.resolved.yaml")
+    _copy(cl / "metrics" / "clustering.json", "metrics/clustering.json")
+    _copy(cl / "metrics" / "silhouette_summary.json", "metrics/silhouette_summary.json")
+    _copy(cf / "metrics" / "classification.json", "metrics/classification.json")
+    _copy(cf / "predictions_summary.json", "predictions_summary.json")
+    if (cl / "tables").exists():
+        for path in (cl / "tables").glob("*.parquet"):
+            _copy(path, f"tables/{path.name}")
+    if (cf / "models").exists():
+        for path in (cf / "models").rglob("*.json"):
+            _copy(path, str(path.relative_to(cf)))
+    manifest_src = cf / "manifest.json"
+    if manifest_src.exists():
+        _copy(manifest_src, "manifest.json")
+
+    _backfill_showcase_contract(dest, name=name or label)
+    meta = {
+        "label": label,
+        "source_run_id": None,
+        "source_base": base_name,
+        "name": name or label,
+        "description": description or f"Export da base modular {base_name}",
+    }
+    (dest / "showcase_meta.json").write_text(
+        json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    (dest / "README.md").write_text(
+        f"# Showcase: {meta['name']}\n\n"
+        f"Export da base modular `{base_name}`.\n\n"
+        f"{meta['description']}\n",
+        encoding="utf-8",
+    )
+    return dest
+
+
+def _write_showcase_fingerprint(src: Path, dest: Path) -> None:
+    """Grava fingerprint no formato plano consumido pelo dashboard (showcase)."""
+    if not src.exists():
+        return
+    from pns_health_research.persistence.base_query import normalize_fingerprint
+
+    data = json.loads(src.read_text(encoding="utf-8"))
+    flat = normalize_fingerprint(data)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(
+        json.dumps(
+            {
+                "n_rows": flat.get("rows"),
+                "n_columns": flat.get("columns"),
+                "hash": flat.get("hash"),
+            },
+            indent=2,
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
 
 
 def _backfill_showcase_contract(dest: Path, *, name: str) -> None:

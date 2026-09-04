@@ -1,0 +1,19 @@
+target: healthcare_service_usage
+source_base: legacy
+legacy_cv: true
+n_splits: 5
+inner_test_size: 0.3333333333
+use_sample_weight_in_fit: false
+parallel: true
+max_workers: 3
+device: cpu
+backend: sklearn
+input_run: null
+features_config: null
+feature_columns: null
+exclude_columns: []
+target_encode_columns: []
+models:
+- random_forest
+- xgboost
+- mlp

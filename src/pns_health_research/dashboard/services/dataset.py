@@ -7,6 +7,7 @@ from typing import Any
 
 import pandas as pd
 
+from pns_health_research.persistence.base_query import normalize_fingerprint
 from pns_health_research.web import query
 
 
@@ -23,6 +24,11 @@ def load_dictionary_df() -> pd.DataFrame:
 
 def load_dictionary_column(internal_name: str) -> dict[str, Any]:
     return query.get_dictionary_column(internal_name)
+
+
+def load_preprocessing_summary(run_id: str) -> dict[str, Any]:
+    info = load_dataset_info(run_id)
+    return info.get("preprocessing") or {}
 
 
 def load_funnel(run_id: str) -> dict[str, Any]:
@@ -45,10 +51,20 @@ def load_fingerprint(run_id: str) -> dict[str, Any]:
     fp = info.get("fingerprint") or {}
     if not fp:
         return {}
+    normalized = normalize_fingerprint(fp) if isinstance(fp, dict) else {}
+    prep = info.get("preprocessing") or {}
+    rows = normalized.get("rows") or prep.get("rows_out")
+    columns = normalized.get("columns") or prep.get("binary_columns")
+    categorical_columns = (
+        normalized.get("categorical_columns") or prep.get("categorical_columns")
+    )
     return {
-        **fp,
-        "rows": fp.get("n_rows") or fp.get("rows"),
-        "columns": fp.get("n_columns") or fp.get("columns"),
+        **normalized,
+        "rows": rows,
+        "columns": columns,
+        "n_rows": rows,
+        "n_columns": columns,
+        "categorical_columns": categorical_columns,
     }
 
 

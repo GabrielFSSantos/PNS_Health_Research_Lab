@@ -1,0 +1,26 @@
+# Catálogo semântico de variáveis PNS (extensível).
+# Chaves = código bruto IBGE; valores descrevem tipo e estágios do pipeline.
+
+schema_version: "1.0"
+
+variables:
+  J014:
+    label: "Serviço de Saúde"
+    semantic_type: binary
+    stages: [encode_binary, build_targets]
+  J038:
+    label: "Nº Internações 12m"
+    semantic_type: count
+    stages: [encode_categorical]
+  J012:
+    label: "Consultas 12m"
+    semantic_type: count
+    stages: [encode_categorical]
+  K052:
+    label: "Vacina Gripe 12m"
+    semantic_type: binary
+    stages: [encode_categorical]
+  H001:
+    label: "Última Consulta H"
+    semantic_type: ordinal
+    stages: [encode_categorical]

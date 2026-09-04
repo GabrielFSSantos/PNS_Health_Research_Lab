@@ -1,0 +1,13 @@
+{
+  "source_base": "legacy",
+  "clustering_manifest_path": "/home/gabrielfssantos/GitHub/PNS_Health_Research_Lab/data/bases/legacy/clustering/manifest.json",
+  "clustering_profile_kind": "legacy",
+  "models": [
+    "mlp",
+    "random_forest",
+    "xgboost"
+  ],
+  "created_at": "2026-09-04T03:18:06.712500+00:00",
+  "base_name": "legacy",
+  "entry_config_path": "configs/profiles/legacy.yaml#classification"
+}

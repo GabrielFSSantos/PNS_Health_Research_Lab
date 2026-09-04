@@ -20,6 +20,7 @@ from pns_health_research.dashboard.components.chart_utils import (
     current_chart_key,
     format_count,
     format_percent,
+    resolve_cluster_column,
 )
 from pns_health_research.dashboard.config import MODEL_COLORS
 from pns_health_research.dashboard.content.pt_br import model_label
@@ -236,8 +237,9 @@ def cluster_radar_plot(profiles: pd.DataFrame, *, title: str = "Perfis de multim
         st.caption("Sem perfis de cluster.")
         return
     df = profiles.copy()
-    cluster_col = "cluster" if "cluster" in df.columns else "Cluster" if "Cluster" in df.columns else None
+    cluster_col = resolve_cluster_column(df)
     if cluster_col is None:
+        st.caption("Sem coluna de cluster nos perfis.")
         st.dataframe(df, width="stretch")
         return
     feature_cols = [c for c in df.columns if c != cluster_col]
@@ -262,7 +264,10 @@ def profile_heatmap(profiles: pd.DataFrame, *, title: str = "Mapa de calor — p
     if profiles.empty:
         st.caption("Sem perfis para heatmap.")
         return
-    cluster_col = "Cluster" if "Cluster" in profiles.columns else "cluster"
+    cluster_col = resolve_cluster_column(profiles)
+    if cluster_col is None:
+        st.caption("Sem coluna de cluster nos perfis.")
+        return
     mat = profiles.copy()
     mat[cluster_col] = mat[cluster_col].astype(int).map(cluster_label)
     mat = mat.set_index(cluster_col)
@@ -554,6 +559,10 @@ def preprocess_funnel(funnel: dict[str, Any], *, title: str = "Funil de pré-pro
     if not stages:
         st.caption("Funil de pré-processamento não disponível.")
         return
+
+    profile_kind = funnel.get("profile_kind")
+    if profile_kind:
+        st.caption(f"Perfil: **{profile_kind}** — estágios conforme pipeline materializado em `data/bases/`.")
 
     plot_stages = [
         s

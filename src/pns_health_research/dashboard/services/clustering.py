@@ -6,12 +6,14 @@ from functools import lru_cache
 
 import pandas as pd
 
-from pns_health_research.analysis.cluster_service_usage import (
+from pns_health_research.modules.analysis.cluster_service_usage import (
     bubble_cross_table,
     cross_rate_table,
     discover_viz_variables,
+    normalize_cluster_profiles,
     rate_by_cluster,
 )
+from pns_health_research.persistence import base_query
 from pns_health_research.web import query
 
 
@@ -47,7 +49,16 @@ def load_pca_scatter(run_id: str) -> pd.DataFrame:
 def load_profiles(run_id: str) -> pd.DataFrame:
     data = load_clustering_data(run_id)
     rows = data.get("tables", {}).get("cluster_profiles", [])
-    return pd.DataFrame(rows) if rows else pd.DataFrame()
+    df = pd.DataFrame(rows) if rows else pd.DataFrame()
+    if df.empty or ("cluster" in df.columns or "Cluster" in df.columns):
+        return normalize_cluster_profiles(df)
+    if base_query.is_base_name(run_id):
+        alt_path = base_query.resolve_table_path(run_id, "cluster_profiles_table")
+        if alt_path and alt_path.exists():
+            alt_df = pd.read_parquet(alt_path)
+            if not alt_df.empty:
+                return normalize_cluster_profiles(alt_df)
+    return normalize_cluster_profiles(df)
 
 
 def load_cross_analysis(run_id: str) -> pd.DataFrame:
@@ -98,8 +109,9 @@ def build_rate_df(run_id: str, variable_col: str) -> pd.DataFrame:
     profiles = load_profiles(run_id)
     if profiles.empty or variable_col not in profiles.columns:
         return pd.DataFrame()
+    profiles = normalize_cluster_profiles(profiles)
     rows = []
-    cluster_col = "Cluster" if "Cluster" in profiles.columns else profiles.columns[0]
+    cluster_col = "cluster" if "cluster" in profiles.columns else "Cluster"
     for _, row in profiles.iterrows():
         cluster = int(row[cluster_col])
         rows.append(

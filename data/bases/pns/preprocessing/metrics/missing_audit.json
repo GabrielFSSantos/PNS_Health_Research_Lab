@@ -1,0 +1,119 @@
+{
+  "n_rows": 87678,
+  "comorbidity_columns": [
+    "Hipertensão",
+    "Diabetes",
+    "Colesterol Alto",
+    "Cardiopatia",
+    "AVC ou Derrame",
+    "Asma",
+    "Artrite ou Reumatismo",
+    "DORT",
+    "Depressão",
+    "Doença Mental",
+    "Doença Crônica no Pulmão",
+    "Câncer",
+    "Insuficiência Renal Crônica",
+    "Dor na Coluna"
+  ],
+  "columns": {
+    "Hipertensão": {
+      "na_before": 1662,
+      "na_before_pct": 0.018955724355026345,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 1662,
+      "explicit_missing_after_pct": 0.018955724355026345
+    },
+    "Diabetes": {
+      "na_before": 6154,
+      "na_before_pct": 0.07018864481397842,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 6154,
+      "explicit_missing_after_pct": 0.07018864481397842
+    },
+    "Colesterol Alto": {
+      "na_before": 7235,
+      "na_before_pct": 0.08251784940349917,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 7235,
+      "explicit_missing_after_pct": 0.08251784940349917
+    },
+    "Cardiopatia": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "AVC ou Derrame": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Asma": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Artrite ou Reumatismo": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "DORT": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Depressão": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Doença Mental": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Doença Crônica no Pulmão": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Câncer": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Insuficiência Renal Crônica": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    },
+    "Dor na Coluna": {
+      "na_before": 0,
+      "na_before_pct": 0.0,
+      "non_yes_no_before": 0,
+      "explicit_missing_after": 0,
+      "explicit_missing_after_pct": 0.0
+    }
+  }
+}

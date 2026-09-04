@@ -1,0 +1,309 @@
+experiment:
+  name: classification_legacy
+  seed: 42
+  profile: legacy_reproduction
+run:
+  name: null
+  description: null
+  notes: null
+  tags: []
+  preserve: false
+  type: null
+data:
+  dataset: pns_2019
+  year: 2019
+  source: null
+  source_processed: null
+  processed_dataset_id: null
+  record_id_columns:
+  - V0001
+  - UPA_PNS
+  - V0006_PNS
+  - C00301
+  download_if_missing: true
+preprocessing:
+  schema_version: '2.0'
+  pipeline: null
+  stages:
+    select_columns:
+      enabled: true
+    adult_filter:
+      enabled: true
+      min_age: 18
+      require_imc_inputs: true
+    derive_features:
+      enabled: true
+    merge_internacao_into_servico:
+      enabled: true
+    one_hot_and_numeric:
+      enabled: true
+    impute_missing:
+      enabled: true
+      binary: 0
+      categorical: -1
+    impute_age_by_target:
+      enabled: false
+    nearmiss:
+      enabled: false
+      version: 1
+    target_encoding_before_split:
+      enabled: false
+  weights:
+    legacy_formula: false
+  binary_encoding:
+    policy: legacy_zero
+    missing_value: -1
+    yes_value: Sim
+  target:
+    primary_column: servico_composto
+    columns: {}
+  emit_missing_audit: false
+  derived:
+    imc:
+      enabled: true
+    faixas_idade:
+      enabled: true
+    grupos_comorbidade:
+      enabled: true
+  classification_features:
+    target_column: Serviço de Saúde
+    weight_column: Peso Amostral
+    exclude_columns:
+    - Serviço de Saúde
+    - Peso Amostral
+    - Cluster
+    - survey_weight
+    - ml_sample_weight
+    target_encode_columns:
+    - Zona
+    - Sexo
+    - Raça
+    - Estado Civil
+    - Cluster
+  columns_map:
+    UPA_PNS: Peso (V0091)
+    V0001: UF
+    V0024: Extrato
+    V0026: Zona
+    V00291: Peso Amostral
+    V0006_PNS: Ordem do Domicílio
+    VDD004A: Grau de Ensino
+    VDF004: Renda
+    B001: Cadastro UBS
+    B003: Agente Comunitário
+    C00301: Número de Ordem
+    C006: Sexo
+    C008: Idade
+    C009: Raça
+    C011: Estado Civil
+    D001: Ler e Escrever
+    D00201: Escola
+    E001: Trabalha
+    I00102: Plano de Saúde
+    J001: Estado de Saúde
+    J014: Serviço de Saúde
+    J01101: Última Consulta Médica
+    J012: Consultas 12m
+    J024: Atendimento Coberto Plano
+    J025: Pagou Atendimento 2sem
+    J026: Atendimento SUS
+    J02901: Receitou Medicamento
+    J03001: Obteve Medicamentos
+    J03102: Motivo Não Obter Meds
+    J032: Medicamento Coberto Plano
+    J03301: Meds Farmácia Popular
+    J034: Meds Serviço Público
+    J035: Pagou Medicamentos
+    J038: Nº Internações 12m
+    J042: Internação Coberta Plano
+    J043: Pagou Internação
+    J044: Internação SUS
+    J046: Urgência no Domicílio
+    J047: Urgência Coberta Plano
+    J048: Pagou Urgência
+    J049: Urgência SUS
+    J051: Ambulância
+    J037: Internação
+    H001: Última Consulta H
+    H003: Motivo da Consulta
+    H004: Local do Atendimento
+    K04301: Medicamento Contínuo
+    K04302: Nº Meds Contínuos 2sem
+    K052: Vacina Gripe 12m
+    P027: Álcool
+    P034: Exercício Físico
+    P050: Tabaco
+    P00104: Peso
+    P00404: Altura
+    Q060: Colesterol Alto
+    Q068: AVC ou Derrame
+    Q073: AVC ou Derrame Limita Atividades
+    Q074: Asma
+    Q078: Asma Limita Atividades
+    Q079: Artrite ou Reumatismo
+    Q083: Artrite ou Reumatismo Limita Atividades
+    Q084: Dor na Coluna
+    Q087: Dor na Coluna Limita Atividades
+    Q088: DORT
+    Q091: DORT Limita Atividades
+    Q092: Depressão
+    Q109: Depressão Limita Atividades
+    Q00201: Hipertensão
+    Q028: Hipertensão Limita Atividades
+    Q00202: Hipertensão na Gestação
+    Q03001: Diabetes
+    Q03002: Diabetes na Gestação
+    Q058: Diabetes Limita Atividades
+    Q06306: Cardiopatia
+    Q067: Cardiopatia Limita Atividades
+    Q120: Câncer
+    Q12301: Câncer Limita Atividades
+    Q124: Insuficiência Renal Crônica
+    Q127: Insuficiência Renal Limita Atividades
+    Q11006: Doença Mental
+    Q115: Doença Mental Limita Atividades
+    Q11604: Doença Crônica no Pulmão
+    Q119: Doença Crônica no Pulmão Limita Atividades
+clustering:
+  schema_version: '1.0'
+  enabled: true
+  backend: sklearn
+  device: cpu
+  source_base: null
+  pipeline: null
+  comorbidity_columns: []
+  reducer:
+    name: pca
+    enabled: true
+    n_components: 8
+    apply_scaler: false
+    scaler_type: none
+  estimator:
+    name: kmeans
+    enabled: true
+    n_clusters: 6
+    selection_method: fixed
+    init: k-means++
+    n_init: 50
+    max_iter: 1000
+    elbow_n_init: 10
+    elbow_max_k: 15
+    random_state: 42
+classification:
+  target: healthcare_service_usage
+  source_base: legacy
+  legacy_cv: true
+  n_splits: 5
+  inner_test_size: 0.3333333333
+  use_sample_weight_in_fit: false
+  parallel: true
+  max_workers: 3
+  device: cpu
+  backend: sklearn
+  input_run: null
+  features_config: null
+  feature_columns: null
+  exclude_columns: []
+  target_encode_columns: []
+  models:
+  - random_forest
+  - xgboost
+  - mlp
+evaluation:
+  primary_metric: f1
+baseline:
+  enabled: false
+  tolerances: {}
+  tolerances_path: null
+configuration_files:
+  models: configs/shared/models.yaml
+  clustering: false
+  datasets: configs/shared/datasets.yaml
+  preprocessing: false
+model_registry:
+  random_forest:
+    param_grid:
+      n_estimators:
+      - 50
+      - 100
+      max_depth:
+      - null
+      - 5
+      - 10
+      min_samples_split:
+      - 2
+      - 5
+      min_samples_leaf:
+      - 1
+      - 2
+      max_features:
+      - sqrt
+      - log2
+      criterion:
+      - gini
+      - entropy
+    n_jobs: 2
+    gridsearch_enabled: true
+    gridsearch_scoring: f1_macro
+    display_name: Floresta Aleatória
+    enabled: true
+    order: 1
+    config_file: null
+  xgboost:
+    param_grid:
+      n_estimators:
+      - 50
+      - 100
+      max_depth:
+      - 3
+      - 5
+      learning_rate:
+      - 0.01
+      - 0.1
+      subsample:
+      - 0.8
+      - 1.0
+      colsample_bytree:
+      - 0.8
+      - 1.0
+    n_jobs: 1
+    gridsearch_enabled: true
+    gridsearch_scoring: f1_macro
+    display_name: XGBoost
+    enabled: true
+    order: 2
+    config_file: null
+  mlp:
+    param_grid: {}
+    n_jobs: 1
+    gridsearch_enabled: true
+    gridsearch_scoring: f1_macro
+    display_name: MLP
+    enabled: true
+    order: 3
+    config_file: null
+  svc:
+    param_grid:
+      C:
+      - 0.1
+      - 1
+      - 10
+      kernel:
+      - poly
+      - rbf
+      gamma:
+      - scale
+      - auto
+      degree:
+      - 2
+      - 3
+      - 4
+    n_jobs: 1
+    gridsearch_enabled: true
+    gridsearch_scoring: f1_macro
+    display_name: SVM (SVC)
+    enabled: false
+    order: 4
+    config_file: null
+stages:
+- classification

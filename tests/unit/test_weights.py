@@ -1,6 +1,6 @@
 import pandas as pd
 
-from pns_health_research.preprocessing.features import (
+from pns_health_research.modules.preprocessing.features import (
     compute_legacy_survey_weight,
     normalize_ml_weights,
 )

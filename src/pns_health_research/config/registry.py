@@ -11,9 +11,10 @@ import yaml
 from pns_health_research.core.paths import CONFIGS_DIR, PROJECT_ROOT
 
 SUPPORTED_MODELS_SCHEMA = "2.0"
+SUPPORTED_CLUSTERING_SCHEMAS = frozenset({"1.0", "2.0"})
 SUPPORTED_CLUSTERING_SCHEMA = "1.0"
 SUPPORTED_DATASETS_SCHEMA = "2.0"
-SUPPORTED_PREPROCESSING_SCHEMA = "2.0"
+SUPPORTED_PREPROCESSING_SCHEMAS = frozenset({"2.0", "2.1", "3.0"})
 IMPLEMENTED_REDUCERS = frozenset({"pca"})
 IMPLEMENTED_ESTIMATORS = frozenset({"kmeans"})
 
@@ -134,10 +135,10 @@ def _require_bool(value: Any, field: str) -> bool:
 
 
 def load_models_registry(path: str | Path | None = None) -> ModelsRegistry:
-    from pns_health_research.classification.registry import CLASSIFIER_REGISTRY
+    from pns_health_research.modules.classification.registry import CLASSIFIER_REGISTRY
 
     if path is None:
-        path = CONFIGS_DIR / "models.yaml"
+        path = CONFIGS_DIR / "shared" / "models.yaml"
     resolved = resolve_path(path)
     raw = _load_yaml(resolved)
 
@@ -190,7 +191,7 @@ def load_models_registry(path: str | Path | None = None) -> ModelsRegistry:
 
 def load_datasets_registry(path: str | Path | None = None) -> DatasetsRegistry:
     if path is None:
-        path = CONFIGS_DIR / "datasets.yaml"
+        path = CONFIGS_DIR / "shared" / "datasets.yaml"
     resolved = resolve_path(path)
     raw = _load_yaml(resolved)
 
@@ -234,35 +235,40 @@ def load_datasets_registry(path: str | Path | None = None) -> DatasetsRegistry:
 
 def load_preprocessing_registry(path: str | Path | None = None) -> dict[str, Any]:
     if path is None:
-        path = CONFIGS_DIR / "preprocessing.yaml"
+        path = CONFIGS_DIR / "_internal" / "pipelines" / "preprocessing" / "pns.yaml"
     resolved = resolve_path(path)
     raw = _load_yaml(resolved)
 
     schema = str(raw.get("schema_version", ""))
-    if schema != SUPPORTED_PREPROCESSING_SCHEMA:
+    if schema not in SUPPORTED_PREPROCESSING_SCHEMAS:
         raise ConfigurationError(
-            f"schema_version em {resolved} deve ser {SUPPORTED_PREPROCESSING_SCHEMA!r}, "
+            f"schema_version em {resolved} deve ser um de {sorted(SUPPORTED_PREPROCESSING_SCHEMAS)!r}, "
             f"recebido {schema!r}"
         )
 
+    raw = dict(raw)
     raw.pop("schema_version", None)
+    raw["schema_version"] = schema
     return raw
 
 
 def load_clustering_registry(path: str | Path | None = None) -> dict[str, Any]:
-    from pns_health_research.clustering.registry import CLUSTERER_REGISTRY
+    from pns_health_research.modules.clustering.registry import CLUSTERER_REGISTRY
 
     if path is None:
-        path = CONFIGS_DIR / "clustering.yaml"
+        path = CONFIGS_DIR / "_internal" / "pipelines" / "clustering" / "pns.yaml"
     resolved = resolve_path(path)
     raw = _load_yaml(resolved)
 
-    schema = str(raw.get("schema_version", ""))
-    if schema != SUPPORTED_CLUSTERING_SCHEMA:
+    schema = str(raw.get("schema_version", "1.0"))
+    if schema not in SUPPORTED_CLUSTERING_SCHEMAS:
         raise ConfigurationError(
-            f"schema_version em {resolved} deve ser {SUPPORTED_CLUSTERING_SCHEMA!r}, "
+            f"schema_version em {resolved} deve ser um de {sorted(SUPPORTED_CLUSTERING_SCHEMAS)!r}, "
             f"recebido {schema!r}"
         )
+
+    if schema == "2.0":
+        return raw
 
     if not _require_bool(raw.get("enabled", True), "clustering.enabled"):
         return {"enabled": False}
@@ -330,10 +336,24 @@ def resolve_enabled_models(
 
 def clustering_registry_to_config(raw: dict[str, Any]) -> dict[str, Any]:
     """Converte registry de clustering para dict compatível com ClusteringConfig."""
+    if raw.get("schema_version") == "2.0":
+        return {
+            "schema_version": "2.0",
+            "enabled": raw.get("enabled", True),
+            "backend": raw.get("backend", "sklearn"),
+            "device": raw.get("device", "cpu"),
+            "source_base": raw.get("source_base"),
+            "pipeline": raw.get("pipeline"),
+            "comorbidity_columns": raw.get("comorbidity_columns", []),
+            "reducer": dict(raw.get("reducer") or {}),
+            "estimator": dict(raw.get("estimator") or {}),
+        }
+
     reducer = dict(raw.get("reducer") or {})
     estimator = dict(raw.get("estimator") or {})
 
     return {
+        "schema_version": "1.0",
         "enabled": raw.get("enabled", True),
         "backend": raw.get("backend", "sklearn"),
         "device": raw.get("device", "cpu"),

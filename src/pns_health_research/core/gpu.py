@@ -9,6 +9,7 @@ import subprocess
 logger = logging.getLogger("pns_health_research")
 
 _CACHED: bool | None = None
+_XGB_GPU_CACHED: bool | None = None
 
 
 def cuda_available(*, refresh: bool = False) -> bool:
@@ -71,6 +72,34 @@ def _libcudart_loadable() -> bool:
         except OSError:
             continue
     return False
+
+
+def gpu_ready_for_training(*, refresh: bool = False) -> bool:
+    """CUDA utilizável pelo XGBoost (evita device=cuda sem GPU visível)."""
+    global _XGB_GPU_CACHED
+    if not refresh and _XGB_GPU_CACHED is not None:
+        return _XGB_GPU_CACHED
+    if not cuda_available(refresh=refresh):
+        _XGB_GPU_CACHED = False
+        return False
+    try:
+        import numpy as np
+        import xgboost as xgb
+
+        x = np.array([[0.0, 1.0], [1.0, 0.0], [0.5, 0.5]], dtype=np.float32)
+        y = np.array([0, 1, 0], dtype=np.float32)
+        clf = xgb.XGBClassifier(
+            n_estimators=1,
+            max_depth=1,
+            tree_method="hist",
+            device="cuda",
+            verbosity=0,
+        )
+        clf.fit(x, y)
+        _XGB_GPU_CACHED = True
+    except Exception:
+        _XGB_GPU_CACHED = False
+    return _XGB_GPU_CACHED
 
 
 def cuda_device_label() -> str:

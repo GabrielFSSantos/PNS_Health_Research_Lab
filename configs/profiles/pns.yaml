@@ -1,0 +1,36 @@
+# Perfil rigoroso PNS — único entry point (--profile pns).
+# Módulos resolvidos por profile_resolver.py; não edite _internal/ no dia a dia.
+
+profile: pns
+profile_kind: pns
+
+runtime:
+  device: auto
+  parallel: true
+  max_workers: auto
+  clustering_backend: auto
+
+modules:
+  preprocessing:
+    experiment_name: pns_preprocess
+    methodological_profile: pns_preprocessing
+    pipeline: configs/_internal/pipelines/preprocessing/pns.yaml
+    download_if_missing: true
+
+  clustering:
+    experiment_name: clustering_pns
+    methodological_profile: clustering
+    pipeline: configs/_internal/pipelines/clustering/pns.yaml
+    source_base: pns
+    reducer:
+      apply_scaler: true
+      scaler_type: standard
+
+  classification:
+    experiment_name: classification_pns
+    methodological_profile: research_v2
+    source_base: pns
+    legacy_cv: false
+    use_sample_weight_in_fit: true
+    backend: auto
+    primary_metric: f1_positive

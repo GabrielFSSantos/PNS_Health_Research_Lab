@@ -1,12 +1,17 @@
-"""Testes de gráficos com dados do showcase legacy."""
+"""Testes de gráficos com dados do showcase legacy e bases modulares."""
 
 from __future__ import annotations
 
+from unittest.mock import MagicMock, patch
+
 import pandas as pd
 
+from pns_health_research.dashboard.components import charts
 from pns_health_research.dashboard.services import clustering
+from pns_health_research.modules.analysis.cluster_service_usage import normalize_cluster_profiles
 
 RUN_ID = "pesquisa-original-legacy"
+MODULAR_BASE = "legacy"
 
 
 def test_silhouette_dual_inputs():
@@ -21,6 +26,29 @@ def test_silhouette_dual_inputs():
 def test_profile_heatmap_data():
     profiles = clustering.load_profiles(RUN_ID)
     assert not profiles.empty
+
+
+def test_load_profiles_legacy_has_cluster_column():
+    clustering.load_clustering_data.cache_clear()
+    profiles = clustering.load_profiles(MODULAR_BASE)
+    assert not profiles.empty
+    assert "cluster" in profiles.columns or "Cluster" in profiles.columns
+
+
+def test_normalize_cluster_profiles_infers_index():
+    raw = pd.DataFrame({"Hipertensão": [0.9, 0.1], "Diabetes": [0.2, 0.0]})
+    out = normalize_cluster_profiles(raw)
+    assert "cluster" in out.columns
+    assert list(out["cluster"]) == [0, 1]
+
+
+@patch("pns_health_research.dashboard.components.charts.st")
+def test_profile_heatmap_no_crash_legacy(mock_st):
+    mock_st.plotly_chart = MagicMock()
+    clustering.load_clustering_data.cache_clear()
+    profiles = clustering.load_profiles(MODULAR_BASE)
+    charts.profile_heatmap(profiles)
+    mock_st.plotly_chart.assert_called_once()
 
 
 def test_pca_variance_has_cumulative_or_ratio():

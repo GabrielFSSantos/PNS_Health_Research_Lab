@@ -28,6 +28,8 @@ class DataConfig(BaseModel):
     dataset: str = "pns_2019"
     year: int = 2019
     source: str | None = None
+    source_processed: str | None = None
+    processed_dataset_id: str | None = None
     record_id_columns: list[str] = Field(
         default_factory=lambda: ["V0001", "UPA_PNS", "V0006_PNS", "C00301"]
     )
@@ -41,6 +43,7 @@ class StageToggle(BaseModel):
 class AdultFilterStage(BaseModel):
     enabled: bool = True
     min_age: int = 18
+    require_imc_inputs: bool = True
 
 
 class ImputeMissingStage(BaseModel):
@@ -52,6 +55,12 @@ class ImputeMissingStage(BaseModel):
 class NearmissStage(BaseModel):
     enabled: bool = False
     version: int = 1
+
+
+class PipelineStage(BaseModel):
+    id: str
+    enabled: bool = True
+    params: dict[str, Any] = Field(default_factory=dict)
 
 
 class PreprocessingStages(BaseModel):
@@ -72,6 +81,22 @@ class WeightsConfig(BaseModel):
     legacy_formula: bool = False
 
 
+class BinaryEncodingConfig(BaseModel):
+    policy: Literal["legacy_zero", "explicit_missing"] = "legacy_zero"
+    missing_value: int = -1
+    yes_value: str = "Sim"
+
+
+class TargetColumnSpec(BaseModel):
+    source: str = "Serviço de Saúde"
+    merge_internacao: bool = False
+
+
+class TargetConfig(BaseModel):
+    primary_column: str = "servico_composto"
+    columns: dict[str, TargetColumnSpec] = Field(default_factory=dict)
+
+
 class ClassificationFeaturesConfig(BaseModel):
     target_column: str = "Serviço de Saúde"
     weight_column: str = "Peso Amostral"
@@ -90,8 +115,13 @@ class ClassificationFeaturesConfig(BaseModel):
 
 
 class PreprocessingConfig(BaseModel):
+    schema_version: str = "2.0"
+    pipeline: list[PipelineStage] | None = None
     stages: PreprocessingStages = Field(default_factory=PreprocessingStages)
     weights: WeightsConfig = Field(default_factory=WeightsConfig)
+    binary_encoding: BinaryEncodingConfig = Field(default_factory=BinaryEncodingConfig)
+    target: TargetConfig = Field(default_factory=TargetConfig)
+    emit_missing_audit: bool = False
     derived: dict[str, StageToggle] = Field(
         default_factory=lambda: {
             "imc": StageToggle(enabled=True),
@@ -141,12 +171,50 @@ class PreprocessingConfig(BaseModel):
         return self.stages.impute_age_by_target.enabled
 
     def derived_enabled(self, key: str) -> bool:
-        if not self.stages.derive_features.enabled:
+        step = self.pipeline_step("derive_binary")
+        if step is not None and self.pipeline is not None:
+            if not step.enabled:
+                return False
+        elif not self.stages.derive_features.enabled:
             return False
         spec = self.derived.get(key)
         if spec is None:
             return True
         return spec.enabled
+
+    @property
+    def binary_encoding_policy(self) -> str:
+        return self.binary_encoding.policy
+
+    @property
+    def explicit_missing_value(self) -> int:
+        return self.binary_encoding.missing_value
+
+    def uses_dual_targets(self) -> bool:
+        return bool(self.target.columns)
+
+    def resolved_pipeline(self) -> list[PipelineStage]:
+        if self.pipeline:
+            from pns_health_research.modules.preprocessing.pipeline_adapter import (
+                apply_flat_stage_overrides,
+            )
+
+            return apply_flat_stage_overrides(list(self.pipeline), self.stages)
+        from pns_health_research.modules.preprocessing.pipeline_adapter import flat_stages_to_pipeline
+
+        return flat_stages_to_pipeline(self.stages)
+
+    def pipeline_step(self, stage_id: str) -> PipelineStage | None:
+        for step in self.resolved_pipeline():
+            if step.id == stage_id:
+                return step
+        return None
+
+    def stage_param(self, stage_id: str, key: str, default: Any = None) -> Any:
+        step = self.pipeline_step(stage_id)
+        if step is None:
+            return default
+        return step.params.get(key, default)
 
 
 class ClusteringReducerConfig(BaseModel):
@@ -171,19 +239,39 @@ class ClusteringEstimatorConfig(BaseModel):
 
 
 class ClusteringConfig(BaseModel):
+    schema_version: str = "1.0"
     enabled: bool = True
     backend: Literal["sklearn", "cuml"] = "sklearn"
     device: Literal["cpu", "cuda"] = "cpu"
+    source_base: str | None = None
+    pipeline: list[PipelineStage] | None = None
     comorbidity_columns: list[str] = Field(default_factory=list)
     reducer: ClusteringReducerConfig = Field(default_factory=ClusteringReducerConfig)
     estimator: ClusteringEstimatorConfig = Field(default_factory=ClusteringEstimatorConfig)
 
+    def resolved_pipeline(self) -> list[PipelineStage]:
+        if self.pipeline:
+            from pns_health_research.modules.clustering.pipeline_adapter import (
+                apply_flat_clustering_overrides,
+            )
+
+            return apply_flat_clustering_overrides(list(self.pipeline), self)
+        from pns_health_research.modules.clustering.pipeline_adapter import flat_config_to_pipeline
+
+        return flat_config_to_pipeline(self)
+
+    def pipeline_step(self, stage_id: str) -> PipelineStage | None:
+        for step in self.resolved_pipeline():
+            if step.id == stage_id:
+                return step
+        return None
+
 
 class ConfigurationFiles(BaseModel):
-    models: str | None = "configs/models.yaml"
-    clustering: str | None = "configs/clustering.yaml"
-    datasets: str | None = "configs/datasets.yaml"
-    preprocessing: str | None = "configs/preprocessing.yaml"
+    models: str | bool | None = "configs/shared/models.yaml"
+    clustering: str | bool | None = "configs/clustering.yaml"
+    datasets: str | bool | None = "configs/shared/datasets.yaml"
+    preprocessing: str | bool | None = "configs/preprocessing.yaml"
 
 
 class ModelRegistryEntryConfig(BaseModel):
@@ -199,6 +287,7 @@ class ModelRegistryEntryConfig(BaseModel):
 
 class ClassificationConfig(BaseModel):
     target: str = "healthcare_service_usage"
+    source_base: str | None = None
     legacy_cv: bool = False
     n_splits: int = 5
     inner_test_size: float = 1 / 3
@@ -318,7 +407,7 @@ def load_config(
     has_registry = bool(cfg_files) or "configuration_files" in raw
 
     if has_registry:
-        models_registry_path = cfg_files.get("models", "configs/models.yaml")
+        models_registry_path = cfg_files.get("models", "configs/shared/models.yaml")
         if models_registry_path is not False:
             models_registry = load_models_registry(models_registry_path)
             raw["model_registry"] = build_model_registry_map(models_registry)
@@ -345,7 +434,7 @@ def load_config(
             experiment_clustering = raw.get("clustering") or {}
             raw["clustering"] = deep_merge(registry_clustering, experiment_clustering)
 
-        datasets_path = cfg_files.get("datasets", "configs/datasets.yaml")
+        datasets_path = cfg_files.get("datasets", "configs/shared/datasets.yaml")
         if datasets_path is not False:
             datasets = load_datasets_registry(datasets_path)
             data = raw.get("data") or {}

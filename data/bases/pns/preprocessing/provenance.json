@@ -1,0 +1,83 @@
+{
+  "raw_dataset": "pns_2019",
+  "raw_year": 2019,
+  "raw_source": null,
+  "pipeline_executed": [
+    {
+      "id": "select_columns",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "adult_filter",
+      "enabled": true,
+      "params": {
+        "min_age": 18,
+        "require_imc_inputs": true
+      }
+    },
+    {
+      "id": "encode_binary",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "gestational_reinforce",
+      "enabled": true,
+      "params": {
+        "impute_age_by_target": false
+      }
+    },
+    {
+      "id": "attach_weights",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "drop_design_columns",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "derive_binary",
+      "enabled": true,
+      "params": {
+        "one_hot": true
+      }
+    },
+    {
+      "id": "encode_categorical",
+      "enabled": true,
+      "params": {
+        "one_hot": true
+      }
+    },
+    {
+      "id": "build_targets",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "missing_audit",
+      "enabled": true,
+      "params": {}
+    },
+    {
+      "id": "impute_missing",
+      "enabled": true,
+      "params": {
+        "binary": 0,
+        "categorical": -1
+      }
+    },
+    {
+      "id": "finalize_outputs",
+      "enabled": true,
+      "params": {}
+    }
+  ],
+  "created_at": "2026-09-04T02:59:33.286999+00:00",
+  "base_name": "pns",
+  "entry_config_path": "configs/profiles/pns.yaml#preprocessing",
+  "preprocessing_config_path": "configs/_internal/pipelines/preprocessing/pns.yaml"
+}

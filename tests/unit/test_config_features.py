@@ -10,5 +10,5 @@ def test_load_column_map_from_datasets():
 
 def test_load_classification_features_from_preprocessing():
     feats = load_classification_features()
-    assert feats["target_column"] == "Serviço de Saúde"
-    assert "Serviço de Saúde" in feats.get("exclude_columns", [])
+    assert feats["target_column"] == "servico_composto"
+    assert "servico_composto" in feats.get("exclude_columns", [])
